@@ -72,6 +72,68 @@ const definitions = [
     commandOptions: { toolName: 'Length' },
   },
   {
+    id: 'BrushMore',
+    label: 'Brush',
+    icon: 'ellipse-circle',
+    buttons: [
+      {
+        id: 'Brush',
+        label: 'Brush',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Brush' },
+      },
+      {
+        id: 'SphericalBrush',
+        label: 'Sphere Brush',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'SphericalBrush' },
+      },
+      {
+        id: 'FreehandScissors',
+        label: 'Freehand Scissors',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'FreehandScissors' },
+      },
+      {
+        id: 'RectangleScissors',
+        label: 'Rectangle Scissors',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'RectangleScissors' },
+      },
+      {
+        id: 'CircleScissors',
+        label: 'Circle Scissors',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'CircleScissors' },
+      },
+      {
+        id: 'CorrectionScissors',
+        label: 'Correction Scissors',
+        icon: 'measure-temp',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'CorrectionScissors' },
+      },
+    ],
+  },
+
+  {
     id: 'Angle',
     label: 'Angle',
     icon: 'angle-left',

@@ -5345,7 +5345,16 @@ cornerstone-math@^0.1.8:
   resolved "https://registry.yarnpkg.com/cornerstone-math/-/cornerstone-math-0.1.8.tgz#68ab1f9e4fdcd7c5cb23a0d2eb4263f9f894f1c5"
   integrity sha512-x7NEQHBtVG7j1yeyj/aRoKTpXv1Vh2/H9zNLMyqYJDtJkNng8C4Q8M3CgZ1qer0Yr7eVq2x+Ynmj6kfOm5jXKw==
 
-cornerstone-tools@^3.13.0, cornerstone-tools@^3.15.1:
+cornerstone-tools@4.0.0-beta5:
+  version "4.0.0-beta5"
+  resolved "https://registry.yarnpkg.com/cornerstone-tools/-/cornerstone-tools-4.0.0-beta5.tgz#01ff044686dc3531f045d88424b85ad3db48ebad"
+  integrity sha512-0u/AvwAU83SIAXDV7sT3KWOykbsun1nkPVUwKpwMTkJarnW05bCi88XAf1xhpbMS3HdsiXQeGPYEDtTPRtDlXg==
+  dependencies:
+    "@babel/runtime" "7.1.2"
+    cornerstone-math "0.1.7"
+    debug "4.1.1"
+
+cornerstone-tools@^3.13.0:
   version "3.18.3"
   resolved "https://registry.yarnpkg.com/cornerstone-tools/-/cornerstone-tools-3.18.3.tgz#a4f892867f816b7a774edea046522af793d3e10d"
   integrity sha512-/jLNexVupGRLgxrtp7IE1en9n0x/Qj9HI5GLDDKTf4kBZl5eKToIkir83W1aqi+K1Hk1DR1Pb2lgxWT1NYvcsA==
@@ -5884,10 +5893,10 @@ dateformat@^3.0.0:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@^0.4.7:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.4.7.tgz#f99de63fb0f0e126ac83b623a9a3a2b52e3e68e9"
-  integrity sha512-X90bCdd/xXJN52KXdIn6apmw1LnOtXYzWMFx8uo/ojKzrCEQXipmMok8CGf0tlKybFOMQM9vmF/yQ9UazAL2bg==
+dcmjs@0.6.0-cst4-beta:
+  version "0.6.0-cst4-beta"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.6.0-cst4-beta.tgz#2fd3088f09899f4d487fd53b9f30f775bf94ac69"
+  integrity sha512-YJp2FLs/8MLU0I8vEnwkWPPsN4CuZ7+c5pEGzXEPQ0Crxlg6G0XXiUgP8ctlNWnEaNHEHFZHgfhwxrEnG09JMA==
   dependencies:
     "@babel/polyfill" "^7.2.5"
     "@babel/runtime" "^7.3.1"

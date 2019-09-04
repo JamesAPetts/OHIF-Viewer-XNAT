@@ -176,13 +176,22 @@ export default function setupTools(store) {
     },
     { name: 'StackScroll', mouseButtonMasks: [1] },
     { name: 'Brush', mouseButtonMasks: [1] },
+    { name: 'SphericalBrush', mouseButtonMasks: [1] },
+    { name: 'FreehandScissors', mouseButtonMasks: [1] },
+    { name: 'RectangleScissors', mouseButtonMasks: [1] },
+    { name: 'CircleScissors', mouseButtonMasks: [1] },
+    { name: 'CorrectionScissors', mouseButtonMasks: [1] },
     {
-      name: 'FreehandMouse',
+      name: 'FreehandRoi',
       props: {
         configuration: {
           getMeasurementLocationCallback: toolLabellingFlowCallback,
         },
       },
+      mouseButtonMasks: [1],
+    },
+    {
+      name: 'FreehandRoiSculptor',
       mouseButtonMasks: [1],
     },
     {
