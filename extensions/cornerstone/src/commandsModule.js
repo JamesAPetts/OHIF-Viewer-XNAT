@@ -27,6 +27,8 @@ const actions = {
       viewport.hflip = !viewport.hflip;
       cornerstone.setViewport(enabledElement, viewport);
     }
+
+    cornerstone.updateImage(enabledElement.element);
   },
   flipViewportVertical: ({ viewports }) => {
     const enabledElement = _getActiveViewportEnabledElement(
@@ -39,6 +41,8 @@ const actions = {
       viewport.vflip = !viewport.vflip;
       cornerstone.setViewport(enabledElement, viewport);
     }
+
+    cornerstone.updateImage(enabledElement.element);
   },
   scaleViewport: ({ viewports, direction }) => {
     const enabledElement = _getActiveViewportEnabledElement(
