@@ -68,11 +68,26 @@ export default function init({ servicesManager, configuration }) {
   StackManager.setMetadataProvider(metadataProvider);
 
   // ~~
-  const defaultCsToolsConfig = csToolsConfig || {
-    globalToolSyncEnabled: true,
-    showSVGCursors: true,
-    autoResizeViewports: false,
-  };
+  const defaultCsToolsConfig = csToolsConfig || [
+    {
+      moduleName: 'globalConfiguration',
+      configuration: {
+        globalToolSyncEnabled: true,
+        showSVGCursors: true,
+        autoResizeViewports: false,
+      },
+    },
+    {
+      // Use Float32Arrays for the labelmaps to improve
+      // Interopability with vtkjs/ decrease texture construction times.
+      moduleName: 'segmentation',
+      configuration: {
+        arrayType: 1,
+      },
+    },
+  ];
+
+  debugger;
 
   initCornerstoneTools(defaultCsToolsConfig);
 
