@@ -1,5 +1,6 @@
 import { api } from 'dicomweb-client';
 import DICOMWeb from '../../../DICOMWeb';
+import uidSpecificMetadataProvider from '../../../classes/UIDSpecificMetadataProvider';
 
 const WADOProxy = {
   convertURL: (url, server) => {
@@ -230,6 +231,20 @@ async function makeSOPInstance(server, study, instance) {
   }
 
   const sopInstanceUid = DICOMWeb.getString(instance['00080018']);
+
+  // TEST
+
+  if (!instance) {
+    debugger;
+  }
+
+  uidSpecificMetadataProvider.addMetadata(
+    instance,
+    studyInstanceUid,
+    seriesInstanceUid,
+    sopInstanceUid
+  );
+
   const wadouri = buildInstanceWadoUrl(
     server,
     studyInstanceUid,

@@ -1,4 +1,5 @@
 import MetadataProvider from './classes/MetadataProvider';
+import uidSpecificMetadataProvider from './classes/UIDSpecificMetadataProvider';
 import {
   getBoundingBox,
   pixelToPage,
@@ -7,6 +8,7 @@ import {
 
 const cornerstone = {
   MetadataProvider,
+  uidSpecificMetadataProvider,
   getBoundingBox,
   pixelToPage,
   repositionTextBox,

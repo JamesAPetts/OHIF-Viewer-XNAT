@@ -3,28 +3,8 @@ import { SimpleDialog } from '@ohif/ui';
 import cornerstone from 'cornerstone-core';
 import csTools from 'cornerstone-tools';
 import merge from 'lodash.merge';
-import queryString from 'query-string';
 import initCornerstoneTools from './initCornerstoneTools.js';
 import measurementServiceMappingsFactory from './utils/measurementServiceMappings/measurementServiceMappingsFactory';
-
-function fallbackMetaDataProvider(type, imageId) {
-  if (!imageId.includes('wado?requestType=WADO')) {
-    return;
-  }
-
-  // If you call for an WADO-URI imageId and get no
-  // metadata, try reformatting to WADO-RS imageId
-  const qs = queryString.parse(imageId);
-  const wadoRoot = window.store.getState().servers.servers[0].wadoRoot;
-  const wadoRsImageId = `wadors:${wadoRoot}/studies/${qs.studyUID}/series/${
-    qs.seriesUID
-    }/instances/${qs.objectUID}/frames/${qs.frame || 1}`;
-
-  return cornerstone.metaData.get(type, wadoRsImageId);
-}
-
-// Add this fallback provider with a low priority so it is handled last
-cornerstone.metaData.addProvider(fallbackMetaDataProvider, -1);
 
 /**
  *
@@ -60,12 +40,20 @@ export default function init({ servicesManager, configuration }) {
   const { csToolsConfig } = configuration;
   const { StackManager } = OHIF.utils;
   const metadataProvider = new OHIF.cornerstone.MetadataProvider();
+  const uidSpecificMetadataProvider =
+    OHIF.cornerstone.uidSpecificMetadataProvider;
 
   // ~~ Set our MetadataProvider
   cornerstone.metaData.addProvider(
     metadataProvider.provider.bind(metadataProvider)
   );
 
+  cornerstone.metaData.addProvider(
+    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider)
+  );
+
+  // TODO -> It looks like we should replace this with our metadata provider,
+  // Or maybe this should be the legacy one.
   StackManager.setMetadataProvider(metadataProvider);
 
   // ~~
@@ -189,7 +177,9 @@ export default function init({ servicesManager, configuration }) {
 
 const _initMeasurementService = measurementService => {
   /* Initialization */
-  const { toAnnotation, toMeasurement } = measurementServiceMappingsFactory(measurementService);
+  const { toAnnotation, toMeasurement } = measurementServiceMappingsFactory(
+    measurementService
+  );
   const csToolsVer4MeasurementSource = measurementService.createSource(
     'CornerstoneTools',
     '4'
@@ -214,7 +204,9 @@ const _initMeasurementService = measurementService => {
 };
 
 const _connectToolsToMeasurementService = measurementService => {
-  const csToolsVer4MeasurementSource = _initMeasurementService(measurementService);
+  const csToolsVer4MeasurementSource = _initMeasurementService(
+    measurementService
+  );
   const {
     id: sourceId,
     addOrUpdate,
@@ -242,7 +234,8 @@ const _connectToolsToMeasurementService = measurementService => {
             );
             console.log('Mapped annotation:', annotation);
           }
-        });
+        }
+      );
 
       measurementService.subscribe(
         MEASUREMENT_UPDATED,
