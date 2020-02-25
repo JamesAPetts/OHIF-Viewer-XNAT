@@ -82,6 +82,10 @@ class UIDSpecificMetadataProvider {
   }
 
   get(naturalizedTagOrWADOImageLoaderTag, imageId) {
+    if (naturalizedTagOrWADOImageLoaderTag === 'imagePlaneModule') {
+      debugger;
+    }
+
     const instance = this.getInstance(imageId);
 
     if (!instance) {
@@ -280,7 +284,7 @@ class UIDSpecificMetadataProvider {
         SOPInstanceUID: splitImageId[4],
       };
     }
-    if (!imageId.includes('wado?requestType=WADO')) {
+    if (imageId.includes('wado?requestType=WADO')) {
       const qs = queryString.parse(imageId);
 
       return {

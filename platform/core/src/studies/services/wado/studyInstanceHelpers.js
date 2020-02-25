@@ -232,8 +232,6 @@ async function makeSOPInstance(server, study, instance) {
 
   const sopInstanceUid = DICOMWeb.getString(instance['00080018']);
 
-  // TEST
-
   if (!instance) {
     debugger;
   }

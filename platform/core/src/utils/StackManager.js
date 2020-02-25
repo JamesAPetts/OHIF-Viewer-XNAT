@@ -53,11 +53,11 @@ function createAndAddStack(
       metaData.frameNumber = 1;
       imageId = getImageId(image);
       imageIds.push(imageId);
-
-      debugger;
       metadataProvider.addMetadata(imageId, metaData);
     }
   });
+
+  console.log(imageIds);
 
   const stack = {
     studyInstanceUid: study.studyInstanceUid,
