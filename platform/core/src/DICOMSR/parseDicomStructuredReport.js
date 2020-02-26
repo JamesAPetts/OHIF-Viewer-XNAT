@@ -32,16 +32,16 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
     measurements.forEach(measurement => {
       const instanceMetadata = findInstanceMetadataBySopInstanceUid(
         displaySets,
-        measurement.sopInstanceUid
+        measurement.SOPInstanceUID
       );
       const { _study: study, _series: series } = instanceMetadata;
-      const { studyInstanceUid, patientId } = study;
-      const { seriesInstanceUid } = series;
-      const { sopInstanceUid, frameIndex } = measurement;
+      const { StudyInstanceUID, PatientId } = study;
+      const { SeriesInstanceUID } = series;
+      const { SOPInstanceUID, frameIndex } = measurement;
       const imagePath = getImagePath(
-        studyInstanceUid,
-        seriesInstanceUid,
-        sopInstanceUid,
+        StudyInstanceUID,
+        SeriesInstanceUID,
+        SOPInstanceUID,
         frameIndex
       );
 
@@ -56,9 +56,9 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
       const toolData = Object.assign({}, measurement, {
         imageId,
         imagePath,
-        seriesInstanceUid,
-        studyInstanceUid,
-        patientId,
+        SeriesInstanceUID,
+        StudyInstanceUID,
+        PatientId,
         measurementNumber: ++measurementNumber,
         timepointId: currentTimepointId,
         toolType: toolName,
@@ -75,19 +75,19 @@ const parseDicomStructuredReport = (part10SRArrayBuffer, displaySets) => {
 /**
  * Function to create imagePath with all imageData related
  *
- * @param {string} studyInstanceUid
- * @param {string} seriesInstanceUid
- * @param {string} sopInstanceUid
+ * @param {string} StudyInstanceUID
+ * @param {string} SeriesInstanceUID
+ * @param {string} SOPInstanceUID
  * @param {string} frameIndex
  * @returns
  */
 const getImagePath = (
-  studyInstanceUid,
-  seriesInstanceUid,
-  sopInstanceUid,
+  StudyInstanceUID,
+  SeriesInstanceUID,
+  SOPInstanceUID,
   frameIndex
 ) => {
-  return [studyInstanceUid, seriesInstanceUid, sopInstanceUid, frameIndex].join(
+  return [StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID, frameIndex].join(
     '_'
   );
 };

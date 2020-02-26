@@ -171,10 +171,6 @@ class UIDSpecificMetadataProvider {
     imageId,
     options = { fallback: false }
   ) {
-    if (naturalizedTagOrWADOImageLoaderTag === 'overlayPlaneModule') {
-      debugger;
-    }
-
     const instance = this.getInstance(imageId);
 
     if (!instance) {
@@ -236,7 +232,7 @@ class UIDSpecificMetadataProvider {
         metadata = {
           patientAge: instance.PatientAge,
           patientSize: instance.PatientSize,
-          patientWeight: instance.patientWeight,
+          patientWeight: instance.PatientWeight,
         };
         break;
       case WADO_IMAGE_LOADER_TAGS.IMAGE_PLANE_MODULE:
@@ -317,7 +313,7 @@ class UIDSpecificMetadataProvider {
         metadata = {
           rescaleIntercept: instance.RescaleIntercept,
           rescaleSlope: instance.RescaleSlope,
-          rescaleType: instance.RescaleType,
+          rescaleSlope: instance.RescaleType,
         };
         break;
       case WADO_IMAGE_LOADER_TAGS.SOP_COMMON_MODULE:
@@ -356,9 +352,6 @@ class UIDSpecificMetadataProvider {
 
         break;
       case WADO_IMAGE_LOADER_TAGS.OVELAY_PLANE_MODULE:
-        console.log(instance);
-        debugger;
-
         metadata = [];
 
         for (
@@ -405,8 +398,6 @@ class UIDSpecificMetadataProvider {
           };
 
           metadata.push(overlay);
-
-          debugger;
         }
 
         break;

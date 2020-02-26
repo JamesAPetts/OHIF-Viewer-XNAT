@@ -70,26 +70,26 @@ const commandsModule = ({ commandsManager }) => {
     if (cornerstoneElement) {
       const imageId = cornerstoneElement.image.imageId;
 
-      const { modality } = cornerstone.metaData.get(
+      const { Modality } = cornerstone.metaData.get(
         'generalSeriesModule',
         imageId
       );
 
-      if (modality !== 'PT') {
-        const { windowWidth, windowCenter } = cornerstoneElement.viewport.voi;
+      if (Modality !== 'PT') {
+        const { WindowWidth, WindowCenter } = cornerstoneElement.viewport.voi;
 
         return {
-          windowWidth,
-          windowCenter,
+          WindowWidth,
+          WindowCenter,
         };
       }
     }
   }
 
   function setVOI(voi) {
-    const { windowWidth, windowCenter } = voi;
-    const lower = windowCenter - windowWidth / 2.0;
-    const upper = windowCenter + windowWidth / 2.0;
+    const { WindowWidth, WindowCenter } = voi;
+    const lower = WindowCenter - WindowWidth / 2.0;
+    const upper = WindowCenter + WindowWidth / 2.0;
 
     const rgbTransferFunction = apis[0].volumes[0]
       .getProperty()
@@ -98,7 +98,7 @@ const commandsModule = ({ commandsManager }) => {
     rgbTransferFunction.setRange(lower, upper);
 
     apis.forEach(api => {
-      api.updateVOI(windowWidth, windowCenter);
+      api.updateVOI(WindowWidth, WindowCenter);
     });
   }
 
@@ -145,23 +145,23 @@ const commandsModule = ({ commandsManager }) => {
       });
     },
     enableLevelTool: () => {
-      function updateVOI(apis, windowWidth, windowCenter) {
+      function updateVOI(apis, WindowWidth, WindowCenter) {
         apis.forEach(api => {
-          api.updateVOI(windowWidth, windowCenter);
+          api.updateVOI(WindowWidth, WindowCenter);
         });
       }
 
       const throttledUpdateVOIs = throttle(updateVOI, 16, { trailing: true }); // ~ 60 fps
 
       const callbacks = {
-        setOnLevelsChanged: ({ windowCenter, windowWidth }) => {
+        setOnLevelsChanged: ({ WindowCenter, WindowWidth }) => {
           apis.forEach(api => {
             const renderWindow = api.genericRenderWindow.getRenderWindow();
 
             renderWindow.render();
           });
 
-          throttledUpdateVOIs(apis, windowWidth, windowCenter);
+          throttledUpdateVOIs(apis, WindowWidth, WindowCenter);
         },
       };
 

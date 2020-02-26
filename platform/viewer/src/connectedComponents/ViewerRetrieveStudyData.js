@@ -61,7 +61,7 @@ const _promoteStudyDisplaySet = (study, studyMetadata, filters) => {
     const { seriesInstanceUID } = filters;
 
     const _seriesLookup = (valueToCompare, displaySet) => {
-      return displaySet.seriesInstanceUid === valueToCompare;
+      return displaySet.SeriesInstanceUID === valueToCompare;
     };
     const promotedResponse = _promoteToFront(
       studyMetadata.getDisplaySets(),
@@ -94,7 +94,7 @@ const _isQueryParamApplied = (study, filters = {}, isFilterStrategy) => {
   const { seriesList = [], displaySets = [] } = study;
   const firstSeries = isFilterStrategy ? seriesList[0] : displaySets[0];
 
-  if (!firstSeries || firstSeries.seriesInstanceUid !== seriesInstanceUID) {
+  if (!firstSeries || firstSeries.SeriesInstanceUID !== seriesInstanceUID) {
     applied = false;
   }
 
@@ -123,15 +123,15 @@ const _addSeriesToStudy = (studyMetadata, series) => {
     false
   );
   study.displaySets = studyMetadata.getDisplaySets();
-  _updateMetaDataManager(study, series.seriesInstanceUid);
+  _updateMetaDataManager(study, series.SeriesInstanceUID);
 };
 
 const _updateMetaDataManager = (study, studyMetadata, series) => {
   updateMetaDataManager(study, series);
 
-  const { studyInstanceUid } = study;
+  const { StudyInstanceUID } = study;
 
-  if (!studyMetadataManager.get(studyInstanceUid)) {
+  if (!studyMetadataManager.get(StudyInstanceUID)) {
     studyMetadataManager.add(studyMetadata);
   }
 };
@@ -235,14 +235,14 @@ function ViewerRetrieveStudyData({
       const studies = studiesData.map(study => {
         const studyMetadata = new OHIFStudyMetadata(
           study,
-          study.studyInstanceUid
+          study.StudyInstanceUID
         );
 
         _updateStudyDisplaySets(study, studyMetadata);
         _updateMetaDataManager(study, studyMetadata);
 
         // Attempt to load remaning series if any
-        cancelableSeriesPromises[study.studyInstanceUid] = makeCancelable(
+        cancelableSeriesPromises[study.StudyInstanceUID] = makeCancelable(
           _loadRemainingSeries(studyMetadata)
         )
           .then(result => {

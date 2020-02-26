@@ -69,7 +69,7 @@ class ViewerLocalFileData extends Component {
     const updatedStudies = studies.map(study => {
       const studyMetadata = new OHIFStudyMetadata(
         study,
-        study.studyInstanceUid
+        study.StudyInstanceUID
       );
       const sopClassHandlerModules =
         extensionManager.modules['sopClassHandlerModule'];
@@ -122,7 +122,7 @@ class ViewerLocalFileData extends Component {
                 studies={this.state.studies}
                 studyInstanceUids={
                   this.state.studies &&
-                  this.state.studies.map(a => a.studyInstanceUid)
+                  this.state.studies.map(a => a.StudyInstanceUID)
                 }
               />
             ) : (

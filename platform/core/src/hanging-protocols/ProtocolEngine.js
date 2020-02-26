@@ -385,8 +385,8 @@ export default class ProtocolEngine {
           // This tests to make sure there is actually image data in this instance
           // TODO: Change this when we add PDF and MPEG support
           // See https://ohiforg.atlassian.net/browse/LT-227
-          // sopClassUid = x00080016
-          // rows = x00280010
+          // SOPClassUID = x00080016
+          // Rows = x00280010
           if (
             !isImage(instance.getTagValue('x00080016')) &&
             !instance.getTagValue('x00280010')
@@ -436,9 +436,9 @@ export default class ProtocolEngine {
           const currentSOPInstanceUID = instance.getSOPInstanceUID();
 
           const imageDetails = {
-            studyInstanceUid: study.getStudyInstanceUID(),
-            seriesInstanceUid: series.getSeriesInstanceUID(),
-            sopInstanceUid: currentSOPInstanceUID,
+            StudyInstanceUID: study.getStudyInstanceUID(),
+            SeriesInstanceUID: series.getSeriesInstanceUID(),
+            SOPInstanceUID: currentSOPInstanceUID,
             currentImageIdIndex: index,
             matchingScore: totalMatchScore,
             matchDetails: matchDetails,
@@ -654,9 +654,9 @@ export default class ProtocolEngine {
       }
 
       if (currentMatch && currentMatch.imageId) {
-        currentViewportData.studyInstanceUid = currentMatch.studyInstanceUid;
-        currentViewportData.seriesInstanceUid = currentMatch.seriesInstanceUid;
-        currentViewportData.sopInstanceUid = currentMatch.sopInstanceUid;
+        currentViewportData.StudyInstanceUID = currentMatch.StudyInstanceUID;
+        currentViewportData.SeriesInstanceUID = currentMatch.SeriesInstanceUID;
+        currentViewportData.SOPInstanceUID = currentMatch.SOPInstanceUID;
         currentViewportData.currentImageIdIndex =
           currentMatch.currentImageIdIndex;
         currentViewportData.displaySetInstanceUid =
@@ -672,7 +672,7 @@ export default class ProtocolEngine {
       viewportData.push(currentViewportData);
     });
 
-    this.setLayout(layoutProps.rows, layoutProps.columns);
+    this.setLayout(layoutProps.Rows, layoutProps.Columns);
 
     if (typeof this.options.setViewportSpecificData !== 'function') {
       log.error(

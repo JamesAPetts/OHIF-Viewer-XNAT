@@ -137,7 +137,7 @@ if (sopInstaceMetadata instanceof InstanceMetadata) { // also true
 }
 // The following will also work since the internal "getRawValue" call inside
 // "getStringValue" method will now be satisfied... (thanks to the override)
-let patientName = sopInstaceMetadata.getStringValue('PatientName', '');
+let PatientName = sopInstaceMetadata.getStringValue('PatientName', '');
 [ ... ]
 
 ```

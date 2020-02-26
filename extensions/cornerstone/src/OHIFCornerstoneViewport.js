@@ -58,24 +58,24 @@ class OHIFCornerstoneViewport extends Component {
    * Obtain the CornerstoneTools Stack for the specified display set.
    *
    * @param {Object[]} studies
-   * @param {String} studyInstanceUid
+   * @param {String} StudyInstanceUID
    * @param {String} displaySetInstanceUid
-   * @param {String} [sopInstanceUid]
+   * @param {String} [SOPInstanceUID]
    * @param {Number} [frameIndex=1]
    * @return {Object} CornerstoneTools Stack
    */
   static getCornerstoneStack(
     studies,
-    studyInstanceUid,
+    StudyInstanceUID,
     displaySetInstanceUid,
-    sopInstanceUid,
+    SOPInstanceUID,
     frameIndex = 0
   ) {
     if (!studies || !studies.length) {
       throw new Error('Studies not provided.');
     }
 
-    if (!studyInstanceUid) {
+    if (!StudyInstanceUID) {
       throw new Error('StudyInstanceUID not provided.');
     }
 
@@ -85,7 +85,7 @@ class OHIFCornerstoneViewport extends Component {
 
     // Create shortcut to displaySet
     const study = studies.find(
-      study => study.studyInstanceUid === studyInstanceUid
+      study => study.StudyInstanceUID === StudyInstanceUID
     );
 
     if (!study) {
@@ -107,7 +107,7 @@ class OHIFCornerstoneViewport extends Component {
     const stack = Object.assign({}, storedStack);
     stack.currentImageIdIndex = frameIndex;
 
-    if (sopInstanceUid) {
+    if (SOPInstanceUID) {
       const index = stack.imageIds.findIndex(imageId => {
         const sopCommonModule = cornerstone.metaData.get(
           'sopCommonModule',
@@ -117,7 +117,7 @@ class OHIFCornerstoneViewport extends Component {
           return;
         }
 
-        return sopCommonModule.sopInstanceUID === sopInstanceUid;
+        return sopCommonModule.sopInstanceUID === SOPInstanceUID;
       });
 
       if (index > -1) {
@@ -134,38 +134,38 @@ class OHIFCornerstoneViewport extends Component {
 
   getViewportData = async (
     studies,
-    studyInstanceUid,
+    StudyInstanceUID,
     displaySetInstanceUid,
-    sopClassUid,
-    sopInstanceUid,
+    SOPClassUID,
+    SOPInstanceUID,
     frameIndex
   ) => {
     let viewportData;
 
-    switch (sopClassUid) {
+    switch (SOPClassUID) {
       case SOP_CLASSES.SEGMENTATION_STORAGE:
         const specialCaseHandler =
           specialCaseHandlers[SOP_CLASSES.SEGMENTATION_STORAGE];
 
         viewportData = await specialCaseHandler(
           studies,
-          studyInstanceUid,
+          StudyInstanceUID,
           displaySetInstanceUid,
-          sopInstanceUid,
+          SOPInstanceUID,
           frameIndex
         );
         break;
       default:
         const stack = OHIFCornerstoneViewport.getCornerstoneStack(
           studies,
-          studyInstanceUid,
+          StudyInstanceUID,
           displaySetInstanceUid,
-          sopInstanceUid,
+          SOPInstanceUID,
           frameIndex
         );
 
         viewportData = {
-          studyInstanceUid,
+          StudyInstanceUID,
           displaySetInstanceUid,
           stack,
         };
@@ -179,14 +179,14 @@ class OHIFCornerstoneViewport extends Component {
   setStateFromProps() {
     const { studies, displaySet } = this.props.viewportData;
     const {
-      studyInstanceUid,
+      StudyInstanceUID,
       displaySetInstanceUid,
       sopClassUids,
-      sopInstanceUid,
+      SOPInstanceUID,
       frameIndex,
     } = displaySet;
 
-    if (!studyInstanceUid || !displaySetInstanceUid) {
+    if (!StudyInstanceUID || !displaySetInstanceUid) {
       return;
     }
 
@@ -196,14 +196,14 @@ class OHIFCornerstoneViewport extends Component {
       );
     }
 
-    const sopClassUid = sopClassUids && sopClassUids[0];
+    const SOPClassUID = sopClassUids && sopClassUids[0];
 
     this.getViewportData(
       studies,
-      studyInstanceUid,
+      StudyInstanceUID,
       displaySetInstanceUid,
-      sopClassUid,
-      sopInstanceUid,
+      SOPClassUID,
+      SOPInstanceUID,
       frameIndex
     ).then(viewportData => {
       this.setState({
@@ -223,7 +223,7 @@ class OHIFCornerstoneViewport extends Component {
     if (
       displaySet.displaySetInstanceUid !==
         prevDisplaySet.displaySetInstanceUid ||
-      displaySet.sopInstanceUid !== prevDisplaySet.sopInstanceUid ||
+      displaySet.SOPInstanceUID !== prevDisplaySet.SOPInstanceUID ||
       displaySet.frameIndex !== prevDisplaySet.frameIndex
     ) {
       this.setStateFromProps();

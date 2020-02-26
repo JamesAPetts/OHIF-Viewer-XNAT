@@ -20,7 +20,7 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
         configurable: false,
         enumerable: false,
         writable: false,
-        value: instance.sopInstanceUid,
+        value: instance.SOPInstanceUID,
       },
       _study: {
         configurable: false,
@@ -106,7 +106,12 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
   // The inconsistency in property naming makes this function increasingly complex.
   // A possible solution to improve this would be adapt retriveMetadata names to use DICOM standard names as in dicomTagDescriptions.js
   static getPropertyName(tagOrProperty) {
-    let propertyName;
+    const tagInfo = DICOMTagDescriptions.find(tagOrProperty);
+
+    return tagInfo.keyword;
+
+    /*
+        let propertyName;
     const tagInfo = DICOMTagDescriptions.find(tagOrProperty);
 
     if (tagInfo !== void 0) {
@@ -118,7 +123,7 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
       propertyName =
         propertyName.charAt(0).toLowerCase() + propertyName.substr(1);
     }
-
     return propertyName;
+    */
   }
 }

@@ -155,7 +155,7 @@ const _mapStudiesToNewFormat = studies => {
   /* Map studies to new format, update metadata manager? */
   const uniqueStudyUids = new Set();
   const updatedStudies = studies.map(study => {
-    const studyMetadata = new OHIFStudyMetadata(study, study.studyInstanceUid);
+    const studyMetadata = new OHIFStudyMetadata(study, study.StudyInstanceUID);
 
     const sopClassHandlerModules = extensionManager.modules['sopClassHandlerModule'];
     study.displaySets = study.displaySets ||
@@ -166,7 +166,7 @@ const _mapStudiesToNewFormat = studies => {
     updateMetaDataManager(study);
 
     studyMetadataManager.add(studyMetadata);
-    uniqueStudyUids.add(study.studyInstanceUid);
+    uniqueStudyUids.add(study.StudyInstanceUID);
 
     return study;
   });

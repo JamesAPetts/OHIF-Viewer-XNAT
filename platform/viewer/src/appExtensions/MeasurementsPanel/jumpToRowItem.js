@@ -68,9 +68,9 @@ export default function jumpToRowItem(
 
   // Needs to update viewports.viewportData state to set image set data
 
-  const displaySetContainsSopInstance = (displaySet, sopInstanceUid) =>
+  const displaySetContainsSopInstance = (displaySet, SOPInstanceUID) =>
     displaySet.images.find(
-      image => image.getSOPInstanceUID() === sopInstanceUid
+      image => image.getSOPInstanceUID() === SOPInstanceUID
     );
 
   const viewportSpecificData = [];
@@ -80,20 +80,20 @@ export default function jumpToRowItem(
       return;
     }
 
-    const study = studyMetadataManager.get(data.studyInstanceUid);
+    const study = studyMetadataManager.get(data.StudyInstanceUID);
     if (!study) {
       throw new Error("Study not found.");
     }
 
     const displaySet = study.findDisplaySet(displaySet => {
-      return displaySetContainsSopInstance(displaySet, data.sopInstanceUid);
+      return displaySetContainsSopInstance(displaySet, data.SOPInstanceUID);
     });
 
     if (!displaySet) {
       throw new Error("Display set not found.");
     }
 
-    displaySet.sopInstanceUid = data.sopInstanceUid;
+    displaySet.SOPInstanceUID = data.SOPInstanceUID;
     if (data.frameIndex) {
       displaySet.frameIndex = data.frameIndex;
     }

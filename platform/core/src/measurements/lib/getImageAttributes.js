@@ -5,32 +5,32 @@ export default function(element) {
   const enabledElement = cornerstone.getEnabledElement(element);
   const imageId = enabledElement.image.imageId;
 
-  // Get studyInstanceUid & patientId
+  // Get StudyInstanceUID & PatientId
   const study = cornerstone.metaData.get('study', imageId);
-  const studyInstanceUid = study.studyInstanceUid;
-  const patientId = study.patientId;
+  const StudyInstanceUID = study.StudyInstanceUID;
+  const PatientId = study.PatientId;
 
-  // Get seriesInstanceUid
+  // Get SeriesInstanceUID
   const series = cornerstone.metaData.get('series', imageId);
-  const seriesInstanceUid = series.seriesInstanceUid;
+  const SeriesInstanceUID = series.SeriesInstanceUID;
 
-  // Get sopInstanceUid
+  // Get SOPInstanceUID
   const sopInstance = cornerstone.metaData.get('instance', imageId);
-  const sopInstanceUid = sopInstance.sopInstanceUid;
+  const SOPInstanceUID = sopInstance.SOPInstanceUID;
   const frameIndex = sopInstance.frame || 0;
 
   const imagePath = [
-    studyInstanceUid,
-    seriesInstanceUid,
-    sopInstanceUid,
+    StudyInstanceUID,
+    SeriesInstanceUID,
+    SOPInstanceUID,
     frameIndex,
   ].join('_');
 
   return {
-    patientId,
-    studyInstanceUid,
-    seriesInstanceUid,
-    sopInstanceUid,
+    PatientId,
+    StudyInstanceUID,
+    SeriesInstanceUID,
+    SOPInstanceUID,
     frameIndex,
     imagePath,
   };

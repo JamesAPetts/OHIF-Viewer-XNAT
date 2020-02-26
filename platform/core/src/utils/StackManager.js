@@ -41,9 +41,9 @@ function createAndAddStack(
       imageIndex: imageIndex + 1,
     };
 
-    const numberOfFrames = image.numberOfFrames;
-    if (numberOfFrames > 1) {
-      for (let i = 0; i < numberOfFrames; i++) {
+    const NumberOfFrames = image.NumberOfFrames;
+    if (NumberOfFrames > 1) {
+      for (let i = 0; i < NumberOfFrames; i++) {
         metaData.frameNumber = i;
         imageId = getImageId(image, i);
         imageIds.push(imageId);
@@ -60,7 +60,7 @@ function createAndAddStack(
   console.log(imageIds);
 
   const stack = {
-    studyInstanceUid: study.studyInstanceUid,
+    StudyInstanceUID: study.StudyInstanceUID,
     displaySetInstanceUid: displaySet.displaySetInstanceUid,
     imageIds,
     frameRate: displaySet.frameRate,

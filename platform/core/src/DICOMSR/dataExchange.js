@@ -57,13 +57,13 @@ const storeMeasurements = async (measurementData, filter, server) => {
   const serverUrl = server.wadoRoot;
   const firstMeasurementKey = Object.keys(measurementData)[0];
   const firstMeasurement = measurementData[firstMeasurementKey][0];
-  const studyInstanceUid =
-    firstMeasurement && firstMeasurement.studyInstanceUid;
+  const StudyInstanceUID =
+    firstMeasurement && firstMeasurement.StudyInstanceUID;
 
   try {
     await stowSRFromMeasurements(measurementData, serverUrl);
-    if (studyInstanceUid) {
-      studies.deleteStudyMetadataPromise(studyInstanceUid);
+    if (StudyInstanceUID) {
+      studies.deleteStudyMetadataPromise(StudyInstanceUID);
     }
 
     return {

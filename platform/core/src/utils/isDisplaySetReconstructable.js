@@ -7,10 +7,10 @@
 export default function isDisplaySetReconstructable(series, instances) {
   // Can't reconstruct if we only have one image.
 
-  const modality = series._data.modality; // TODO -> Is there a better way to get this?
+  const Modality = series._data.Modality; // TODO -> Is there a better way to get this?
   const isMultiframe = instances[0].getRawValue('x00280008') > 1;
 
-  if (!constructableModalities.includes(modality)) {
+  if (!constructableModalities.includes(Modality)) {
     return { value: false };
   }
 
@@ -44,15 +44,15 @@ function processSingleframe(instances) {
   // -- Have different orientations within a displaySet.
   for (let i = 1; i < instances.length; i++) {
     const instance = instances[i];
-    const rows = instance.getTagValue('x00280010');
-    const columns = instance.getTagValue('x00280011');
-    const samplesPerPixel = instance.getTagValue('x00280002');
+    const Rows = instance.getTagValue('x00280010');
+    const Columns = instance.getTagValue('x00280011');
+    const SamplesPerPixel = instance.getTagValue('x00280002');
     const imageOrientationPatient = instance.getTagValue('x00200037');
 
     if (
-      rows !== firstImageRows ||
-      columns !== firstImageColumns ||
-      samplesPerPixel !== firstImageSamplesPerPixel ||
+      Rows !== firstImageRows ||
+      Columns !== firstImageColumns ||
+      SamplesPerPixel !== firstImageSamplesPerPixel ||
       imageOrientationPatient !== firstImageOrientationPatient
     ) {
       return { value: false };
@@ -68,7 +68,7 @@ function processSingleframe(instances) {
     const firstIpp = _getImagePositionPatient(firstImage);
     const lastIpp = _getImagePositionPatient(instances[instances.length - 1]);
 
-    // We can't reconstruct if we are missing imagePositionPatient values
+    // We can't reconstruct if we are missing ImagePositionPatient values
     if (!firstIpp || !lastIpp) {
       return { value: false };
     }
@@ -142,15 +142,12 @@ function _getSpacingIssue(spacing, averageSpacing) {
 }
 
 function _getImagePositionPatient(instance) {
-  const tagValue = instance
-    .getTagValue('x00200032');
+  const tagValue = instance.getTagValue('x00200032');
   if (!tagValue) {
     return;
   }
 
-  return tagValue
-    .split('\\')
-    .map(element => Number(element));
+  return tagValue.split('\\').map(element => Number(element));
 }
 
 function _getPerpendicularDistance(a, b) {

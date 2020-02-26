@@ -155,9 +155,9 @@ const DicomLoaderService = new (class {
 
   getDataByDatasetType(dataset) {
     const {
-      studyInstanceUid,
-      seriesInstanceUid,
-      sopInstanceUid,
+      StudyInstanceUID,
+      SeriesInstanceUID,
+      SOPInstanceUID,
       authorizationHeaders,
       wadoRoot,
       wadoUri,
@@ -166,9 +166,9 @@ const DicomLoaderService = new (class {
     if (!someInvalidStrings(wadoRoot)) {
       return wadorsRetriever(
         wadoRoot,
-        studyInstanceUid,
-        seriesInstanceUid,
-        sopInstanceUid,
+        StudyInstanceUID,
+        SeriesInstanceUID,
+        SOPInstanceUID,
         authorizationHeaders
       );
     } else if (!someInvalidStrings(wadoUri)) {

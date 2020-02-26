@@ -43,34 +43,34 @@ class MetadataProvider {
     metadata.frameNumber = data.frameNumber;
 
     metadata.study = {
-      accessionNumber: studyMetadata.accessionNumber,
-      patientId: studyMetadata.patientId,
-      studyInstanceUid: studyMetadata.studyInstanceUid,
-      studyDate: studyMetadata.studyDate,
-      studyTime: studyMetadata.studyTime,
-      studyDescription: studyMetadata.studyDescription,
-      institutionName: studyMetadata.institutionName,
-      patientHistory: studyMetadata.patientHistory,
+      AccessionNumber: studyMetadata.AccessionNumber,
+      PatientId: studyMetadata.PatientId,
+      StudyInstanceUID: studyMetadata.StudyInstanceUID,
+      StudyDate: studyMetadata.StudyDate,
+      StudyTime: studyMetadata.StudyTime,
+      StudyDescription: studyMetadata.StudyDescription,
+      InstitutionName: studyMetadata.InstitutionName,
+      PatientHistory: studyMetadata.PatientHistory,
     };
 
     metadata.series = {
-      seriesDescription: seriesMetadata.seriesDescription,
-      seriesNumber: seriesMetadata.seriesNumber,
-      seriesDate: seriesMetadata.seriesDate,
-      seriesTime: seriesMetadata.seriesTime,
-      modality: seriesMetadata.modality,
-      seriesInstanceUid: seriesMetadata.seriesInstanceUid,
+      SeriesDescription: seriesMetadata.SeriesDescription,
+      SeriesNumber: seriesMetadata.SeriesNumber,
+      SeriesDate: seriesMetadata.SeriesDate,
+      SeriesTime: seriesMetadata.SeriesTime,
+      Modality: seriesMetadata.Modality,
+      SeriesInstanceUID: seriesMetadata.SeriesInstanceUID,
       numImages: numImages,
     };
 
     metadata.instance = instanceMetadata;
 
     metadata.patient = {
-      name: studyMetadata.patientName,
-      id: studyMetadata.patientId,
+      name: studyMetadata.PatientName,
+      id: studyMetadata.PatientId,
       birthDate: studyMetadata.patientBirthDate,
       sex: studyMetadata.patientSex,
-      age: studyMetadata.patientAge,
+      age: studyMetadata.PatientAge,
     };
 
     // If there is sufficient information, populate
@@ -89,31 +89,31 @@ class MetadataProvider {
    */
   getImagePlane(instance) {
     if (
-      !instance.rows ||
-      !instance.columns ||
-      !instance.pixelSpacing ||
-      !instance.frameOfReferenceUID ||
+      !instance.Rows ||
+      !instance.Columns ||
+      !instance.PixelSpacing ||
+      !instance.FrameOfReferenceUID ||
       !instance.imageOrientationPatient ||
-      !instance.imagePositionPatient
+      !instance.ImagePositionPatient
     ) {
       return;
     }
 
     const imageOrientation = instance.imageOrientationPatient.split('\\');
-    const imagePosition = instance.imagePositionPatient.split('\\');
+    const imagePosition = instance.ImagePositionPatient.split('\\');
 
     let columnPixelSpacing = 1.0;
     let rowPixelSpacing = 1.0;
-    if (instance.pixelSpacing) {
-      const split = instance.pixelSpacing.split('\\');
+    if (instance.PixelSpacing) {
+      const split = instance.PixelSpacing.split('\\');
       rowPixelSpacing = parseFloat(split[0]);
       columnPixelSpacing = parseFloat(split[1]);
     }
 
     return {
-      frameOfReferenceUID: instance.frameOfReferenceUID,
-      rows: instance.rows,
-      columns: instance.columns,
+      FrameOfReferenceUID: instance.FrameOfReferenceUID,
+      Rows: instance.Rows,
+      Columns: instance.Columns,
       rowCosines: [
         parseFloat(imageOrientation[0]),
         parseFloat(imageOrientation[1]),
@@ -124,7 +124,7 @@ class MetadataProvider {
         parseFloat(imageOrientation[4]),
         parseFloat(imageOrientation[5]),
       ],
-      imagePositionPatient: [
+      ImagePositionPatient: [
         parseFloat(imagePosition[0]),
         parseFloat(imagePosition[1]),
         parseFloat(imagePosition[2]),
