@@ -1,7 +1,16 @@
-import cornerstone from 'cornerstone-core';
 import * as dcmjs from 'dcmjs';
 import queryString from 'query-string';
 import dicomParser from 'dicom-parser';
+import { api } from 'dicomweb-client';
+import DICOMWeb from '../DICOMWeb';
+import { getFallbackTagFromInstance } from '../utils/UIDSpecificMetadataProviderFallbackTags';
+
+const WADOProxy = {
+  convertURL: (url, server) => {
+    // TODO: Remove all WADOProxy stuff from this file
+    return url;
+  },
+};
 
 class UIDSpecificMetadataProvider {
   constructor() {
@@ -14,21 +23,37 @@ class UIDSpecificMetadataProvider {
     });
   }
 
-  addMetadata(
-    dicomJSONDataset,
-    StudyInstanceUID,
-    SeriesInstanceUID,
-    SOPInstanceUID
-  ) {
+  addMetadata(dicomJSONDatasetOrP10ArrayBuffer, options = {}) {
+    let dicomJSONDataset;
+
+    // If Arraybuffer, parse to DICOMJSON before naturalizing.
+    if (dicomJSONDatasetOrP10ArrayBuffer instanceof ArrayBuffer) {
+      const dicomData = DicomMessage.readFile(dicomJSONDatasetOrP10ArrayBuffer);
+
+      dicomJSONDataset = dicomData.dict;
+    } else {
+      dicomJSONDataset = dicomJSONDatasetOrP10ArrayBuffer;
+    }
+
     const naturalizedDataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(
       dicomJSONDataset
     );
+
+    const {
+      StudyInstanceUID,
+      SeriesInstanceUID,
+      SOPInstanceUID,
+    } = naturalizedDataset;
 
     const study = this._getAndCacheStudy(StudyInstanceUID);
     const series = this._getAndCacheSeriesFromStudy(study, SeriesInstanceUID);
     const instance = this._getAndCacheInstanceFromStudy(series, SOPInstanceUID);
 
     Object.assign(instance, naturalizedDataset);
+
+    if (options.server) {
+      this._checkBulkDataAndInlineBinaries(instance, options.server);
+    }
   }
 
   _getAndCacheStudy(StudyInstanceUID) {
@@ -65,6 +90,66 @@ class UIDSpecificMetadataProvider {
     return instance;
   }
 
+  _checkBulkDataAndInlineBinaries(instance, server) {
+    this._checkBulkDataAndInlineBinariesForOverlayData(instance, server);
+  }
+
+  async _checkBulkDataAndInlineBinariesForOverlayData(instance, server) {
+    const OverlayDataPromises = [];
+    const OverlayDataTags = [];
+
+    for (let overlayGroup = 0x00; overlayGroup <= 0x1e; overlayGroup += 0x02) {
+      let groupStr = `60${overlayGroup.toString(16)}`;
+
+      if (groupStr.length === 3) {
+        groupStr = `600${overlayGroup.toString(16)}`;
+      }
+
+      const OverlayDataTag = `${groupStr}3000`;
+
+      if (instance[OverlayDataTag] && instance[OverlayDataTag].BulkDataURI) {
+        OverlayDataPromises.push(
+          this._getOverlayData(instance[OverlayDataTag], server)
+        );
+        OverlayDataTags.push(OverlayDataTag);
+      }
+    }
+
+    if (OverlayDataPromises.length) {
+      Promise.all(OverlayDataPromises).then(results => {
+        for (let i = 0; i < results.length; i++) {
+          instance[OverlayDataTags[i]] = results[i];
+        }
+      });
+    }
+  }
+
+  async _getOverlayData(tag, server) {
+    const { BulkDataURI } = tag;
+
+    let uri = WADOProxy.convertURL(BulkDataURI, server);
+
+    // TODO: Workaround for dcm4chee behind SSL-terminating proxy returning
+    // incorrect bulk data URIs
+    if (server.wadoRoot.indexOf('https') === 0 && !uri.includes('https')) {
+      uri = uri.replace('http', 'https');
+    }
+
+    const config = {
+      url: server.wadoRoot, //BulkDataURI is absolute, so this isn't used
+      headers: DICOMWeb.getAuthorizationHeader(server),
+    };
+    const dicomWeb = new api.DICOMwebClient(config);
+    const options = {
+      BulkDataURI: uri,
+    };
+
+    return dicomWeb
+      .retrieveBulkData(options)
+      .then(result => result[0])
+      .then(_unpackOverlay);
+  }
+
   getInstance(imageId) {
     const uids = this._getUIDsFromImageID(imageId);
 
@@ -81,8 +166,12 @@ class UIDSpecificMetadataProvider {
     );
   }
 
-  get(naturalizedTagOrWADOImageLoaderTag, imageId) {
-    if (naturalizedTagOrWADOImageLoaderTag === 'imagePlaneModule') {
+  get(
+    naturalizedTagOrWADOImageLoaderTag,
+    imageId,
+    options = { fallback: false }
+  ) {
+    if (naturalizedTagOrWADOImageLoaderTag === 'overlayPlaneModule') {
       debugger;
     }
 
@@ -92,13 +181,24 @@ class UIDSpecificMetadataProvider {
       return;
     }
 
-    // If its a naturalized dcmjs tag, return.
+    // If its a naturalized dcmjs tag present on the instance, return.
     if (instance[naturalizedTagOrWADOImageLoaderTag]) {
       return instance[naturalizedTagOrWADOImageLoaderTag];
     }
 
-    // Maybe its a legacy CornerstoneWADOImageLoader tag then:
+    if (options.fallback) {
+      // Perhaps the tag has fallbacks?
+      const fallbackTag = getFallbackTagFromInstance(
+        naturalizedTagOrWADOImageLoaderTag,
+        instance
+      );
 
+      if (fallbackTag) {
+        return fallbackTag;
+      }
+    }
+
+    // Maybe its a legacy CornerstoneWADOImageLoader tag then:
     return this._getCornerstoneWADOImageLoaderTag(
       naturalizedTagOrWADOImageLoaderTag,
       instance
@@ -140,7 +240,14 @@ class UIDSpecificMetadataProvider {
         };
         break;
       case WADO_IMAGE_LOADER_TAGS.IMAGE_PLANE_MODULE:
-        const { ImageOrientationPatient, PixelSpacing } = instance;
+        const { ImageOrientationPatient } = instance;
+
+        // Fallback for DX images.
+        const PixelSpacing = getFallbackTagFromInstance(
+          'PixelSpacing',
+          instance
+        );
+
         let rowPixelSpacing;
         let columnPixelSpacing;
 
@@ -249,6 +356,59 @@ class UIDSpecificMetadataProvider {
 
         break;
       case WADO_IMAGE_LOADER_TAGS.OVELAY_PLANE_MODULE:
+        console.log(instance);
+        debugger;
+
+        metadata = [];
+
+        for (
+          let overlayGroup = 0x00;
+          overlayGroup <= 0x1e;
+          overlayGroup += 0x02
+        ) {
+          let groupStr = `60${overlayGroup.toString(16)}`;
+
+          if (groupStr.length === 3) {
+            groupStr = `600${overlayGroup.toString(16)}`;
+          }
+
+          const OverlayDataTag = `${groupStr}3000`;
+          const OverlayData = instance[OverlayDataTag];
+
+          if (!OverlayData) {
+            continue;
+          }
+
+          const OverlayRowsTag = `${groupStr}0010`;
+          const OverlayColumnsTag = `${groupStr}0011`;
+          const OverlayType = `${groupStr}0040`;
+          const OverlayOriginTag = `${groupStr}0050`;
+          const OverlayDescriptionTag = `${groupStr}0022`;
+          const OverlayLabelTag = `${groupStr}1500`;
+          const ROIAreaTag = `${groupStr}1301`;
+          const ROIMeanTag = `${groupStr}1302`;
+          const ROIStandardDeviationTag = `${groupStr}1303`;
+          const OverlayOrigin = instance[OverlayOriginTag];
+
+          const overlay = {
+            rows: instance[OverlayRowsTag],
+            columns: instance[OverlayColumnsTag],
+            type: instance[OverlayType],
+            x: OverlayOrigin[0],
+            y: OverlayOrigin[1],
+            pixelData: OverlayData,
+            description: instance[OverlayDescriptionTag],
+            label: instance[OverlayLabelTag],
+            roiArea: instance[ROIAreaTag],
+            roiMean: instance[ROIMeanTag],
+            roiStandardDeviation: instance[ROIStandardDeviationTag],
+          };
+
+          metadata.push(overlay);
+
+          debugger;
+        }
+
         break;
     }
 
@@ -314,3 +474,17 @@ const WADO_IMAGE_LOADER_TAGS = {
   PET_ISOTOPE_MODULE: 'petIsotopeModule',
   OVELAY_PLANE_MODULE: 'overlayPlaneModule',
 };
+
+function _unpackOverlay(arrayBuffer) {
+  const bitArray = new Uint8Array(arrayBuffer);
+  const byteArray = new Uint8Array(8 * bitArray.length);
+
+  for (let byteIndex = 0; byteIndex < byteArray.length; byteIndex++) {
+    const bitIndex = byteIndex % 8;
+    const bitByteIndex = Math.floor(byteIndex / 8);
+    byteArray[byteIndex] =
+      1 * ((bitArray[bitByteIndex] & (1 << bitIndex)) >> bitIndex);
+  }
+
+  return byteArray;
+}

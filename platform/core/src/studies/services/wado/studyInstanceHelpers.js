@@ -236,12 +236,7 @@ async function makeSOPInstance(server, study, instance) {
     debugger;
   }
 
-  uidSpecificMetadataProvider.addMetadata(
-    instance,
-    studyInstanceUid,
-    seriesInstanceUid,
-    sopInstanceUid
-  );
+  uidSpecificMetadataProvider.addMetadata(instance, { server });
 
   const wadouri = buildInstanceWadoUrl(
     server,
