@@ -183,6 +183,7 @@ class UIDSpecificMetadataProvider {
   }
 
   get(query, imageId, options = { fallback: false }) {
+    debugger;
     const instance = this._getInstance(imageId);
 
     if (query === 'instance') {

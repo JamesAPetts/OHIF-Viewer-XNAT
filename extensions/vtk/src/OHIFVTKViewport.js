@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { getImageData, loadImageData } from 'react-vtkjs-viewport';
-
 import ConnectedVTKViewport from './ConnectedVTKViewport';
 import LoadingIndicator from './LoadingIndicator.js';
 import OHIF from '@ohif/core';
