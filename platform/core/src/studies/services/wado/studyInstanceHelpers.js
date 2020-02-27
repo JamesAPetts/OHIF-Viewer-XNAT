@@ -235,11 +235,11 @@ async function makeSOPInstance(server, study, instance) {
 
   const SOPInstanceUID = DICOMWeb.getString(instance['00080018']);
 
-  if (!instance) {
-    debugger;
-  }
+  const instanceMetadata = uidSpecificMetadataProvider.addMetadata(instance, {
+    server,
+  });
 
-  uidSpecificMetadataProvider.addMetadata(instance, { server });
+  // TODO -> Just use this instance metadata now.
 
   const wadouri = buildInstanceWadoUrl(
     server,
@@ -267,7 +267,7 @@ async function makeSOPInstance(server, study, instance) {
     SOPInstanceUID,
     InstanceNumber: DICOMWeb.getNumber(instance['00200013']),
     ImagePositionPatient: DICOMWeb.getString(instance['00200032']),
-    imageOrientationPatient: DICOMWeb.getString(instance['00200037']),
+    ImageOrientationPatient: DICOMWeb.getString(instance['00200037']),
     FrameOfReferenceUID: DICOMWeb.getString(instance['00200052']),
     SliceLocation: DICOMWeb.getNumber(instance['00201041']),
     SamplesPerPixel: DICOMWeb.getNumber(instance['00280002']),

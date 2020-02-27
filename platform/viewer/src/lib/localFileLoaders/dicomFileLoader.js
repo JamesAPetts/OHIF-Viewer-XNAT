@@ -114,7 +114,7 @@ const DICOMFileLoader = new (class extends FileLoader {
         ImageType: ImageType || DICOMWeb.getString(dataset['00080008']),
         InstanceNumber: InstanceNumber || DICOMWeb.getNumber(dataset['00200013']),
         ImagePositionPatient: ImagePositionPatient || DICOMWeb.getString(dataset['00200032']),
-        imageOrientationPatient: ImageOrientationPatient || DICOMWeb.getString(dataset['00200037']),
+        ImageOrientationPatient: ImageOrientationPatient || DICOMWeb.getString(dataset['00200037']),
         FrameOfReferenceUID: FrameOfReferenceUID || DICOMWeb.getString(dataset['00200052']),
         SliceLocation: SliceLocation || DICOMWeb.getNumber(dataset['00201041']),
         SamplesPerPixel: SamplesPerPixel || DICOMWeb.getNumber(dataset['00280002']),

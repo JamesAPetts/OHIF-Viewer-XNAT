@@ -110,8 +110,6 @@ export class StudyMetadata extends Metadata {
       return;
     }
 
-    debugger;
-
     const sopClassUids = getSopClassUids(series);
 
     if (sopClassHandlerModules && sopClassHandlerModules.length > 0) {

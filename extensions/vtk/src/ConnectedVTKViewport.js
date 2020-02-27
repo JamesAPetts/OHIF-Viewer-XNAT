@@ -46,6 +46,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
   const { afterCreation } = propsFromState;
 
+  debugger;
+
   const props = {
     ...propsFromState,
     ...propsFromDispatch,

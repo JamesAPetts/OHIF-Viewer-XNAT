@@ -93,13 +93,13 @@ class MetadataProvider {
       !instance.Columns ||
       !instance.PixelSpacing ||
       !instance.FrameOfReferenceUID ||
-      !instance.imageOrientationPatient ||
+      !instance.ImageOrientationPatient ||
       !instance.ImagePositionPatient
     ) {
       return;
     }
 
-    const imageOrientation = instance.imageOrientationPatient.split('\\');
+    const imageOrientation = instance.ImageOrientationPatient.split('\\');
     const imagePosition = instance.ImagePositionPatient.split('\\');
 
     let columnPixelSpacing = 1.0;
@@ -163,7 +163,6 @@ class MetadataProvider {
     }
 
     if (imageMetadata.hasOwnProperty(type)) {
-      debugger;
       return imageMetadata[type];
     }
   }

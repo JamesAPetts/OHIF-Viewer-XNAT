@@ -6,8 +6,7 @@
  */
 export default function isDisplaySetReconstructable(series, instances) {
   // Can't reconstruct if we only have one image.
-
-  const Modality = series._data.Modality; // TODO -> Is there a better way to get this?
+  const Modality = series.getData().Modality; // TODO -> Is there a better way to get this?
   const isMultiframe = instances[0].getRawValue('x00280008') > 1;
 
   if (!constructableModalities.includes(Modality)) {
@@ -47,13 +46,13 @@ function processSingleframe(instances) {
     const Rows = instance.getTagValue('x00280010');
     const Columns = instance.getTagValue('x00280011');
     const SamplesPerPixel = instance.getTagValue('x00280002');
-    const imageOrientationPatient = instance.getTagValue('x00200037');
+    const ImageOrientationPatient = instance.getTagValue('x00200037');
 
     if (
       Rows !== firstImageRows ||
       Columns !== firstImageColumns ||
       SamplesPerPixel !== firstImageSamplesPerPixel ||
-      imageOrientationPatient !== firstImageOrientationPatient
+      ImageOrientationPatient !== firstImageOrientationPatient
     ) {
       return { value: false };
     }

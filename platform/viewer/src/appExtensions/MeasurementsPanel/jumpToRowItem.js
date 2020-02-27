@@ -1,4 +1,4 @@
-import { measurements, utils } from "@ohif/core";
+import { measurements, utils } from '@ohif/core';
 
 const { MeasurementApi } = measurements;
 const { studyMetadataManager } = utils;
@@ -19,6 +19,7 @@ export default function jumpToRowItem(
   timepointManagerState,
   options = { invertViewportTimepointsOrder: false, childToolKey: null }
 ) {
+  debugger;
   const numViewports = viewportsState.layout.viewports.length;
   const numTimepoints = timepointManagerState.timepoints.length;
   const { measurements, timepoints } = timepointManagerState;
@@ -68,10 +69,13 @@ export default function jumpToRowItem(
 
   // Needs to update viewports.viewportData state to set image set data
 
-  const displaySetContainsSopInstance = (displaySet, SOPInstanceUID) =>
-    displaySet.images.find(
+  const displaySetContainsSopInstance = (displaySet, SOPInstanceUID) => {
+    debugger;
+
+    return displaySet.images.find(
       image => image.getSOPInstanceUID() === SOPInstanceUID
     );
+  };
 
   const viewportSpecificData = [];
   measurementsToJumpTo.forEach((data, viewportIndex) => {
@@ -82,30 +86,32 @@ export default function jumpToRowItem(
 
     const study = studyMetadataManager.get(data.StudyInstanceUID);
     if (!study) {
-      throw new Error("Study not found.");
+      throw new Error('Study not found.');
     }
 
+    debugger;
+
     const displaySet = study.findDisplaySet(displaySet => {
-      return displaySetContainsSopInstance(displaySet, data.SOPInstanceUID);
+      return displaySetContainsSopInstance(displaySet, data.sopInstanceUid);
     });
 
     if (!displaySet) {
-      throw new Error("Display set not found.");
+      throw new Error('Display set not found.');
     }
 
-    displaySet.SOPInstanceUID = data.SOPInstanceUID;
+    displaySet.SOPInstanceUID = data.sopInstanceUid;
     if (data.frameIndex) {
       displaySet.frameIndex = data.frameIndex;
     }
 
     viewportSpecificData.push({
       viewportIndex,
-      displaySet
+      displaySet,
     });
   });
 
   return {
     viewportSpecificData,
-    layout: [] // TODO: if we need to change layout, we should return this here
+    layout: [], // TODO: if we need to change layout, we should return this here
   };
 }

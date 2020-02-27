@@ -173,6 +173,18 @@ class UIDSpecificMetadataProvider {
   ) {
     const instance = this.getInstance(imageId);
 
+    return this.getTagFromInstance(
+      naturalizedTagOrWADOImageLoaderTag,
+      instance,
+      options
+    );
+  }
+
+  getTagFromInstance(
+    naturalizedTagOrWADOImageLoaderTag,
+    instance,
+    options = { fallback: false }
+  ) {
     if (!instance) {
       return;
     }
@@ -264,7 +276,7 @@ class UIDSpecificMetadataProvider {
           frameOfReferenceUID: instance.FrameOfReferenceUID,
           rows: instance.Rows,
           columns: instance.Columns,
-          imageOrientationPatient: ImageOrientationPatient,
+          ImageOrientationPatient: ImageOrientationPatient,
           rowCosines,
           columnCosines,
           imagePositionPatient: instance.ImagePositionPatient,

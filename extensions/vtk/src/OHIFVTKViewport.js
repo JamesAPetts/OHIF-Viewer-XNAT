@@ -13,6 +13,7 @@ import vtkVolume from 'vtk.js/Sources/Rendering/Core/Volume';
 import vtkVolumeMapper from 'vtk.js/Sources/Rendering/Core/VolumeMapper';
 
 const { StackManager } = OHIF.utils;
+const style = { width: '100%', height: '100%', position: 'relative' };
 
 // Metadata configuration
 const metadataProvider = new OHIF.cornerstone.MetadataProvider();
@@ -373,7 +374,9 @@ class OHIFVTKViewport extends Component {
       });
     }
 
-    const style = { width: '100%', height: '100%', position: 'relative' };
+    if (this.state.volumes) {
+      debugger;
+    }
 
     return (
       <>

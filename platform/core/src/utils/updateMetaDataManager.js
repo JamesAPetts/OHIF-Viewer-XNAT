@@ -39,7 +39,7 @@ const getWadoRsInstanceMetaData = (study, series, instance) => {
     .addTag('0020000e', series.SeriesInstanceUID)
     .addTag('00200011', series.SeriesNumber)
     .addTag('00200032', instance.ImagePositionPatient, true)
-    .addTag('00200037', instance.imageOrientationPatient, true)
+    .addTag('00200037', instance.ImageOrientationPatient, true)
     .addTag('00200052', instance.FrameOfReferenceUID)
     .addTag('00201041', instance.SliceLocation)
     .addTag('00280002', instance.SamplesPerPixel)

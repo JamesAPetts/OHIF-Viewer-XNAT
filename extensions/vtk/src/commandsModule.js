@@ -76,20 +76,20 @@ const commandsModule = ({ commandsManager }) => {
       );
 
       if (Modality !== 'PT') {
-        const { WindowWidth, WindowCenter } = cornerstoneElement.viewport.voi;
+        const { windowWidth, windowCenter } = cornerstoneElement.viewport.voi;
 
         return {
-          WindowWidth,
-          WindowCenter,
+          windowWidth,
+          windowCenter,
         };
       }
     }
   }
 
   function setVOI(voi) {
-    const { WindowWidth, WindowCenter } = voi;
-    const lower = WindowCenter - WindowWidth / 2.0;
-    const upper = WindowCenter + WindowWidth / 2.0;
+    const { windowWidth, windowCenter } = voi;
+    const lower = windowCenter - windowWidth / 2.0;
+    const upper = windowCenter + windowWidth / 2.0;
 
     const rgbTransferFunction = apis[0].volumes[0]
       .getProperty()
@@ -98,7 +98,7 @@ const commandsModule = ({ commandsManager }) => {
     rgbTransferFunction.setRange(lower, upper);
 
     apis.forEach(api => {
-      api.updateVOI(WindowWidth, WindowCenter);
+      api.updateVOI(WindowWidth, windowCenter);
     });
   }
 
@@ -228,6 +228,8 @@ const commandsModule = ({ commandsManager }) => {
       // Get current VOI if cornerstone viewport.
       const cornerstoneVOI = getVOIFromCornerstoneViewport();
 
+      debugger;
+
       const viewportProps = [
         {
           //Axial
@@ -257,6 +259,8 @@ const commandsModule = ({ commandsManager }) => {
       } catch (error) {
         throw new Error(error);
       }
+
+      debugger;
 
       if (cornerstoneVOI) {
         setVOI(cornerstoneVOI);
