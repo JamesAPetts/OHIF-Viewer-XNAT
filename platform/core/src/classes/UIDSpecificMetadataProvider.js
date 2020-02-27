@@ -21,9 +21,15 @@ class UIDSpecificMetadataProvider {
       writable: false,
       value: new Map(),
     });
+    Object.defineProperty(this, 'imageIdToUids', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: new Map(),
+    });
   }
 
-  addMetadata(dicomJSONDatasetOrP10ArrayBuffer, options = {}) {
+  addInstance(dicomJSONDatasetOrP10ArrayBuffer, options = {}) {
     let dicomJSONDataset;
 
     // If Arraybuffer, parse to DICOMJSON before naturalizing.
@@ -54,6 +60,16 @@ class UIDSpecificMetadataProvider {
     if (options.server) {
       this._checkBulkDataAndInlineBinaries(instance, options.server);
     }
+
+    return instance;
+  }
+
+  addImageIdToUids(imageId, uids) {
+    // This method is a fallback for when you don't have WADO-URI or WADO-RS.
+    // You can add instances fetched by any method by calling addInstance, and hook an imageId to point at it here.
+    // An example would be dicom hosted at some random site.
+
+    this.imageIdToUids.set(imageId, uids);
   }
 
   _getAndCacheStudy(StudyInstanceUID) {
@@ -150,7 +166,7 @@ class UIDSpecificMetadataProvider {
       .then(_unpackOverlay);
   }
 
-  getInstance(imageId) {
+  _getInstance(imageId) {
     const uids = this._getUIDsFromImageID(imageId);
 
     if (!uids) {
@@ -166,18 +182,15 @@ class UIDSpecificMetadataProvider {
     );
   }
 
-  get(
-    naturalizedTagOrWADOImageLoaderTag,
-    imageId,
-    options = { fallback: false }
-  ) {
-    const instance = this.getInstance(imageId);
+  get(query, imageId, options = { fallback: false }) {
+    const instance = this._getInstance(imageId);
 
-    return this.getTagFromInstance(
-      naturalizedTagOrWADOImageLoaderTag,
-      instance,
-      options
-    );
+    if (query === 'instance') {
+      debugger;
+      return instance;
+    }
+
+    return this.getTagFromInstance(query, instance, options);
   }
 
   getTagFromInstance(
@@ -276,7 +289,7 @@ class UIDSpecificMetadataProvider {
           frameOfReferenceUID: instance.FrameOfReferenceUID,
           rows: instance.Rows,
           columns: instance.Columns,
-          ImageOrientationPatient: ImageOrientationPatient,
+          imageOrientationPatient: ImageOrientationPatient,
           rowCosines,
           columnCosines,
           imagePositionPatient: instance.ImagePositionPatient,
@@ -413,6 +426,46 @@ class UIDSpecificMetadataProvider {
         }
 
         break;
+
+      case WADO_IMAGE_LOADER_TAGS.PATIENT_MODULE:
+        const { PatientName } = instance;
+
+        let patientName;
+        if (PatientName) {
+          patientName = PatientName.Alphabetic;
+        }
+
+        metadata = {
+          patientName,
+          patientId: instance.PatientID,
+        };
+
+        break;
+
+      case WADO_IMAGE_LOADER_TAGS.GENERAL_IMAGE_MODULE:
+        metadata = {
+          instanceNumber: instance.InstanceNumber,
+          lossyImageCompression: instance.LossyImageCompression,
+          lossyImageCompressionRatio: instance.LossyImageCompressionRatio,
+          lossyImageCompressionMethod: instance.LossyImageCompressionMethod,
+        };
+
+        break;
+      case WADO_IMAGE_LOADER_TAGS.GENERAL_STUDY_MODULE:
+        metadata = {
+          studyDescription: instance.StudyDescription,
+          studyDate: instance.StudyDate,
+          studyTime: instance.StudyTime,
+          accessionNumber: instance.AccessionNumber,
+        };
+
+        break;
+      case WADO_IMAGE_LOADER_TAGS.CINE_MODULE:
+        metadata = {
+          frameTime: instance.FrameTime,
+        };
+
+        break;
     }
 
     return metadata;
@@ -456,8 +509,8 @@ class UIDSpecificMetadataProvider {
         SOPInstanceUID: qs.objectUID,
       };
     } else {
-      // Unsupported imageId.
-      return;
+      // Maybe its a non-standard imageId
+      return this.imageIdToUids.get(imageId);
     }
   }
 }
@@ -467,8 +520,10 @@ const uidSpecificMetadataProvider = new UIDSpecificMetadataProvider();
 export default uidSpecificMetadataProvider;
 
 const WADO_IMAGE_LOADER_TAGS = {
+  // CornerstoneWADOImageLoader specific
   GENERAL_SERIES_MODULE: 'generalSeriesModule',
   PATIENT_STUDY_MODULE: 'patientStudyModule',
+
   IMAGE_PLANE_MODULE: 'imagePlaneModule',
   IMAGE_PIXEL_MODULE: 'imagePixelModule',
   VOI_LUT_MODULE: 'voiLutModule',
@@ -476,6 +531,11 @@ const WADO_IMAGE_LOADER_TAGS = {
   SOP_COMMON_MODULE: 'sopCommonModule',
   PET_ISOTOPE_MODULE: 'petIsotopeModule',
   OVELAY_PLANE_MODULE: 'overlayPlaneModule',
+  // react-cornerstone-viewport specifc
+  PATIENT_MODULE: 'patientModule',
+  GENERAL_IMAGE_MODULE: 'generalImageModule',
+  GENERAL_STUDY_MODULE: 'generalStudyModule',
+  CINE_MODULE: 'cineModule',
 };
 
 function _unpackOverlay(arrayBuffer) {

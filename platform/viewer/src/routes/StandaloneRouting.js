@@ -8,7 +8,7 @@ import ConnectedViewer from '../connectedComponents/ConnectedViewer';
 import ConnectedViewerRetrieveStudyData from '../connectedComponents/ConnectedViewerRetrieveStudyData';
 import NotFound from '../routes/NotFound';
 
-const { studyMetadataManager, updateMetaDataManager } = utils;
+const { studyMetadataManager } = utils;
 const { OHIFStudyMetadata } = metadata;
 
 class StandaloneRouting extends Component {
@@ -75,7 +75,9 @@ class StandaloneRouting extends Component {
           this.props.activateServer(server);
 
           const studyInstanceUids = query.studyInstanceUids.split(';');
-          const seriesInstanceUids = query.seriesInstanceUids ? query.seriesInstanceUids.split(';') : [];
+          const seriesInstanceUids = query.seriesInstanceUids
+            ? query.seriesInstanceUids.split(';')
+            : [];
 
           resolve({ server, studyInstanceUids, seriesInstanceUids });
         } else {
@@ -132,7 +134,9 @@ class StandaloneRouting extends Component {
   }
 
   render() {
-    const message = this.state.error ? `Error: ${JSON.stringify(this.state.error)}` : 'Loading...';
+    const message = this.state.error
+      ? `Error: ${JSON.stringify(this.state.error)}`
+      : 'Loading...';
     if (this.state.error || this.state.loading) {
       return <NotFound message={message} showGoBackButton={this.state.error} />;
     }
@@ -140,12 +144,12 @@ class StandaloneRouting extends Component {
     return this.state.studies ? (
       <ConnectedViewer studies={this.state.studies} />
     ) : (
-        <ConnectedViewerRetrieveStudyData
-          studyInstanceUids={this.state.studyInstanceUids}
-          seriesInstanceUids={this.state.seriesInstanceUids}
-          server={this.state.server}
-        />
-      );
+      <ConnectedViewerRetrieveStudyData
+        studyInstanceUids={this.state.studyInstanceUids}
+        seriesInstanceUids={this.state.seriesInstanceUids}
+        server={this.state.server}
+      />
+    );
   }
 }
 
@@ -157,13 +161,12 @@ const _mapStudiesToNewFormat = studies => {
   const updatedStudies = studies.map(study => {
     const studyMetadata = new OHIFStudyMetadata(study, study.StudyInstanceUID);
 
-    const sopClassHandlerModules = extensionManager.modules['sopClassHandlerModule'];
-    study.displaySets = study.displaySets ||
+    const sopClassHandlerModules =
+      extensionManager.modules['sopClassHandlerModule'];
+    study.displaySets =
+      study.displaySets ||
       studyMetadata.createDisplaySets(sopClassHandlerModules);
     studyMetadata.setDisplaySets(study.displaySets);
-
-    /* Updates WADO-RS metaDataManager */
-    updateMetaDataManager(study);
 
     studyMetadataManager.add(studyMetadata);
     uniqueStudyUids.add(study.StudyInstanceUID);

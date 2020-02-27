@@ -161,34 +161,14 @@ function getFrameIncrementPointer(element) {
   return frameIncrementPointerNames[value];
 }
 
-function getRadiopharmaceuticalInfo(instance) {
-  const Modality = DICOMWeb.getString(instance['00080060']);
+function getRadiopharmaceuticalInfo(naturalizedInstance) {
+  const { RadiopharmaceuticalInformationSequence } = naturalizedInstance;
 
-  if (Modality !== 'PT') {
-    return;
+  if (RadiopharmaceuticalInformationSequence) {
+    return Array.isArray(RadiopharmaceuticalInformationSequence)
+      ? RadiopharmaceuticalInformationSequence[0]
+      : RadiopharmaceuticalInformationSequence;
   }
-
-  const RadiopharmaceuticalInfo = instance['00540016'];
-  if (
-    RadiopharmaceuticalInfo === undefined ||
-    !RadiopharmaceuticalInfo.Value ||
-    !RadiopharmaceuticalInfo.Value.length
-  ) {
-    return;
-  }
-
-  const firstPetRadiopharmaceuticalInfo = RadiopharmaceuticalInfo.Value[0];
-  return {
-    RadiopharmaceuticalStartTime: DICOMWeb.getString(
-      firstPetRadiopharmaceuticalInfo['00181072']
-    ),
-    RadionuclideTotalDose: DICOMWeb.getNumber(
-      firstPetRadiopharmaceuticalInfo['00181074']
-    ),
-    RadionuclideHalfLife: DICOMWeb.getNumber(
-      firstPetRadiopharmaceuticalInfo['00181075']
-    ),
-  };
 }
 
 /**
@@ -196,48 +176,55 @@ function getRadiopharmaceuticalInfo(instance) {
  * to return a ReferenceSOPInstanceUID. The ReferenceSOPInstanceUID
  * is used to refer to this image in any accompanying DICOM-SR documents.
  *
+ * This appears unused in the app, so getting rid of it, new code can query the JSON data.
+ *
  * @param instance
  * @returns {String} The ReferenceSOPInstanceUID
  */
-function getSourceImageInstanceUid(instance) {
-  // TODO= Parse the whole Source Image Sequence
-  // This is a really poor workaround for now.
-  // Later we should probably parse the whole sequence.
-  var SourceImageSequence = instance['00082112'];
-  if (
-    SourceImageSequence &&
-    SourceImageSequence.Value &&
-    SourceImageSequence.Value.length &&
-    SourceImageSequence.Value[0]['00081155'].Value
-  ) {
-    return SourceImageSequence.Value[0]['00081155'].Value[0];
-  }
-}
+// function getSourceImageInstanceUid(instance) {
+//   // TODO= Parse the whole Source Image Sequence
+//   // This is a really poor workaround for now.
+//   // Later we should probably parse the whole sequence.
+//   var SourceImageSequence = instance['00082112'];
+//   if (
+//     SourceImageSequence &&
+//     SourceImageSequence.Value &&
+//     SourceImageSequence.Value.length &&
+//     SourceImageSequence.Value[0]['00081155'].Value
+//   ) {
+//     debugger;
+//     return SourceImageSequence.Value[0]['00081155'].Value[0];
+//   }
+// }
 
 async function makeSOPInstance(server, study, instance) {
-  const { StudyInstanceUID } = study;
-  const SeriesInstanceUID = DICOMWeb.getString(instance['0020000E']);
+  const naturalizedInstance = uidSpecificMetadataProvider.addInstance(
+    instance,
+    {
+      server,
+    }
+  );
+
+  const {
+    StudyInstanceUID,
+    SeriesInstanceUID,
+    SOPInstanceUID,
+  } = naturalizedInstance;
   let series = study.seriesMap[SeriesInstanceUID];
 
   if (!series) {
     series = {
       SeriesInstanceUID,
-      SeriesDescription: DICOMWeb.getString(instance['0008103E']),
-      Modality: DICOMWeb.getString(instance['00080060']),
-      SeriesNumber: DICOMWeb.getNumber(instance['00200011']),
-      SeriesDate: DICOMWeb.getString(instance['00080021']),
-      SeriesTime: DICOMWeb.getString(instance['00080031']),
+      SeriesDescription: naturalizedInstance.SeriesDescription,
+      Modality: naturalizedInstance.Modality,
+      SeriesNumber: naturalizedInstance.SeriesNumber,
+      SeriesDate: naturalizedInstance.SeriesDate,
+      SeriesTime: naturalizedInstance.SeriesTime,
       instances: [],
     };
     study.seriesMap[SeriesInstanceUID] = series;
     study.seriesList.push(series);
   }
-
-  const SOPInstanceUID = DICOMWeb.getString(instance['00080018']);
-
-  const instanceMetadata = uidSpecificMetadataProvider.addMetadata(instance, {
-    server,
-  });
 
   // TODO -> Just use this instance metadata now.
 
@@ -260,57 +247,59 @@ async function makeSOPInstance(server, study, instance) {
     SOPInstanceUID
   );
 
+  // TODO -> eventually replace this whole thing if possible.
+
   const sopInstance = {
-    ImageType: DICOMWeb.getString(instance['00080008']),
-    SOPClassUID: DICOMWeb.getString(instance['00080016']),
-    Modality: DICOMWeb.getString(instance['00080060']),
+    ImageType: naturalizedInstance.ImageType,
+    SOPClassUID: naturalizedInstance.SOPClassUID,
+    Modality: naturalizedInstance.Modality,
     SOPInstanceUID,
-    InstanceNumber: DICOMWeb.getNumber(instance['00200013']),
-    ImagePositionPatient: DICOMWeb.getString(instance['00200032']),
-    ImageOrientationPatient: DICOMWeb.getString(instance['00200037']),
-    FrameOfReferenceUID: DICOMWeb.getString(instance['00200052']),
-    SliceLocation: DICOMWeb.getNumber(instance['00201041']),
-    SamplesPerPixel: DICOMWeb.getNumber(instance['00280002']),
-    PhotometricInterpretation: DICOMWeb.getString(instance['00280004']),
-    PlanarConfiguration: DICOMWeb.getNumber(instance['00280006']),
-    Rows: DICOMWeb.getNumber(instance['00280010']),
-    Columns: DICOMWeb.getNumber(instance['00280011']),
-    PixelSpacing: DICOMWeb.getString(instance['00280030']),
-    PixelAspectRatio: DICOMWeb.getString(instance['00280034']),
-    BitsAllocated: DICOMWeb.getNumber(instance['00280100']),
-    BitsStored: DICOMWeb.getNumber(instance['00280101']),
-    HighBit: DICOMWeb.getNumber(instance['00280102']),
-    PixelRepresentation: DICOMWeb.getNumber(instance['00280103']),
-    SmallestPixelValue: DICOMWeb.getNumber(instance['00280106']),
-    LargestPixelValue: DICOMWeb.getNumber(instance['00280107']),
-    WindowCenter: DICOMWeb.getString(instance['00281050']),
-    WindowWidth: DICOMWeb.getString(instance['00281051']),
-    RescaleIntercept: DICOMWeb.getNumber(instance['00281052']),
-    RescaleSlope: DICOMWeb.getNumber(instance['00281053']),
-    RescaleSlope: DICOMWeb.getNumber(instance['00281054']),
-    SourceImageInstanceUid: getSourceImageInstanceUid(instance),
-    Laterality: DICOMWeb.getString(instance['00200062']),
-    ViewPosition: DICOMWeb.getString(instance['00185101']),
-    AcquisitionDateTime: DICOMWeb.getString(instance['0008002A']),
-    NumberOfFrames: DICOMWeb.getNumber(instance['00280008']),
+    InstanceNumber: naturalizedInstance.InstanceNumber,
+    ImagePositionPatient: naturalizedInstance.ImagePositionPatient,
+    ImageOrientationPatient: naturalizedInstance.ImageOrientationPatient,
+    FrameOfReferenceUID: naturalizedInstance.FrameOfReferenceUID,
+    SliceLocation: naturalizedInstance.SliceLocation,
+    SamplesPerPixel: naturalizedInstance.SamplesPerPixel,
+    PhotometricInterpretation: naturalizedInstance.PhotometricInterpretation,
+    PlanarConfiguration: naturalizedInstance.PlanarConfiguration,
+    Rows: naturalizedInstance.Rows,
+    Columns: naturalizedInstance.Columns,
+    PixelSpacing: naturalizedInstance.PixelSpacing,
+    PixelAspectRatio: naturalizedInstance.PixelAspectRatio,
+    BitsAllocated: naturalizedInstance.BitsAllocated,
+    BitsStored: naturalizedInstance.BitsStored,
+    HighBit: naturalizedInstance.HighBit,
+    PixelRepresentation: naturalizedInstance.PixelRepresentation,
+    SmallestPixelValue: naturalizedInstance.SmallestPixelValue,
+    LargestPixelValue: naturalizedInstance.LargestPixelValue,
+    WindowCenter: naturalizedInstance.WindowCenter,
+    WindowWidth: naturalizedInstance.WindowCenter,
+    RescaleIntercept: naturalizedInstance.RescaleIntercept,
+    RescaleSlope: naturalizedInstance.RescaleSlope,
+    Laterality: naturalizedInstance.Laterality,
+    ViewPosition: naturalizedInstance.ViewPosition,
+    AcquisitionDateTime: naturalizedInstance.AcquisitionDateTime,
+    NumberOfFrames: naturalizedInstance.NumberOfFrames,
     FrameIncrementPointer: getFrameIncrementPointer(instance['00280009']),
-    FrameTime: DICOMWeb.getNumber(instance['00181063']),
-    FrameTimeVector: parseFloatArray(DICOMWeb.getString(instance['00181065'])),
-    SliceThickness: DICOMWeb.getNumber(instance['00180050']),
-    SpacingBetweenSlices: DICOMWeb.getString(instance['00180088']),
-    LossyImageCompression: DICOMWeb.getString(instance['00282110']),
-    DerivationDescription: DICOMWeb.getString(instance['00282111']),
-    LossyImageCompressionRatio: DICOMWeb.getString(instance['00282112']),
-    LossyImageCompressionMethod: DICOMWeb.getString(instance['00282114']),
-    EchoNumber: DICOMWeb.getString(instance['00180086']),
-    ContrastBolusAgent: DICOMWeb.getString(instance['00180010']),
-    RadiopharmaceuticalInfo: getRadiopharmaceuticalInfo(instance), // TODO
+    FrameTime: naturalizedInstance.FrameTime,
+    FrameTimeVector: parseFloatArray(naturalizedInstance.FrameTimeVector),
+    SliceThickness: naturalizedInstance.SliceThickness,
+    SpacingBetweenSlices: naturalizedInstance.SpacingBetweenSlices,
+    LossyImageCompression: naturalizedInstance.LossyImageCompression,
+    DerivationDescription: naturalizedInstance.DerivationDescription,
+    LossyImageCompressionRatio: naturalizedInstance.LossyImageCompressionRatio,
+    LossyImageCompressionMethod:
+      naturalizedInstance.LossyImageCompressionMethod,
+    EchoNumber: naturalizedInstance.EchoNumber,
+    ContrastBolusAgent: naturalizedInstance.ContrastBolusAgent,
+    RadiopharmaceuticalInfo: getRadiopharmaceuticalInfo(naturalizedInstance),
     baseWadoRsUri: baseWadoRsUri,
     wadouri: WADOProxy.convertURL(wadouri, server),
     wadorsuri: WADOProxy.convertURL(wadorsuri, server),
     wadoRoot: server.wadoRoot,
     imageRendering: server.imageRendering,
     thumbnailRendering: server.thumbnailRendering,
+    getNaturalizedInstance: () => naturalizedInstance,
   };
 
   // Get additional information if the instance uses "PALETTE COLOR" photometric interpretation

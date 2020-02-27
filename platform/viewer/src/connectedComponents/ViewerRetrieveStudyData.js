@@ -9,7 +9,7 @@ import { useSnackbarContext } from '@ohif/ui';
 
 const { OHIFStudyMetadata, OHIFSeriesMetadata } = metadata;
 const { retrieveStudiesMetadata, deleteStudyMetadataPromise } = studies;
-const { studyMetadataManager, updateMetaDataManager, makeCancelable } = utils;
+const { studyMetadataManager, makeCancelable } = utils;
 
 // Contexts
 import AppContext from '../context/AppContext';
@@ -105,7 +105,7 @@ const _showUserMessage = (queryParamApplied, message, dialog = {}) => {
     return;
   }
 
-  const { show: showUserMessage = () => { } } = dialog;
+  const { show: showUserMessage = () => {} } = dialog;
   showUserMessage({
     message,
   });
@@ -123,12 +123,10 @@ const _addSeriesToStudy = (studyMetadata, series) => {
     false
   );
   study.displaySets = studyMetadata.getDisplaySets();
-  _updateMetaDataManager(study, series.SeriesInstanceUID);
+  _updateStudyMetadataManager(study, studyMetadata);
 };
 
-const _updateMetaDataManager = (study, studyMetadata, series) => {
-  updateMetaDataManager(study, series);
-
+const _updateStudyMetadataManager = (study, studyMetadata) => {
   const { StudyInstanceUID } = study;
 
   if (!studyMetadataManager.get(StudyInstanceUID)) {
@@ -239,7 +237,7 @@ function ViewerRetrieveStudyData({
         );
 
         _updateStudyDisplaySets(study, studyMetadata);
-        _updateMetaDataManager(study, studyMetadata);
+        _updateStudyMetadataManager(study, studyMetadata);
 
         // Attempt to load remaning series if any
         cancelableSeriesPromises[study.StudyInstanceUID] = makeCancelable(
@@ -321,7 +319,10 @@ function ViewerRetrieveStudyData({
   const prevStudyInstanceUids = usePrevious(studyInstanceUids);
 
   useEffect(() => {
-    const hasStudyInstanceUidsChanged = !(prevStudyInstanceUids && prevStudyInstanceUids.every(e => studyInstanceUids.includes(e)));
+    const hasStudyInstanceUidsChanged = !(
+      prevStudyInstanceUids &&
+      prevStudyInstanceUids.every(e => studyInstanceUids.includes(e))
+    );
 
     if (hasStudyInstanceUidsChanged) {
       studyMetadataManager.purge();

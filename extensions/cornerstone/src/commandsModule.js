@@ -245,6 +245,8 @@ const commandsModule = ({ servicesManager }) => {
     setWindowLevel: ({ viewports, window, level }) => {
       const enabledElement = getEnabledElement(viewports.activeViewportIndex);
 
+      debugger;
+
       if (enabledElement) {
         let viewport = cornerstone.getViewport(enabledElement);
         viewport.voi = {

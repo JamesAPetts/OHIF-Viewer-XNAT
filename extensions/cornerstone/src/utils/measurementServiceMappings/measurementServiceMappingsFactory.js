@@ -63,7 +63,7 @@ const measurementServiceMappingsFactory = measurementService => {
 
     const {
       SOPInstanceUID,
-      frameOfReferenceUid,
+      FrameOfReferenceUID,
       SeriesInstanceUID,
     } = _getAttributes(element);
 
@@ -73,7 +73,7 @@ const measurementServiceMappingsFactory = measurementService => {
     return {
       id: measurementData._measurementServiceId,
       sopInstanceUID: SOPInstanceUID,
-      FrameOfReferenceUID: frameOfReferenceUid,
+      FrameOfReferenceUID,
       referenceSeriesUID: SeriesInstanceUID,
       label: measurementData.text,
       description: measurementData.description,
@@ -90,13 +90,13 @@ const measurementServiceMappingsFactory = measurementService => {
   const _getAttributes = element => {
     const enabledElement = cornerstone.getEnabledElement(element);
     const imageId = enabledElement.image.imageId;
-    const sopInstance = cornerstone.metaData.get('instance', imageId);
-    const SOPInstanceUID = sopInstance.SOPInstanceUID;
-    const frameOfReferenceUid = sopInstance.FrameOfReferenceUID;
-    const series = cornerstone.metaData.get('series', imageId);
-    const SeriesInstanceUID = series.SeriesInstanceUID;
+    const instance = cornerstone.metaData.get('instance', imageId);
 
-    return { SOPInstanceUID, frameOfReferenceUid, SeriesInstanceUID };
+    return {
+      SOPInstanceUID: instance.SOPInstanceUID,
+      FrameOfReferenceUID: instance.FrameOfReferenceUID,
+      SeriesInstanceUID: instance.SeriesInstanceUID,
+    };
   };
 
   const _getValueTypeFromToolType = toolType => {

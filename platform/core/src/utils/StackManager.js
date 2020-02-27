@@ -1,5 +1,6 @@
 import OHIFError from '../classes/OHIFError.js';
 import getImageId from './getImageId';
+import uidSpecificMetadataProvider from '../classes/UIDSpecificMetadataProvider.js';
 
 let stackMap = {};
 let configuration = {};
@@ -47,17 +48,47 @@ function createAndAddStack(
         metaData.frameNumber = i;
         imageId = getImageId(image, i);
         imageIds.push(imageId);
-        metadataProvider.addMetadata(imageId, metaData);
+        if (metadataProvider) {
+          metadataProvider.addMetadata(imageId, metaData);
+        }
+
+        const {
+          StudyInstanceUID,
+          SeriesInstanceUID,
+          SOPInstanceUID,
+        } = instance.getData().getNaturalizedInstance();
+
+        uidSpecificMetadataProvider.addImageIdToUids(imageId, {
+          StudyInstanceUID,
+          SeriesInstanceUID,
+          SOPInstanceUID,
+        });
       }
     } else {
       metaData.frameNumber = 1;
       imageId = getImageId(image);
       imageIds.push(imageId);
-      metadataProvider.addMetadata(imageId, metaData);
+      if (metadataProvider) {
+        metadataProvider.addMetadata(imageId, metaData);
+      }
+
+      const naturalizedInstance = instance.getData().getNaturalizedInstance();
+
+      debugger;
+
+      const {
+        StudyInstanceUID,
+        SeriesInstanceUID,
+        SOPInstanceUID,
+      } = naturalizedInstance;
+
+      uidSpecificMetadataProvider.addImageIdToUids(imageId, {
+        StudyInstanceUID,
+        SeriesInstanceUID,
+        SOPInstanceUID,
+      });
     }
   });
-
-  console.log(imageIds);
 
   const stack = {
     StudyInstanceUID: study.StudyInstanceUID,
@@ -98,12 +129,6 @@ const StackManager = {
    * @return {Array} Array with image IDs
    */
   makeAndAddStack(study, displaySet) {
-    if (!stackManagerMetaDataProvider) {
-      throw new Error(
-        'Please call StackManager.setMetadataProvider(provider) first.'
-      );
-    }
-
     return configuration.createAndAddStack(
       stackMap,
       study,

@@ -19,7 +19,6 @@ export default function jumpToRowItem(
   timepointManagerState,
   options = { invertViewportTimepointsOrder: false, childToolKey: null }
 ) {
-  debugger;
   const numViewports = viewportsState.layout.viewports.length;
   const numTimepoints = timepointManagerState.timepoints.length;
   const { measurements, timepoints } = timepointManagerState;
@@ -70,8 +69,6 @@ export default function jumpToRowItem(
   // Needs to update viewports.viewportData state to set image set data
 
   const displaySetContainsSopInstance = (displaySet, SOPInstanceUID) => {
-    debugger;
-
     return displaySet.images.find(
       image => image.getSOPInstanceUID() === SOPInstanceUID
     );
@@ -88,8 +85,6 @@ export default function jumpToRowItem(
     if (!study) {
       throw new Error('Study not found.');
     }
-
-    debugger;
 
     const displaySet = study.findDisplaySet(displaySet => {
       return displaySetContainsSopInstance(displaySet, data.sopInstanceUid);

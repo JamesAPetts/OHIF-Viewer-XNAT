@@ -38,23 +38,13 @@ export default function init({ servicesManager, configuration }) {
   };
 
   const { csToolsConfig } = configuration;
-  const { StackManager } = OHIF.utils;
-  const metadataProvider = new OHIF.cornerstone.MetadataProvider();
   const uidSpecificMetadataProvider =
     OHIF.cornerstone.uidSpecificMetadataProvider;
 
-  // ~~ Set our MetadataProvider
   cornerstone.metaData.addProvider(
-    metadataProvider.provider.bind(metadataProvider)
+    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider),
+    9999
   );
-
-  cornerstone.metaData.addProvider(
-    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider)
-  );
-
-  // TODO -> It looks like we should replace this with our metadata provider,
-  // Or maybe this should be the legacy one.
-  StackManager.setMetadataProvider(metadataProvider);
 
   // ~~
   const defaultCsToolsConfig = csToolsConfig || {

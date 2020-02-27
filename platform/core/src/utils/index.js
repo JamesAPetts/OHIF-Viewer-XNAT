@@ -6,7 +6,6 @@ import addServers from './addServers';
 import guid from './guid';
 import sortBy from './sortBy.js';
 import studyMetadataManager from './studyMetadataManager';
-import updateMetaDataManager from './updateMetaDataManager.js';
 import writeScript from './writeScript.js';
 import DicomLoaderService from './dicomLoaderService.js';
 import b64toBlob from './b64toBlob.js';
@@ -24,8 +23,6 @@ const utils = {
   b64toBlob,
   StackManager,
   studyMetadataManager,
-  // Updates WADO-RS metaDataManager
-  updateMetaDataManager,
   DICOMTagDescriptions,
   DicomLoaderService,
   urlUtil,
@@ -43,8 +40,6 @@ export {
   b64toBlob,
   StackManager,
   studyMetadataManager,
-  // Updates WADO-RS metaDataManager
-  updateMetaDataManager,
   DICOMTagDescriptions,
   DicomLoaderService,
   urlUtil,

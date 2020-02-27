@@ -1,4 +1,3 @@
-import MetadataProvider from './classes/MetadataProvider';
 import uidSpecificMetadataProvider from './classes/UIDSpecificMetadataProvider';
 import {
   getBoundingBox,
@@ -7,7 +6,6 @@ import {
 } from './lib/cornerstone.js';
 
 const cornerstone = {
-  MetadataProvider,
   uidSpecificMetadataProvider,
   getBoundingBox,
   pixelToPage,

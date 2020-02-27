@@ -1,4 +1,4 @@
-import { studyMetadataManager, updateMetaDataManager } from '../utils';
+import { studyMetadataManager } from '../utils';
 
 import OHIFError from './OHIFError';
 import { StudyMetadata } from './metadata/StudyMetadata';
@@ -72,10 +72,6 @@ export class OHIFStudyMetadataSource extends StudyMetadataSource {
     // Set some studyInfo properties
     studyInfo.selected = true;
     studyInfo.displaySets = studyMetadata.getDisplaySets();
-
-    // Updates WADO-RS metaDataManager
-    updateMetaDataManager(studyInfo);
-
     studyMetadataManager.add(studyMetadata);
   }
 }

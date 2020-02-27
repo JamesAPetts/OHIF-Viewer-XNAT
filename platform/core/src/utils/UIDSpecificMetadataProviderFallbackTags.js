@@ -1,3 +1,5 @@
+import log from '../log.js';
+
 function getFallbackTagFromInstance(tag, instance) {
   if (instance[tag]) {
     return instance[tag];
@@ -10,6 +12,8 @@ function getFallbackTagFromInstance(tag, instance) {
       const fallbackTag = fallbackTags[i];
 
       if (instance[fallbackTag]) {
+        log.info(`metadata provider fallback tag ${tag} to ${fallbackTag}`);
+
         return instance[fallbackTag];
       }
     }

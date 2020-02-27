@@ -8,15 +8,6 @@ import handleSegmentationStorage from './handleSegmentationStorage.js';
 
 const { StackManager } = OHIF.utils;
 
-// Metadata configuration
-const metadataProvider = new OHIF.cornerstone.MetadataProvider();
-
-cornerstone.metaData.addProvider(
-  metadataProvider.provider.bind(metadataProvider)
-);
-
-StackManager.setMetadataProvider(metadataProvider);
-
 const SOP_CLASSES = {
   SEGMENTATION_STORAGE: '1.2.840.10008.5.1.4.1.1.66.4',
 };
@@ -109,15 +100,12 @@ class OHIFCornerstoneViewport extends Component {
 
     if (SOPInstanceUID) {
       const index = stack.imageIds.findIndex(imageId => {
-        const sopCommonModule = cornerstone.metaData.get(
-          'sopCommonModule',
+        const imageIdSOPInstanceUID = cornerstone.metaData.get(
+          'SOPInstanceUID',
           imageId
         );
-        if (!sopCommonModule) {
-          return;
-        }
 
-        return sopCommonModule.sopInstanceUID === SOPInstanceUID;
+        return imageIdSOPInstanceUID === SOPInstanceUID;
       });
 
       if (index > -1) {

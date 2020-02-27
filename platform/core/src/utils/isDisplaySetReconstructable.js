@@ -6,6 +6,7 @@
  */
 export default function isDisplaySetReconstructable(series, instances) {
   // Can't reconstruct if we only have one image.
+
   const Modality = series.getData().Modality; // TODO -> Is there a better way to get this?
   const isMultiframe = instances[0].getRawValue('x00280008') > 1;
 
@@ -34,7 +35,6 @@ function processSingleframe(instances) {
   const firstImageRows = firstImage.getTagValue('x00280010');
   const firstImageColumns = firstImage.getTagValue('x00280011');
   const firstImageSamplesPerPixel = firstImage.getTagValue('x00280002');
-  // Note: No need to unpack iop, can compare string form.
   const firstImageOrientationPatient = firstImage.getTagValue('x00200037');
 
   // Can't reconstruct if we:
@@ -52,7 +52,7 @@ function processSingleframe(instances) {
       Rows !== firstImageRows ||
       Columns !== firstImageColumns ||
       SamplesPerPixel !== firstImageSamplesPerPixel ||
-      ImageOrientationPatient !== firstImageOrientationPatient
+      !_isSameOrientation(ImageOrientationPatient, firstImageOrientationPatient)
     ) {
       return { value: false };
     }
@@ -60,12 +60,12 @@ function processSingleframe(instances) {
 
   let missingFrames = 0;
 
-  // Check if frame spacing is approximately equal within a tolerance.
+  // Check if frame spacing is approximately equal within a spacingTolerance.
   // If spacing is on a uniform grid but we are missing frames,
   // Allow reconstruction, but pass back the number of missing frames.
   if (instances.length > 2) {
-    const firstIpp = _getImagePositionPatient(firstImage);
-    const lastIpp = _getImagePositionPatient(instances[instances.length - 1]);
+    const firstIpp = firstImage.getTagValue('x00200032');
+    const lastIpp = instances[instances.length - 1].getTagValue('x00200032');
 
     // We can't reconstruct if we are missing ImagePositionPatient values
     if (!firstIpp || !lastIpp) {
@@ -79,7 +79,7 @@ function processSingleframe(instances) {
 
     for (let i = 1; i < instances.length; i++) {
       const instance = instances[i];
-      const ipp = _getImagePositionPatient(instance);
+      const ipp = instance.getTagValue('x00200032');
 
       const spacingBetweenFrames = _getPerpendicularDistance(ipp, previousIpp);
       const spacingIssue = _getSpacingIssue(
@@ -104,8 +104,17 @@ function processSingleframe(instances) {
   return { value: true, missingFrames };
 }
 
-// TODO: Is 10% a reasonable tolerance for spacing?
-const tolerance = 0.1;
+function _isSameOrientation(iop1, iop2) {
+  return (
+    Math.abs(iop1[0] - iop2[0]) < iopTolerance &&
+    Math.abs(iop1[1] - iop2[1]) < iopTolerance &&
+    Math.abs(iop1[2] - iop2[2]) < iopTolerance
+  );
+}
+
+// TODO: Is 10% a reasonable spacingTolerance for spacing?
+const spacingTolerance = 0.1;
+const iopTolerance = 0.01;
 
 /**
  * Checks for spacing issues.
@@ -117,7 +126,7 @@ const tolerance = 0.1;
  */
 function _getSpacingIssue(spacing, averageSpacing) {
   const equalWithinTolerance =
-    Math.abs(spacing - averageSpacing) < averageSpacing * tolerance;
+    Math.abs(spacing - averageSpacing) < averageSpacing * spacingTolerance;
 
   if (equalWithinTolerance) {
     return;
@@ -130,7 +139,7 @@ function _getSpacingIssue(spacing, averageSpacing) {
   const errorForEachSpacing =
     Math.abs(spacing - numberOfSpacings * averageSpacing) / numberOfSpacings;
 
-  if (errorForEachSpacing < tolerance * averageSpacing) {
+  if (errorForEachSpacing < spacingTolerance * averageSpacing) {
     return {
       issue: reconstructionIssues.MISSING_FRAMES,
       missingFrames: numberOfSpacings - 1,
@@ -138,15 +147,6 @@ function _getSpacingIssue(spacing, averageSpacing) {
   }
 
   return { issue: reconstructionIssues.IRREGULAR_SPACING };
-}
-
-function _getImagePositionPatient(instance) {
-  const tagValue = instance.getTagValue('x00200032');
-  if (!tagValue) {
-    return;
-  }
-
-  return tagValue.split('\\').map(element => Number(element));
 }
 
 function _getPerpendicularDistance(a, b) {

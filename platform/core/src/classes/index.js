@@ -9,7 +9,6 @@ import CommandsManager from './CommandsManager.js';
 import { DICOMFileLoadingListener } from './StudyLoadingListener';
 import HotkeysManager from './HotkeysManager.js';
 import ImageSet from './ImageSet';
-import MetadataProvider from './MetadataProvider.js';
 import UIDSpecificMetadataProvider from './UIDSpecificMetadataProvider';
 import OHIFError from './OHIFError.js';
 import { OHIFStudyMetadataSource } from './OHIFStudyMetadataSource';
@@ -21,7 +20,6 @@ import { TypeSafeCollection } from './TypeSafeCollection';
 
 export {
   OHIFStudyMetadataSource,
-  MetadataProvider,
   UIDSpecificMetadataProvider,
   CommandsManager,
   HotkeysManager,
@@ -41,7 +39,6 @@ export {
 
 const classes = {
   OHIFStudyMetadataSource,
-  MetadataProvider,
   UIDSpecificMetadataProvider,
   CommandsManager,
   HotkeysManager,

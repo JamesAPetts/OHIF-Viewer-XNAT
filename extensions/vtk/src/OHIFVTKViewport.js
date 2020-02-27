@@ -16,13 +16,14 @@ const { StackManager } = OHIF.utils;
 const style = { width: '100%', height: '100%', position: 'relative' };
 
 // Metadata configuration
-const metadataProvider = new OHIF.cornerstone.MetadataProvider();
+
+const uidSpecificMetadataProvider =
+  OHIF.cornerstone.uidSpecificMetadataProvider;
 
 cornerstone.metaData.addProvider(
-  metadataProvider.provider.bind(metadataProvider)
+  uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider),
+  9999
 );
-
-StackManager.setMetadataProvider(metadataProvider);
 
 const SOP_CLASSES = {
   SEGMENTATION_STORAGE: '1.2.840.10008.5.1.4.1.1.66.4',
@@ -122,15 +123,12 @@ class OHIFVTKViewport extends Component {
       stack.currentImageIdIndex = frameIndex;
     } else if (SOPInstanceUID) {
       const index = stack.imageIds.findIndex(imageId => {
-        const sopCommonModule = cornerstone.metaData.get(
-          'sopCommonModule',
+        const imageIdSOPInstanceUID = cornerstone.metaData.get(
+          'SOPInstanceUID',
           imageId
         );
-        if (!sopCommonModule) {
-          return;
-        }
 
-        return sopCommonModule.sopInstanceUID === SOPInstanceUID;
+        return imageIdSOPInstanceUID === SOPInstanceUID;
       });
 
       if (index > -1) {
@@ -372,10 +370,6 @@ class OHIFVTKViewport extends Component {
           })
         );
       });
-    }
-
-    if (this.state.volumes) {
-      debugger;
     }
 
     return (

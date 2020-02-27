@@ -12,8 +12,6 @@ describe('Top level exports', () => {
       'b64toBlob',
       'StackManager',
       'studyMetadataManager',
-      // Updates WADO-RS metaDataManager
-      'updateMetaDataManager',
       'DICOMTagDescriptions',
       'DicomLoaderService',
       'urlUtil',

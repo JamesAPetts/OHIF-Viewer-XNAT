@@ -70,10 +70,7 @@ const commandsModule = ({ commandsManager }) => {
     if (cornerstoneElement) {
       const imageId = cornerstoneElement.image.imageId;
 
-      const { Modality } = cornerstone.metaData.get(
-        'generalSeriesModule',
-        imageId
-      );
+      const Modality = cornerstone.metaData.get('Modality', imageId);
 
       if (Modality !== 'PT') {
         const { windowWidth, windowCenter } = cornerstoneElement.viewport.voi;
@@ -98,7 +95,7 @@ const commandsModule = ({ commandsManager }) => {
     rgbTransferFunction.setRange(lower, upper);
 
     apis.forEach(api => {
-      api.updateVOI(WindowWidth, windowCenter);
+      api.updateVOI(windowWidth, windowCenter);
     });
   }
 
@@ -228,8 +225,6 @@ const commandsModule = ({ commandsManager }) => {
       // Get current VOI if cornerstone viewport.
       const cornerstoneVOI = getVOIFromCornerstoneViewport();
 
-      debugger;
-
       const viewportProps = [
         {
           //Axial
@@ -259,8 +254,6 @@ const commandsModule = ({ commandsManager }) => {
       } catch (error) {
         throw new Error(error);
       }
-
-      debugger;
 
       if (cornerstoneVOI) {
         setVOI(cornerstoneVOI);
