@@ -6,9 +6,10 @@
  */
 export default function isDisplaySetReconstructable(series, instances) {
   // Can't reconstruct if we only have one image.
+  const firstInstance = instances[0].getData();
 
-  const Modality = series.getData().Modality; // TODO -> Is there a better way to get this?
-  const isMultiframe = instances[0].getRawValue('x00280008') > 1;
+  const Modality = firstInstance.Modality;
+  const isMultiframe = firstInstance.NumberOfFrames > 1;
 
   if (!constructableModalities.includes(Modality)) {
     return { value: false };
@@ -26,27 +27,35 @@ export default function isDisplaySetReconstructable(series, instances) {
 }
 
 function processMultiframe(instance) {
-  //TODO: deal with multriframe checks! return true for now.
-  return { value: true };
+  //TODO: deal with multriframe checks! return false for now as can't reconstruct.
+  return { value: false };
 }
 
 function processSingleframe(instances) {
-  const firstImage = instances[0];
-  const firstImageRows = firstImage.getTagValue('x00280010');
-  const firstImageColumns = firstImage.getTagValue('x00280011');
-  const firstImageSamplesPerPixel = firstImage.getTagValue('x00280002');
-  const firstImageOrientationPatient = firstImage.getTagValue('x00200037');
+  const firstImage = instances[0].getData();
+
+  const firstImageRows = firstImage.Rows;
+  const firstImageColumns = firstImage.Columns;
+  const firstImageSamplesPerPixel = firstImage.SamplesPerPixel;
+  const firstImageOrientationPatient = firstImage.ImageOrientationPatient;
+  const firstImagePositionPatient = firstImage.ImagePositionPatient;
 
   // Can't reconstruct if we:
   // -- Have a different dimensions within a displaySet.
   // -- Have a different number of components within a displaySet.
   // -- Have different orientations within a displaySet.
   for (let i = 1; i < instances.length; i++) {
-    const instance = instances[i];
-    const Rows = instance.getTagValue('x00280010');
-    const Columns = instance.getTagValue('x00280011');
-    const SamplesPerPixel = instance.getTagValue('x00280002');
-    const ImageOrientationPatient = instance.getTagValue('x00200037');
+    const instance = instances[i].getData();
+    const {
+      Rows,
+      Columns,
+      SamplesPerPixel,
+      ImageOrientationPatient,
+    } = instance;
+
+    if (ImageOrientationPatient === undefined) {
+      debugger;
+    }
 
     if (
       Rows !== firstImageRows ||
@@ -64,24 +73,28 @@ function processSingleframe(instances) {
   // If spacing is on a uniform grid but we are missing frames,
   // Allow reconstruction, but pass back the number of missing frames.
   if (instances.length > 2) {
-    const firstIpp = firstImage.getTagValue('x00200032');
-    const lastIpp = instances[instances.length - 1].getTagValue('x00200032');
+    const lastIpp = instances[instances.length - 1].getData()
+      .ImagePositionPatient;
 
     // We can't reconstruct if we are missing ImagePositionPatient values
-    if (!firstIpp || !lastIpp) {
+    if (!firstImagePositionPatient || !lastIpp) {
       return { value: false };
     }
 
     const averageSpacingBetweenFrames =
-      _getPerpendicularDistance(firstIpp, lastIpp) / (instances.length - 1);
+      _getPerpendicularDistance(firstImagePositionPatient, lastIpp) /
+      (instances.length - 1);
 
-    let previousIpp = firstIpp;
+    let previousImagePositionPatient = firstImagePositionPatient;
 
     for (let i = 1; i < instances.length; i++) {
-      const instance = instances[i];
-      const ipp = instance.getTagValue('x00200032');
+      const instance = instances[i].getData();
+      const { ImagePositionPatient } = instance;
 
-      const spacingBetweenFrames = _getPerpendicularDistance(ipp, previousIpp);
+      const spacingBetweenFrames = _getPerpendicularDistance(
+        ImagePositionPatient,
+        previousImagePositionPatient
+      );
       const spacingIssue = _getSpacingIssue(
         spacingBetweenFrames,
         averageSpacingBetweenFrames
@@ -97,7 +110,7 @@ function processSingleframe(instances) {
         }
       }
 
-      previousIpp = ipp;
+      previousImagePositionPatient = ImagePositionPatient;
     }
   }
 
@@ -105,6 +118,11 @@ function processSingleframe(instances) {
 }
 
 function _isSameOrientation(iop1, iop2) {
+  if (iop1 === undefined || !iop2 === undefined) {
+    debugger;
+    return;
+  }
+
   return (
     Math.abs(iop1[0] - iop2[0]) < iopTolerance &&
     Math.abs(iop1[1] - iop2[1]) < iopTolerance &&

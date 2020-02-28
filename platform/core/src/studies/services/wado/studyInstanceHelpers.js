@@ -1,6 +1,9 @@
 import { api } from 'dicomweb-client';
 import DICOMWeb from '../../../DICOMWeb';
 import uidSpecificMetadataProvider from '../../../classes/UIDSpecificMetadataProvider';
+import getWADORSImageId from '../../../utils/getWADORSImageId';
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
+import { getWadoRsInstanceMetaData } from './updateMetadataManager';
 
 const WADOProxy = {
   convertURL: (url, server) => {
@@ -165,6 +168,7 @@ function getRadiopharmaceuticalInfo(naturalizedInstance) {
   const { RadiopharmaceuticalInformationSequence } = naturalizedInstance;
 
   if (RadiopharmaceuticalInformationSequence) {
+    //debugger;
     return Array.isArray(RadiopharmaceuticalInformationSequence)
       ? RadiopharmaceuticalInformationSequence[0]
       : RadiopharmaceuticalInformationSequence;
@@ -210,6 +214,7 @@ async function makeSOPInstance(server, study, instance) {
     SeriesInstanceUID,
     SOPInstanceUID,
   } = naturalizedInstance;
+
   let series = study.seriesMap[SeriesInstanceUID];
 
   if (!series) {
@@ -245,6 +250,7 @@ async function makeSOPInstance(server, study, instance) {
     StudyInstanceUID,
     SeriesInstanceUID,
     SOPInstanceUID
+    // TODO -> Shouldn't this have frame? Doesn't on master.
   );
 
   // TODO -> eventually replace this whole thing if possible.
@@ -334,6 +340,55 @@ async function makeSOPInstance(server, study, instance) {
   }
 
   series.instances.push(sopInstance);
+
+  if (
+    sopInstance.thumbnailRendering === 'wadors' ||
+    sopInstance.imageRendering === 'wadors'
+  ) {
+    // If using WADO-RS for either images or thumbnails,
+    // Need to add this to cornerstoneWADOImageLoader's provider.
+
+    if (sopInstance.Modality === 'PT') {
+      //debugger;
+
+      const metadata = getWadoRsInstanceMetaData(study, series, sopInstance);
+
+      console.log(wadorsImageId);
+      //debugger;
+    }
+
+    const wadoRSMetadata = Object.assign({}, instance);
+
+    // TODO -> PET doesn't render.
+    // add RadiopharmaceuticalInfo => As updateMetadataManager did.
+    // Add colors
+
+    const RadiopharmaceuticalInfo = wadoRSMetadata['00540016'];
+
+    if (sopInstance.NumberOfFrames) {
+      debugger;
+      for (let i = 0; i < sopInstance.NumberOfFrames; i++) {
+        const wadorsImageId = getWADORSImageId(sopInstance, i);
+
+        debugger;
+
+        console.log(wadorsImageId);
+
+        cornerstoneWADOImageLoader.wadors.metaDataManager.add(
+          wadorsImageId,
+          wadoRSMetadata
+        );
+      }
+    } else {
+      const wadorsImageId = getWADORSImageId(sopInstance);
+
+      cornerstoneWADOImageLoader.wadors.metaDataManager.add(
+        wadorsImageId,
+        wadoRSMetadata
+      );
+    }
+  }
+
   return sopInstance;
 }
 

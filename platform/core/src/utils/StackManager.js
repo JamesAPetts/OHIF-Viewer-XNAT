@@ -1,10 +1,10 @@
 import OHIFError from '../classes/OHIFError.js';
 import getImageId from './getImageId';
 import uidSpecificMetadataProvider from '../classes/UIDSpecificMetadataProvider.js';
+import { isImage } from './isImage.js';
 
 let stackMap = {};
 let configuration = {};
-let stackManagerMetaDataProvider;
 const stackUpdatedCallbacks = [];
 
 /**
@@ -16,13 +16,7 @@ const stackUpdatedCallbacks = [];
  * @param  {Object} displaySet            The set of images to make the stack from
  * @return {Array}                        Array with image IDs
  */
-function createAndAddStack(
-  stackMap,
-  study,
-  displaySet,
-  stackUpdatedCallbacks,
-  metadataProvider
-) {
+function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
   const images = displaySet.images;
   if (!images) {
     return;
@@ -43,14 +37,14 @@ function createAndAddStack(
     };
 
     const NumberOfFrames = image.NumberOfFrames;
+
     if (NumberOfFrames > 1) {
       for (let i = 0; i < NumberOfFrames; i++) {
         metaData.frameNumber = i;
         imageId = getImageId(image, i);
         imageIds.push(imageId);
-        if (metadataProvider) {
-          metadataProvider.addMetadata(imageId, metaData);
-        }
+
+        debugger;
 
         const {
           StudyInstanceUID,
@@ -68,13 +62,8 @@ function createAndAddStack(
       metaData.frameNumber = 1;
       imageId = getImageId(image);
       imageIds.push(imageId);
-      if (metadataProvider) {
-        metadataProvider.addMetadata(imageId, metaData);
-      }
 
       const naturalizedInstance = instance.getData().getNaturalizedInstance();
-
-      debugger;
 
       const {
         StudyInstanceUID,
@@ -98,6 +87,8 @@ function createAndAddStack(
     isClip: displaySet.isClip,
   };
 
+  console.log(imageIds);
+
   stackMap[displaySet.displaySetInstanceUid] = stack;
 
   return stack;
@@ -113,9 +104,6 @@ configuration = {
  * come in, you can register a callback with addStackUpdatedCallback.
  */
 const StackManager = {
-  setMetadataProvider(provider) {
-    stackManagerMetaDataProvider = provider;
-  },
   /**
    * Removes all current stacks
    */
@@ -133,8 +121,7 @@ const StackManager = {
       stackMap,
       study,
       displaySet,
-      stackUpdatedCallbacks,
-      stackManagerMetaDataProvider
+      stackUpdatedCallbacks
     );
   },
   /**
