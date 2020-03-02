@@ -1,9 +1,4 @@
-import {
-  InstanceMetadata,
-  SeriesMetadata,
-  StudyMetadata,
-  StudySummary,
-} from './metadata';
+import { InstanceMetadata, SeriesMetadata, StudyMetadata } from './metadata';
 
 import CommandsManager from './CommandsManager.js';
 import { DICOMFileLoadingListener } from './StudyLoadingListener';
@@ -31,7 +26,6 @@ export {
   StudyMetadata,
   SeriesMetadata,
   InstanceMetadata,
-  StudySummary,
   TypeSafeCollection,
   OHIFError,
   StudyMetadataSource,
@@ -50,7 +44,6 @@ const classes = {
   StudyMetadata,
   SeriesMetadata,
   InstanceMetadata,
-  StudySummary,
   TypeSafeCollection,
   OHIFError,
   StudyMetadataSource,

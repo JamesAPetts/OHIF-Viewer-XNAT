@@ -33,7 +33,6 @@ function processMultiframe(instance) {
 
 function processSingleframe(instances) {
   const firstImage = instances[0].getData();
-
   const firstImageRows = firstImage.Rows;
   const firstImageColumns = firstImage.Columns;
   const firstImageSamplesPerPixel = firstImage.SamplesPerPixel;

@@ -13,7 +13,7 @@ import { ProtocolStore } from './protocolStore/classes';
 /**
  * Import Constants
  */
-const { StudyMetadata, InstanceMetadata, StudySummary } = metadata;
+const { StudyMetadata, InstanceMetadata } = metadata;
 
 // Useful constants
 const ABSTRACT_PRIOR_VALUE = 'abstractPriorValue';
@@ -298,10 +298,7 @@ export default class ProtocolEngine {
         }
 
         // Invalid data
-        if (
-          !(priorStudy instanceof StudyMetadata) &&
-          !(priorStudy instanceof StudySummary)
-        ) {
+        if (!priorStudy instanceof StudyMetadata) {
           return;
         }
 

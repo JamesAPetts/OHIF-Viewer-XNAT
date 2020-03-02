@@ -136,7 +136,6 @@ async function makeSOPInstance(server, study, instance) {
     StudyInstanceUID,
     SeriesInstanceUID,
     SOPInstanceUID
-    // TODO -> Shouldn't this have frame? Doesn't on master.
   );
 
   // TODO -> eventually replace this whole thing if possible.
