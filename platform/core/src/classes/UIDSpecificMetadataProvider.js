@@ -330,10 +330,6 @@ class UIDSpecificMetadataProvider {
       case WADO_IMAGE_LOADER_TAGS.VOI_LUT_MODULE:
         const { WindowCenter, WindowWidth } = instance;
 
-        if (instance.Modality === 'PT') {
-          debugger;
-        }
-
         const windowCenter = Array.isArray(WindowCenter)
           ? WindowCenter
           : [WindowCenter];
@@ -351,7 +347,7 @@ class UIDSpecificMetadataProvider {
         metadata = {
           rescaleIntercept: instance.RescaleIntercept,
           rescaleSlope: instance.RescaleSlope,
-          rescaleSlope: instance.RescaleType,
+          rescaleType: instance.RescaleType,
         };
         break;
       case WADO_IMAGE_LOADER_TAGS.SOP_COMMON_MODULE:

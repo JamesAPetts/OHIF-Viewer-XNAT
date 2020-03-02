@@ -205,7 +205,15 @@ class OHIFVTKViewport extends Component {
     }
 
     const { vtkImageData, imageMetaData0 } = imageDataObject;
-    const { WindowWidth, WindowCenter, Modality } = imageMetaData0;
+    // TODO -> Should update react-vtkjs-viewport and react-cornerstone-viewports
+    // internals to use naturalized DICOM JSON names.
+    const {
+      windowWidth: WindowWidth,
+      windowCenter: WindowCenter,
+      modality: Modality,
+    } = imageMetaData0;
+
+    debugger;
 
     const { lower, upper } = _getRangeFromWindowLevels(
       WindowWidth,
@@ -409,15 +417,15 @@ class OHIFVTKViewport extends Component {
  * @returns { lower, upper } - range
  */
 function _getRangeFromWindowLevels(width, center, Modality = undefined) {
+  // For PET just set the range to 0-5 SUV
+  if (Modality === 'PT') {
+    return { lower: 0, upper: 5 };
+  }
+
   const levelsAreNotNumbers = isNaN(center) || isNaN(width);
 
   if (levelsAreNotNumbers) {
     return { lower: 0, upper: 512 };
-  }
-
-  // For PET just set the range to 0-5 SUV
-  if (Modality === 'PT') {
-    return { lower: 0, upper: 5 };
   }
 
   return {

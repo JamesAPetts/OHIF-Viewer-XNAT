@@ -42,8 +42,7 @@ export default function init({ servicesManager, configuration }) {
     OHIF.cornerstone.uidSpecificMetadataProvider;
 
   cornerstone.metaData.addProvider(
-    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider),
-    9999
+    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider)
   );
 
   // ~~

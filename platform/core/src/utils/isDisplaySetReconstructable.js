@@ -53,10 +53,6 @@ function processSingleframe(instances) {
       ImageOrientationPatient,
     } = instance;
 
-    if (ImageOrientationPatient === undefined) {
-      debugger;
-    }
-
     if (
       Rows !== firstImageRows ||
       Columns !== firstImageColumns ||
@@ -119,7 +115,6 @@ function processSingleframe(instances) {
 
 function _isSameOrientation(iop1, iop2) {
   if (iop1 === undefined || !iop2 === undefined) {
-    debugger;
     return;
   }
 

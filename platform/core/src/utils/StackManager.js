@@ -69,6 +69,13 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
         SOPInstanceUID,
       } = naturalizedInstance;
 
+      if (naturalizedInstance.Modality === 'CR') {
+        cornerstone.loadAndCacheImage(imageId).then(image => {
+          console.log(image);
+          debugger;
+        });
+      }
+
       uidSpecificMetadataProvider.addImageIdToUids(imageId, {
         StudyInstanceUID,
         SeriesInstanceUID,

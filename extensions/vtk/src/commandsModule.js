@@ -142,23 +142,23 @@ const commandsModule = ({ commandsManager }) => {
       });
     },
     enableLevelTool: () => {
-      function updateVOI(apis, WindowWidth, WindowCenter) {
+      function updateVOI(apis, windowWidth, windowCenter) {
         apis.forEach(api => {
-          api.updateVOI(WindowWidth, WindowCenter);
+          api.updateVOI(windowWidth, windowCenter);
         });
       }
 
       const throttledUpdateVOIs = throttle(updateVOI, 16, { trailing: true }); // ~ 60 fps
 
       const callbacks = {
-        setOnLevelsChanged: ({ WindowCenter, WindowWidth }) => {
+        setOnLevelsChanged: ({ windowCenter, windowWidth }) => {
           apis.forEach(api => {
             const renderWindow = api.genericRenderWindow.getRenderWindow();
 
             renderWindow.render();
           });
 
-          throttledUpdateVOIs(apis, WindowWidth, WindowCenter);
+          throttledUpdateVOIs(apis, windowWidth, windowCenter);
         },
       };
 

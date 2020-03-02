@@ -350,28 +350,28 @@ async function makeSOPInstance(server, study, instance) {
 
     let wadoRSMetadata;
 
-    if (sopInstance.Modality === 'PT') {
-      //debugger;
+    // if (sopInstance.Modality === 'PT') {
+    //debugger;
 
-      const metadata = getWadoRsInstanceMetaData(study, series, sopInstance);
+    const metadata = getWadoRsInstanceMetaData(study, series, sopInstance);
 
-      wadoRSMetadata = Object.assign({}, metadata);
+    wadoRSMetadata = Object.assign({}, metadata);
 
-      console.log(wadoRSMetadata['00281050']);
-      console.log(wadoRSMetadata['00281051']);
+    console.log(wadoRSMetadata['00281050']);
+    console.log(wadoRSMetadata['00281051']);
 
-      //debugger;
+    //debugger;
 
-      //debugger;
-    } else {
-      wadoRSMetadata = Object.assign({}, instance);
-    }
+    //debugger;
+    // } else {
+    //   wadoRSMetadata = Object.assign({}, instance);
+    // }
 
     // TODO -> PET doesn't render.
     // add RadiopharmaceuticalInfo => As updateMetadataManager did.
     // Add colors
 
-    const RadiopharmaceuticalInfo = wadoRSMetadata['00540016'];
+    //const RadiopharmaceuticalInfo = wadoRSMetadata['00540016'];
 
     if (sopInstance.NumberOfFrames) {
       for (let i = 0; i < sopInstance.NumberOfFrames; i++) {
