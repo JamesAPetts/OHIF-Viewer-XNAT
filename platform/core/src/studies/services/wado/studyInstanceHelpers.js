@@ -1,69 +1,7 @@
-import { api } from 'dicomweb-client';
 import DICOMWeb from '../../../DICOMWeb';
 import uidSpecificMetadataProvider from '../../../classes/UIDSpecificMetadataProvider';
 import getWADORSImageId from '../../../utils/getWADORSImageId';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
-
-const WADOProxy = {
-  convertURL: (url, server) => {
-    // TODO: Remove all WADOProxy stuff from this file
-    return url;
-  },
-};
-function parseFloatArray(obj) {
-  const result = [];
-
-  if (!obj) {
-    return result;
-  }
-
-  const objs = obj.split('\\');
-  for (let i = 0; i < objs.length; i++) {
-    result.push(parseFloat(objs[i]));
-  }
-
-  return result;
-}
-
-/**
- * Simple cache schema for retrieved color palettes.
- */
-const paletteColorCache = {
-  count: 0,
-  maxAge: 24 * 60 * 60 * 1000, // 24h cache?
-  entries: {},
-  isValidUID: function(PaletteColorLookupTableUID) {
-    return (
-      typeof PaletteColorLookupTableUID === 'string' &&
-      PaletteColorLookupTableUID.length > 0
-    );
-  },
-  get: function(PaletteColorLookupTableUID) {
-    let entry = null;
-    if (this.entries.hasOwnProperty(PaletteColorLookupTableUID)) {
-      entry = this.entries[PaletteColorLookupTableUID];
-      // check how the entry is...
-      if (Date.now() - entry.time > this.maxAge) {
-        // entry is too old... remove entry.
-        delete this.entries[PaletteColorLookupTableUID];
-        this.count--;
-        entry = null;
-      }
-    }
-    return entry;
-  },
-  add: function(entry) {
-    if (this.isValidUID(entry.uid)) {
-      let PaletteColorLookupTableUID = entry.uid;
-      if (this.entries.hasOwnProperty(PaletteColorLookupTableUID) !== true) {
-        this.count++; // increment cache entry count...
-      }
-      entry.time = Date.now();
-      this.entries[PaletteColorLookupTableUID] = entry;
-      // @TODO: Add logic to get rid of old entries and reduce memory usage...
-    }
-  },
-};
 
 /**
  * Create a plain JS object that describes a study (a study descriptor object)
@@ -147,33 +85,6 @@ function buildInstanceFrameWadoRsUri(
   frame = frame != null || 1;
 
   return `${baseWadoRsUri}/frames/${frame}`;
-}
-
-function getFrameIncrementPointer(element) {
-  const frameIncrementPointerNames = {
-    '00181065': 'FrameTimeVector',
-    '00181063': 'FrameTime',
-  };
-
-  if (!element || !element.Value || !element.Value.length) {
-    return;
-  }
-
-  debugger;
-
-  const value = element.Value[0];
-  return frameIncrementPointerNames[value];
-}
-
-function getRadiopharmaceuticalInfo(naturalizedInstance) {
-  const { RadiopharmaceuticalInformationSequence } = naturalizedInstance;
-
-  if (RadiopharmaceuticalInformationSequence) {
-    //debugger;
-    return Array.isArray(RadiopharmaceuticalInformationSequence)
-      ? RadiopharmaceuticalInformationSequence[0]
-      : RadiopharmaceuticalInformationSequence;
-  }
 }
 
 async function makeSOPInstance(server, study, instance) {
@@ -261,9 +172,7 @@ async function makeSOPInstance(server, study, instance) {
     ViewPosition: naturalizedInstance.ViewPosition,
     AcquisitionDateTime: naturalizedInstance.AcquisitionDateTime,
     NumberOfFrames: naturalizedInstance.NumberOfFrames,
-    //FrameIncrementPointer: getFrameIncrementPointer(instance['00280009']),
     FrameTime: naturalizedInstance.FrameTime,
-    //FrameTimeVector: parseFloatArray(naturalizedInstance.FrameTimeVector),
     SliceThickness: naturalizedInstance.SliceThickness,
     SpacingBetweenSlices: naturalizedInstance.SpacingBetweenSlices,
     LossyImageCompression: naturalizedInstance.LossyImageCompression,
@@ -273,49 +182,14 @@ async function makeSOPInstance(server, study, instance) {
       naturalizedInstance.LossyImageCompressionMethod,
     EchoNumber: naturalizedInstance.EchoNumber,
     ContrastBolusAgent: naturalizedInstance.ContrastBolusAgent,
-    //RadiopharmaceuticalInfo: getRadiopharmaceuticalInfo(naturalizedInstance),
     baseWadoRsUri: baseWadoRsUri,
-    wadouri: WADOProxy.convertURL(wadouri, server),
-    wadorsuri: WADOProxy.convertURL(wadorsuri, server),
+    wadouri,
+    wadorsuri,
     wadoRoot: server.wadoRoot,
     imageRendering: server.imageRendering,
     thumbnailRendering: server.thumbnailRendering,
     getNaturalizedInstance: () => naturalizedInstance,
   };
-
-  debugger;
-
-  // Get additional information if the instance uses "PALETTE COLOR" photometric interpretation
-  // if (sopInstance.PhotometricInterpretation === 'PALETTE COLOR') {
-  //   debugger;
-  //   const RedPaletteColorLookupTableDescriptor = parseFloatArray(
-  //     DICOMWeb.getString(instance['00281101'])
-  //   );
-  //   const GreenPaletteColorLookupTableDescriptor = parseFloatArray(
-  //     DICOMWeb.getString(instance['00281102'])
-  //   );
-  //   const BluePaletteColorLookupTableDescriptor = parseFloatArray(
-  //     DICOMWeb.getString(instance['00281103'])
-  //   );
-  //   const palettes = await getPaletteColors(
-  //     server,
-  //     instance,
-  //     RedPaletteColorLookupTableDescriptor
-  //   );
-
-  //   if (palettes) {
-  //     if (palettes.uid) {
-  //       sopInstance.PaletteColorLookupTableUID = palettes.uid;
-  //     }
-
-  //     sopInstance.RedPaletteColorLookupTableData = palettes.red;
-  //     sopInstance.GreenPaletteColorLookupTableData = palettes.green;
-  //     sopInstance.BluePaletteColorLookupTableData = palettes.blue;
-  //     sopInstance.RedPaletteColorLookupTableDescriptor = RedPaletteColorLookupTableDescriptor;
-  //     sopInstance.GreenPaletteColorLookupTableDescriptor = GreenPaletteColorLookupTableDescriptor;
-  //     sopInstance.BluePaletteColorLookupTableDescriptor = BluePaletteColorLookupTableDescriptor;
-  //   }
-  // }
 
   series.instances.push(sopInstance);
 
@@ -350,125 +224,6 @@ async function makeSOPInstance(server, study, instance) {
   }
 
   return sopInstance;
-}
-
-/**
- * Convert String to ArrayBuffer
- *
- * @param {String} str Input String
- * @return {ArrayBuffer} Output converted ArrayBuffer
- */
-function str2ab(str) {
-  const strLen = str.length;
-  const bytes = new Uint8Array(strLen);
-
-  for (let i = 0; i < strLen; i++) {
-    bytes[i] = str.charCodeAt(i);
-  }
-
-  return bytes.buffer;
-}
-
-function getPaletteColor(server, instance, tag, lutDescriptor) {
-  const numLutEntries = lutDescriptor[0];
-  const bits = lutDescriptor[2];
-
-  const readUInt16 = (byteArray, position) => {
-    return byteArray[position] + byteArray[position + 1] * 256;
-  };
-
-  const arrayBufferToPaletteColorLUT = arraybuffer => {
-    const byteArray = new Uint8Array(arraybuffer);
-    const lut = [];
-
-    if (bits === 16) {
-      for (let i = 0; i < numLutEntries; i++) {
-        lut[i] = readUInt16(byteArray, i * 2);
-      }
-    } else {
-      for (let i = 0; i < numLutEntries; i++) {
-        lut[i] = byteArray[i];
-      }
-    }
-
-    return lut;
-  };
-
-  if (instance[tag].BulkDataURI) {
-    let uri = WADOProxy.convertURL(instance[tag].BulkDataURI, server);
-
-    // TODO: Workaround for dcm4chee behind SSL-terminating proxy returning
-    // incorrect bulk data URIs
-    if (server.wadoRoot.indexOf('https') === 0 && !uri.includes('https')) {
-      uri = uri.replace('http', 'https');
-    }
-
-    const config = {
-      url: server.wadoRoot, //BulkDataURI is absolute, so this isn't used
-      headers: DICOMWeb.getAuthorizationHeader(server),
-    };
-    const dicomWeb = new api.DICOMwebClient(config);
-    const options = {
-      BulkDataURI: uri,
-    };
-
-    return dicomWeb
-      .retrieveBulkData(options)
-      .then(result => result[0])
-      .then(arrayBufferToPaletteColorLUT);
-  } else if (instance[tag].InlineBinary) {
-    const inlineBinaryData = atob(instance[tag].InlineBinary);
-    const arraybuf = str2ab(inlineBinaryData);
-
-    return arrayBufferToPaletteColorLUT(arraybuf);
-  }
-
-  throw new Error(
-    'Palette Color LUT was not provided as InlineBinary or BulkDataURI'
-  );
-}
-
-/**
- * Fetch palette colors for instances with "PALETTE COLOR" PhotometricInterpretation.
- *
- * @param server {Object} Current server;
- * @param instance {Object} The retrieved instance metadata;
- * @returns {String} The ReferenceSOPInstanceUID
- */
-async function getPaletteColors(server, instance, lutDescriptor) {
-  let PaletteColorLookupTableUID = DICOMWeb.getString(instance['00281199']);
-
-  return new Promise((resolve, reject) => {
-    let entry;
-    if (paletteColorCache.isValidUID(PaletteColorLookupTableUID)) {
-      entry = paletteColorCache.get(PaletteColorLookupTableUID);
-
-      if (entry) {
-        return resolve(entry);
-      }
-    }
-
-    // no entry in cache... Fetch remote data.
-    const r = getPaletteColor(server, instance, '00281201', lutDescriptor);
-    const g = getPaletteColor(server, instance, '00281202', lutDescriptor);
-    const b = getPaletteColor(server, instance, '00281203', lutDescriptor);
-
-    const promises = [r, g, b];
-
-    Promise.all(promises).then(args => {
-      entry = {
-        red: args[0],
-        green: args[1],
-        blue: args[2],
-      };
-
-      // when PaletteColorLookupTableUID is present, the entry can be cached...
-      entry.uid = PaletteColorLookupTableUID;
-      paletteColorCache.add(entry);
-
-      resolve(entry);
-    });
-  });
 }
 
 /**
