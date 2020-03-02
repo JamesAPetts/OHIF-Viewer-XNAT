@@ -213,8 +213,6 @@ class OHIFVTKViewport extends Component {
       modality: Modality,
     } = imageMetaData0;
 
-    debugger;
-
     const { lower, upper } = _getRangeFromWindowLevels(
       WindowWidth,
       WindowCenter,

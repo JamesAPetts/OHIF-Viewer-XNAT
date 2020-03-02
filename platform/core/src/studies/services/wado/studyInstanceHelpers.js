@@ -175,32 +175,6 @@ function getRadiopharmaceuticalInfo(naturalizedInstance) {
   }
 }
 
-/**
- * Parses the SourceImageSequence, if it exists, in order
- * to return a ReferenceSOPInstanceUID. The ReferenceSOPInstanceUID
- * is used to refer to this image in any accompanying DICOM-SR documents.
- *
- * This appears unused in the app, so getting rid of it, new code can query the JSON data.
- *
- * @param instance
- * @returns {String} The ReferenceSOPInstanceUID
- */
-// function getSourceImageInstanceUid(instance) {
-//   // TODO= Parse the whole Source Image Sequence
-//   // This is a really poor workaround for now.
-//   // Later we should probably parse the whole sequence.
-//   var SourceImageSequence = instance['00082112'];
-//   if (
-//     SourceImageSequence &&
-//     SourceImageSequence.Value &&
-//     SourceImageSequence.Value.length &&
-//     SourceImageSequence.Value[0]['00081155'].Value
-//   ) {
-//     debugger;
-//     return SourceImageSequence.Value[0]['00081155'].Value[0];
-//   }
-// }
-
 async function makeSOPInstance(server, study, instance) {
   const naturalizedInstance = uidSpecificMetadataProvider.addInstance(
     instance,
