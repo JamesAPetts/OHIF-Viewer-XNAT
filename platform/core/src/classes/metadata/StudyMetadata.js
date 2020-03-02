@@ -137,8 +137,8 @@ export class StudyMetadata extends Metadata {
     series.forEachInstance(instance => {
       // All imaging modalities must have a valid value for SOPClassUID (x00080016) or Rows (x00280010)
       if (
-        !isImage(instance.getRawValue('x00080016')) &&
-        !instance.getRawValue('x00280010')
+        !isImage(instance.getTagValue('SOPClassUID')) &&
+        !instance.getTagValue('Rows')
       ) {
         return;
       }
@@ -153,9 +153,9 @@ export class StudyMetadata extends Metadata {
           isClip: true,
           SeriesInstanceUID: series.getSeriesInstanceUID(),
           StudyInstanceUID: study.getStudyInstanceUID(), // Include the study instance Uid for drag/drop purposes
-          numImageFrames: instance.getRawValue('x00280008'), // Override the default value of instances.length
-          InstanceNumber: instance.getRawValue('x00200013'), // Include the instance number
-          acquisitionDatetime: instance.getRawValue('x0008002a'), // Include the acquisition datetime
+          numImageFrames: instance.getTagValue('NumberOfFrames'), // Override the default value of instances.length
+          InstanceNumber: instance.getTagValue('InstanceNumber'), // Include the instance number
+          AcquisitionDatetime: instance.getTagValue('AcquisitionDateTime'), // Include the acquisition datetime
         });
         displaySets.push(displaySet);
       } else if (isSingleImageModality(instance.Modality)) {
@@ -164,8 +164,8 @@ export class StudyMetadata extends Metadata {
           sopClassUids,
           StudyInstanceUID: study.getStudyInstanceUID(), // Include the study instance Uid
           SeriesInstanceUID: series.getSeriesInstanceUID(),
-          InstanceNumber: instance.getRawValue('x00200013'), // Include the instance number
-          acquisitionDatetime: instance.getRawValue('x0008002a'), // Include the acquisition datetime
+          InstanceNumber: instance.getTagValue('InstanceNumber'), // Include the instance number
+          AcquisitionDatetime: instance.getTagValue('AcquisitionDateTime'), // Include the acquisition datetime
         });
         displaySets.push(displaySet);
       } else {
@@ -581,8 +581,7 @@ export class StudyMetadata extends Metadata {
 const dwc = api.DICOMwebClient;
 
 const isMultiFrame = instance => {
-  // NumberOfFrames (0028,0008)
-  return instance.getRawValue('x00280008') > 1;
+  return instance.getTagValue('NumberOfFrames') > 1;
 };
 
 const makeDisplaySet = (series, instances) => {
@@ -596,11 +595,11 @@ const makeDisplaySet = (series, instances) => {
     SeriesDate: seriesData.SeriesDate,
     SeriesTime: seriesData.SeriesTime,
     SeriesInstanceUID: series.getSeriesInstanceUID(),
-    SeriesNumber: instance.getRawValue('x00200011'),
-    SeriesDescription: instance.getRawValue('x0008103e'),
+    SeriesNumber: instance.getTagValue('SeriesNumber'),
+    SeriesDescription: instance.getTagValue('SeriesDescription'),
     numImageFrames: instances.length,
-    frameRate: instance.getRawValue('x00181063'),
-    Modality: instance.getRawValue('x00080060'),
+    frameRate: instance.getTagValue('FrameTime'),
+    Modality: instance.getTagValue('Modality'),
     isMultiFrame: isMultiFrame(instance),
   });
 
@@ -610,8 +609,8 @@ const makeDisplaySet = (series, instances) => {
     imageSet.sortBy((a, b) => {
       // Sort by InstanceNumber (0020,0013)
       return (
-        (parseInt(a.getRawValue('x00200013', 0)) || 0) -
-        (parseInt(b.getRawValue('x00200013', 0)) || 0)
+        (parseInt(a.getTagValue('InstanceNumber', 0)) || 0) -
+        (parseInt(b.getTagValue('InstanceNumber', 0)) || 0)
       );
     });
   }
@@ -619,7 +618,7 @@ const makeDisplaySet = (series, instances) => {
   // Include the first image instance number (after sorted)
   imageSet.setAttribute(
     'InstanceNumber',
-    imageSet.getImage(0).getRawValue('x00200013')
+    imageSet.getImage(0).getTagValue('InstanceNumber')
   );
 
   const isReconstructable = isDisplaySetReconstructable(series, instances);
@@ -642,7 +641,7 @@ const isSingleImageModality = Modality => {
 function getSopClassUids(series) {
   const uniqueSopClassUidsInSeries = new Set();
   series.forEachInstance(instance => {
-    const instanceSopClassUid = instance.getRawValue('x00080016');
+    const instanceSopClassUid = instance.getTagValue('SOPClassUID');
 
     uniqueSopClassUidsInSeries.add(instanceSopClassUid);
   });
@@ -700,7 +699,7 @@ function _getDisplaySetFromSopClassModule(
   );
   if (displaySet && !displaySet.Modality) {
     const instance = series.getFirstInstance();
-    displaySet.Modality = instance.getRawValue('x00080060');
+    displaySet.Modality = instance.getTagValue('Modality');
   }
   return displaySet;
 }

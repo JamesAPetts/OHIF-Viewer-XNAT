@@ -382,11 +382,9 @@ export default class ProtocolEngine {
           // This tests to make sure there is actually image data in this instance
           // TODO: Change this when we add PDF and MPEG support
           // See https://ohiforg.atlassian.net/browse/LT-227
-          // SOPClassUID = x00080016
-          // Rows = x00280010
           if (
-            !isImage(instance.getTagValue('x00080016')) &&
-            !instance.getTagValue('x00280010')
+            !isImage(instance.getTagValue('SOPClassUID')) &&
+            !instance.getTagValue('Rows')
           ) {
             return;
           }
@@ -442,10 +440,10 @@ export default class ProtocolEngine {
             sortingInfo: {
               score: totalMatchScore,
               study:
-                instance.getTagValue('x00080020') +
-                instance.getTagValue('x00080030'), // StudyDate = x00080020 StudyTime = x00080030
-              series: parseInt(instance.getTagValue('x00200011')), // TODO: change for seriesDateTime SeriesNumber = x00200011
-              instance: parseInt(instance.getTagValue('x00200013')), // TODO: change for acquisitionTime InstanceNumber = x00200013
+                instance.getTagValue('StudyDate') +
+                instance.getTagValue('StudyTime'),
+              series: parseInt(instance.getTagValue('SeriesNumber')), // TODO: change for seriesDateTime
+              instance: parseInt(instance.getTagValue('InstanceNumber')), // TODO: change for acquisitionTime
             },
           };
 

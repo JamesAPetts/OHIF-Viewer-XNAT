@@ -128,13 +128,6 @@ export class InstanceMetadata extends Metadata {
   }
 
   /**
-   * @deprecated Please use getTagValue instead.
-   */
-  getRawValue(tagOrProperty, defaultValue) {
-    return this.getTagValue(tagOrProperty, defaultValue);
-  }
-
-  /**
    * This function should be overriden by specialized classes in order to allow client libraries or viewers to take advantage of the Study Metadata API.
    */
   getTagValue(tagOrProperty, defaultValue) {

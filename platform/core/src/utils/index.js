@@ -1,4 +1,3 @@
-import { DICOMTagDescriptions } from './DICOMTagDescriptions';
 import ObjectPath from './objectPath';
 import StackManager from './StackManager.js';
 import absoluteUrl from './absoluteUrl';
@@ -23,7 +22,6 @@ const utils = {
   b64toBlob,
   StackManager,
   studyMetadataManager,
-  DICOMTagDescriptions,
   DicomLoaderService,
   urlUtil,
   makeCancelable,
@@ -40,7 +38,6 @@ export {
   b64toBlob,
   StackManager,
   studyMetadataManager,
-  DICOMTagDescriptions,
   DicomLoaderService,
   urlUtil,
   makeCancelable,
