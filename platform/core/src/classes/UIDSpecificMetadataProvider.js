@@ -5,6 +5,46 @@ import { api } from 'dicomweb-client';
 import DICOMWeb from '../DICOMWeb';
 import { getFallbackTagFromInstance } from '../utils/UIDSpecificMetadataProviderFallbackTags';
 
+/**
+ * Simple cache schema for retrieved color palettes.
+ */
+const paletteColorCache = {
+  count: 0,
+  maxAge: 24 * 60 * 60 * 1000, // 24h cache?
+  entries: {},
+  isValidUID: function(PaletteColorLookupTableUID) {
+    return (
+      typeof PaletteColorLookupTableUID === 'string' &&
+      PaletteColorLookupTableUID.length > 0
+    );
+  },
+  get: function(PaletteColorLookupTableUID) {
+    let entry = null;
+    if (this.entries.hasOwnProperty(PaletteColorLookupTableUID)) {
+      entry = this.entries[PaletteColorLookupTableUID];
+      // check how the entry is...
+      if (Date.now() - entry.time > this.maxAge) {
+        // entry is too old... remove entry.
+        delete this.entries[PaletteColorLookupTableUID];
+        this.count--;
+        entry = null;
+      }
+    }
+    return entry;
+  },
+  add: function(entry) {
+    if (this.isValidUID(entry.uid)) {
+      let PaletteColorLookupTableUID = entry.uid;
+      if (this.entries.hasOwnProperty(PaletteColorLookupTableUID) !== true) {
+        this.count++; // increment cache entry count...
+      }
+      entry.time = Date.now();
+      this.entries[PaletteColorLookupTableUID] = entry;
+      // @TODO: Add logic to get rid of old entries and reduce memory usage...
+    }
+  },
+};
+
 const WADOProxy = {
   convertURL: (url, server) => {
     // TODO: Remove all WADOProxy stuff from this file
@@ -29,7 +69,7 @@ class UIDSpecificMetadataProvider {
     });
   }
 
-  addInstance(dicomJSONDatasetOrP10ArrayBuffer, options = {}) {
+  async addInstance(dicomJSONDatasetOrP10ArrayBuffer, options = {}) {
     let dicomJSONDataset;
 
     // If Arraybuffer, parse to DICOMJSON before naturalizing.
@@ -58,7 +98,7 @@ class UIDSpecificMetadataProvider {
     Object.assign(instance, naturalizedDataset);
 
     if (options.server) {
-      this._checkBulkDataAndInlineBinaries(instance, options.server);
+      await this._checkBulkDataAndInlineBinaries(instance, options.server);
     }
 
     return instance;
@@ -106,38 +146,180 @@ class UIDSpecificMetadataProvider {
     return instance;
   }
 
-  _checkBulkDataAndInlineBinaries(instance, server) {
-    this._checkBulkDataAndInlineBinariesForOverlayData(instance, server);
+  async _checkBulkDataAndInlineBinaries(instance, server) {
+    await this._checkOverlayData(instance, server);
+
+    if (instance.PhotometricInterpretation === 'PALETTE COLOR') {
+      await this._checkPaletteColorLookupTableData(instance, server);
+    }
   }
 
-  async _checkBulkDataAndInlineBinariesForOverlayData(instance, server) {
+  async _checkPaletteColorLookupTableData(instance, server) {
+    const {
+      PaletteColorLookupTableUID,
+      RedPaletteColorLookupTableDescriptor,
+      GreenPaletteColorLookupTableDescriptor,
+      BluePaletteColorLookupTableDescriptor,
+      RedPaletteColorLookupTableData,
+      GreenPaletteColorLookupTableData,
+      BluePaletteColorLookupTableData,
+    } = instance;
+
+    return new Promise((resolve, reject) => {
+      let entry;
+      if (paletteColorCache.isValidUID(PaletteColorLookupTableUID)) {
+        entry = paletteColorCache.get(PaletteColorLookupTableUID);
+
+        if (entry) {
+          return resolve(entry);
+        }
+      }
+
+      // no entry in cache... Fetch remote data.
+      const promises = [
+        this.getPaletteColor(
+          server,
+          RedPaletteColorLookupTableData,
+          RedPaletteColorLookupTableDescriptor
+        ),
+        this.getPaletteColor(
+          server,
+          GreenPaletteColorLookupTableData,
+          GreenPaletteColorLookupTableDescriptor
+        ),
+        this.getPaletteColor(
+          server,
+          BluePaletteColorLookupTableData,
+          BluePaletteColorLookupTableDescriptor
+        ),
+      ];
+
+      Promise.all(promises).then(
+        ([
+          RedPaletteColorLookupTableData,
+          GreenPaletteColorLookupTableData,
+          BluePaletteColorLookupTableData,
+        ]) => {
+          // when PaletteColorLookupTableUID is present, the entry can be cached...
+          paletteColorCache.add({
+            RedPaletteColorLookupTableData,
+            GreenPaletteColorLookupTableData,
+            BluePaletteColorLookupTableData,
+            PaletteColorLookupTableUID,
+          });
+
+          instance.RedPaletteColorLookupTableData = RedPaletteColorLookupTableData;
+          instance.GreenPaletteColorLookupTableData = GreenPaletteColorLookupTableData;
+          instance.BluePaletteColorLookupTableData = BluePaletteColorLookupTableData;
+
+          resolve();
+        }
+      );
+    });
+  }
+
+  getPaletteColor(server, paletteColorLookupTableData, lutDescriptor) {
+    const numLutEntries = lutDescriptor[0];
+    const bits = lutDescriptor[2];
+
+    const readUInt16 = (byteArray, position) => {
+      return byteArray[position] + byteArray[position + 1] * 256;
+    };
+
+    const arrayBufferToPaletteColorLUT = arraybuffer => {
+      const byteArray = new Uint8Array(arraybuffer);
+      const lut = [];
+
+      if (bits === 16) {
+        for (let i = 0; i < numLutEntries; i++) {
+          lut[i] = readUInt16(byteArray, i * 2);
+        }
+      } else {
+        for (let i = 0; i < numLutEntries; i++) {
+          lut[i] = byteArray[i];
+        }
+      }
+
+      return lut;
+    };
+
+    if (paletteColorLookupTableData.BulkDataURI) {
+      let uri = WADOProxy.convertURL(
+        paletteColorLookupTableData.BulkDataURI,
+        server
+      );
+
+      // TODO: Workaround for dcm4chee behind SSL-terminating proxy returning
+      // incorrect bulk data URIs
+      if (server.wadoRoot.indexOf('https') === 0 && !uri.includes('https')) {
+        uri = uri.replace('http', 'https');
+      }
+
+      const config = {
+        url: server.wadoRoot, //BulkDataURI is absolute, so this isn't used
+        headers: DICOMWeb.getAuthorizationHeader(server),
+      };
+      const dicomWeb = new api.DICOMwebClient(config);
+      const options = {
+        BulkDataURI: uri,
+      };
+
+      return dicomWeb
+        .retrieveBulkData(options)
+        .then(result => result[0])
+        .then(arrayBufferToPaletteColorLUT);
+    } else if (paletteColorLookupTableData.InlineBinary) {
+      const inlineBinaryData = atob(paletteColorLookupTableData.InlineBinary);
+      const arraybuffer = _str2ab(inlineBinaryData);
+
+      return new Promise(resolve => {
+        resolve(arrayBufferToPaletteColorLUT(arraybuffer));
+      });
+    }
+
+    throw new Error(
+      'Palette Color LUT was not provided as InlineBinary or BulkDataURI'
+    );
+  }
+
+  async _checkOverlayData(instance, server) {
     const OverlayDataPromises = [];
     const OverlayDataTags = [];
 
-    for (let overlayGroup = 0x00; overlayGroup <= 0x1e; overlayGroup += 0x02) {
-      let groupStr = `60${overlayGroup.toString(16)}`;
+    return new Promise((resolve, reject) => {
+      for (
+        let overlayGroup = 0x00;
+        overlayGroup <= 0x1e;
+        overlayGroup += 0x02
+      ) {
+        let groupStr = `60${overlayGroup.toString(16)}`;
 
-      if (groupStr.length === 3) {
-        groupStr = `600${overlayGroup.toString(16)}`;
-      }
-
-      const OverlayDataTag = `${groupStr}3000`;
-
-      if (instance[OverlayDataTag] && instance[OverlayDataTag].BulkDataURI) {
-        OverlayDataPromises.push(
-          this._getOverlayData(instance[OverlayDataTag], server)
-        );
-        OverlayDataTags.push(OverlayDataTag);
-      }
-    }
-
-    if (OverlayDataPromises.length) {
-      Promise.all(OverlayDataPromises).then(results => {
-        for (let i = 0; i < results.length; i++) {
-          instance[OverlayDataTags[i]] = results[i];
+        if (groupStr.length === 3) {
+          groupStr = `600${overlayGroup.toString(16)}`;
         }
-      });
-    }
+
+        const OverlayDataTag = `${groupStr}3000`;
+
+        if (instance[OverlayDataTag] && instance[OverlayDataTag].BulkDataURI) {
+          OverlayDataPromises.push(
+            this._getOverlayData(instance[OverlayDataTag], server)
+          );
+          OverlayDataTags.push(OverlayDataTag);
+        }
+      }
+
+      if (OverlayDataPromises.length) {
+        Promise.all(OverlayDataPromises).then(results => {
+          for (let i = 0; i < results.length; i++) {
+            instance[OverlayDataTags[i]] = results[i];
+          }
+
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
   }
 
   async _getOverlayData(tag, server) {
@@ -326,6 +508,7 @@ class UIDSpecificMetadataProvider {
           bluePaletteColorLookupTableData:
             instance.BluePaletteColorLookupTableData,
         };
+
         break;
       case WADO_IMAGE_LOADER_TAGS.VOI_LUT_MODULE:
         const { WindowCenter, WindowWidth } = instance;
@@ -559,4 +742,21 @@ function _unpackOverlay(arrayBuffer) {
   }
 
   return byteArray;
+}
+
+/**
+ * Convert String to ArrayBuffer
+ *
+ * @param {String} str Input String
+ * @return {ArrayBuffer} Output converted ArrayBuffer
+ */
+function _str2ab(str) {
+  const strLen = str.length;
+  const bytes = new Uint8Array(strLen);
+
+  for (let i = 0; i < strLen; i++) {
+    bytes[i] = str.charCodeAt(i);
+  }
+
+  return bytes.buffer;
 }

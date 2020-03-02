@@ -3,7 +3,6 @@ import DICOMWeb from '../../../DICOMWeb';
 import uidSpecificMetadataProvider from '../../../classes/UIDSpecificMetadataProvider';
 import getWADORSImageId from '../../../utils/getWADORSImageId';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
-import { getWadoRsInstanceMetaData } from './updateMetadataManager';
 
 const WADOProxy = {
   convertURL: (url, server) => {
@@ -160,6 +159,8 @@ function getFrameIncrementPointer(element) {
     return;
   }
 
+  debugger;
+
   const value = element.Value[0];
   return frameIncrementPointerNames[value];
 }
@@ -176,7 +177,7 @@ function getRadiopharmaceuticalInfo(naturalizedInstance) {
 }
 
 async function makeSOPInstance(server, study, instance) {
-  const naturalizedInstance = uidSpecificMetadataProvider.addInstance(
+  const naturalizedInstance = await uidSpecificMetadataProvider.addInstance(
     instance,
     {
       server,
@@ -260,9 +261,9 @@ async function makeSOPInstance(server, study, instance) {
     ViewPosition: naturalizedInstance.ViewPosition,
     AcquisitionDateTime: naturalizedInstance.AcquisitionDateTime,
     NumberOfFrames: naturalizedInstance.NumberOfFrames,
-    FrameIncrementPointer: getFrameIncrementPointer(instance['00280009']),
+    //FrameIncrementPointer: getFrameIncrementPointer(instance['00280009']),
     FrameTime: naturalizedInstance.FrameTime,
-    FrameTimeVector: parseFloatArray(naturalizedInstance.FrameTimeVector),
+    //FrameTimeVector: parseFloatArray(naturalizedInstance.FrameTimeVector),
     SliceThickness: naturalizedInstance.SliceThickness,
     SpacingBetweenSlices: naturalizedInstance.SpacingBetweenSlices,
     LossyImageCompression: naturalizedInstance.LossyImageCompression,
@@ -272,7 +273,7 @@ async function makeSOPInstance(server, study, instance) {
       naturalizedInstance.LossyImageCompressionMethod,
     EchoNumber: naturalizedInstance.EchoNumber,
     ContrastBolusAgent: naturalizedInstance.ContrastBolusAgent,
-    RadiopharmaceuticalInfo: getRadiopharmaceuticalInfo(naturalizedInstance),
+    //RadiopharmaceuticalInfo: getRadiopharmaceuticalInfo(naturalizedInstance),
     baseWadoRsUri: baseWadoRsUri,
     wadouri: WADOProxy.convertURL(wadouri, server),
     wadorsuri: WADOProxy.convertURL(wadorsuri, server),
@@ -282,36 +283,39 @@ async function makeSOPInstance(server, study, instance) {
     getNaturalizedInstance: () => naturalizedInstance,
   };
 
+  debugger;
+
   // Get additional information if the instance uses "PALETTE COLOR" photometric interpretation
-  if (sopInstance.PhotometricInterpretation === 'PALETTE COLOR') {
-    const RedPaletteColorLookupTableDescriptor = parseFloatArray(
-      DICOMWeb.getString(instance['00281101'])
-    );
-    const GreenPaletteColorLookupTableDescriptor = parseFloatArray(
-      DICOMWeb.getString(instance['00281102'])
-    );
-    const BluePaletteColorLookupTableDescriptor = parseFloatArray(
-      DICOMWeb.getString(instance['00281103'])
-    );
-    const palettes = await getPaletteColors(
-      server,
-      instance,
-      RedPaletteColorLookupTableDescriptor
-    );
+  // if (sopInstance.PhotometricInterpretation === 'PALETTE COLOR') {
+  //   debugger;
+  //   const RedPaletteColorLookupTableDescriptor = parseFloatArray(
+  //     DICOMWeb.getString(instance['00281101'])
+  //   );
+  //   const GreenPaletteColorLookupTableDescriptor = parseFloatArray(
+  //     DICOMWeb.getString(instance['00281102'])
+  //   );
+  //   const BluePaletteColorLookupTableDescriptor = parseFloatArray(
+  //     DICOMWeb.getString(instance['00281103'])
+  //   );
+  //   const palettes = await getPaletteColors(
+  //     server,
+  //     instance,
+  //     RedPaletteColorLookupTableDescriptor
+  //   );
 
-    if (palettes) {
-      if (palettes.uid) {
-        sopInstance.PaletteColorLookupTableUID = palettes.uid;
-      }
+  //   if (palettes) {
+  //     if (palettes.uid) {
+  //       sopInstance.PaletteColorLookupTableUID = palettes.uid;
+  //     }
 
-      sopInstance.RedPaletteColorLookupTableData = palettes.red;
-      sopInstance.GreenPaletteColorLookupTableData = palettes.green;
-      sopInstance.BluePaletteColorLookupTableData = palettes.blue;
-      sopInstance.RedPaletteColorLookupTableDescriptor = RedPaletteColorLookupTableDescriptor;
-      sopInstance.GreenPaletteColorLookupTableDescriptor = GreenPaletteColorLookupTableDescriptor;
-      sopInstance.BluePaletteColorLookupTableDescriptor = BluePaletteColorLookupTableDescriptor;
-    }
-  }
+  //     sopInstance.RedPaletteColorLookupTableData = palettes.red;
+  //     sopInstance.GreenPaletteColorLookupTableData = palettes.green;
+  //     sopInstance.BluePaletteColorLookupTableData = palettes.blue;
+  //     sopInstance.RedPaletteColorLookupTableDescriptor = RedPaletteColorLookupTableDescriptor;
+  //     sopInstance.GreenPaletteColorLookupTableDescriptor = GreenPaletteColorLookupTableDescriptor;
+  //     sopInstance.BluePaletteColorLookupTableDescriptor = BluePaletteColorLookupTableDescriptor;
+  //   }
+  // }
 
   series.instances.push(sopInstance);
 
@@ -320,32 +324,11 @@ async function makeSOPInstance(server, study, instance) {
     sopInstance.imageRendering === 'wadors'
   ) {
     // If using WADO-RS for either images or thumbnails,
-    // Need to add this to cornerstoneWADOImageLoader's provider.
+    // Need to add this to cornerstoneWADOImageLoader's provider
+    // (it won't be hit on cornerstone.metaData.get, but cornerstoneWADOImageLoader
+    // will cry if you don't add data to cornerstoneWADOImageLoader.wadors.metaDataManager).
 
-    let wadoRSMetadata;
-
-    // if (sopInstance.Modality === 'PT') {
-    //debugger;
-
-    const metadata = getWadoRsInstanceMetaData(study, series, sopInstance);
-
-    wadoRSMetadata = Object.assign({}, metadata);
-
-    console.log(wadoRSMetadata['00281050']);
-    console.log(wadoRSMetadata['00281051']);
-
-    //debugger;
-
-    //debugger;
-    // } else {
-    //   wadoRSMetadata = Object.assign({}, instance);
-    // }
-
-    // TODO -> PET doesn't render.
-    // add RadiopharmaceuticalInfo => As updateMetadataManager did.
-    // Add colors
-
-    //const RadiopharmaceuticalInfo = wadoRSMetadata['00540016'];
+    const wadoRSMetadata = Object.assign(instance);
 
     if (sopInstance.NumberOfFrames) {
       for (let i = 0; i < sopInstance.NumberOfFrames; i++) {
