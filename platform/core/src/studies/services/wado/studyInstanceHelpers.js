@@ -348,16 +348,24 @@ async function makeSOPInstance(server, study, instance) {
     // If using WADO-RS for either images or thumbnails,
     // Need to add this to cornerstoneWADOImageLoader's provider.
 
+    let wadoRSMetadata;
+
     if (sopInstance.Modality === 'PT') {
       //debugger;
 
       const metadata = getWadoRsInstanceMetaData(study, series, sopInstance);
 
-      console.log(wadorsImageId);
-      //debugger;
-    }
+      wadoRSMetadata = Object.assign({}, metadata);
 
-    const wadoRSMetadata = Object.assign({}, instance);
+      console.log(wadoRSMetadata['00281050']);
+      console.log(wadoRSMetadata['00281051']);
+
+      //debugger;
+
+      //debugger;
+    } else {
+      wadoRSMetadata = Object.assign({}, instance);
+    }
 
     // TODO -> PET doesn't render.
     // add RadiopharmaceuticalInfo => As updateMetadataManager did.
@@ -366,13 +374,8 @@ async function makeSOPInstance(server, study, instance) {
     const RadiopharmaceuticalInfo = wadoRSMetadata['00540016'];
 
     if (sopInstance.NumberOfFrames) {
-      debugger;
       for (let i = 0; i < sopInstance.NumberOfFrames; i++) {
         const wadorsImageId = getWADORSImageId(sopInstance, i);
-
-        debugger;
-
-        console.log(wadorsImageId);
 
         cornerstoneWADOImageLoader.wadors.metaDataManager.add(
           wadorsImageId,

@@ -44,8 +44,6 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
         imageId = getImageId(image, i);
         imageIds.push(imageId);
 
-        debugger;
-
         const {
           StudyInstanceUID,
           SeriesInstanceUID,

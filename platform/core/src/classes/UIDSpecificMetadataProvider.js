@@ -328,10 +328,24 @@ class UIDSpecificMetadataProvider {
         };
         break;
       case WADO_IMAGE_LOADER_TAGS.VOI_LUT_MODULE:
+        const { WindowCenter, WindowWidth } = instance;
+
+        if (instance.Modality === 'PT') {
+          debugger;
+        }
+
+        const windowCenter = Array.isArray(WindowCenter)
+          ? WindowCenter
+          : [WindowCenter];
+        const windowWidth = Array.isArray(WindowWidth)
+          ? WindowWidth
+          : [WindowWidth];
+
         metadata = {
-          windowCenter: instance.WindowCenter,
-          windowWidth: instance.WindowWidth,
+          windowCenter,
+          windowWidth,
         };
+
         break;
       case WADO_IMAGE_LOADER_TAGS.MODALITY_LUT_MODULE:
         metadata = {
