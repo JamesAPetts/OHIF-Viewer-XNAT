@@ -1,6 +1,6 @@
 import OHIFError from '../classes/OHIFError.js';
 import getImageId from './getImageId';
-import uidSpecificMetadataProvider from '../classes/UIDSpecificMetadataProvider.js';
+import metadataProvider from '../classes/MetadataProvider.js';
 import { isImage } from './isImage.js';
 
 let stackMap = {};
@@ -48,9 +48,9 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
           StudyInstanceUID,
           SeriesInstanceUID,
           SOPInstanceUID,
-        } = instance.getData().getNaturalizedInstance();
+        } = instance.getData().data;
 
-        uidSpecificMetadataProvider.addImageIdToUids(imageId, {
+        metadataProvider.addImageIdToUids(imageId, {
           StudyInstanceUID,
           SeriesInstanceUID,
           SOPInstanceUID,
@@ -61,7 +61,7 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
       imageId = getImageId(image);
       imageIds.push(imageId);
 
-      const naturalizedInstance = instance.getData().getNaturalizedInstance();
+      const naturalizedInstance = instance.getData().data;
 
       const {
         StudyInstanceUID,
@@ -69,7 +69,7 @@ function createAndAddStack(stackMap, study, displaySet, stackUpdatedCallbacks) {
         SOPInstanceUID,
       } = naturalizedInstance;
 
-      uidSpecificMetadataProvider.addImageIdToUids(imageId, {
+      metadataProvider.addImageIdToUids(imageId, {
         StudyInstanceUID,
         SeriesInstanceUID,
         SOPInstanceUID,

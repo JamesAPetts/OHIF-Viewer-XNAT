@@ -4,7 +4,7 @@ import CommandsManager from './CommandsManager.js';
 import { DICOMFileLoadingListener } from './StudyLoadingListener';
 import HotkeysManager from './HotkeysManager.js';
 import ImageSet from './ImageSet';
-import UIDSpecificMetadataProvider from './UIDSpecificMetadataProvider';
+import MetadataProvider from './MetadataProvider';
 import OHIFError from './OHIFError.js';
 import { OHIFStudyMetadataSource } from './OHIFStudyMetadataSource';
 import { StackLoadingListener } from './StudyLoadingListener';
@@ -15,7 +15,7 @@ import { TypeSafeCollection } from './TypeSafeCollection';
 
 export {
   OHIFStudyMetadataSource,
-  UIDSpecificMetadataProvider,
+  MetadataProvider,
   CommandsManager,
   HotkeysManager,
   ImageSet,
@@ -33,7 +33,7 @@ export {
 
 const classes = {
   OHIFStudyMetadataSource,
-  UIDSpecificMetadataProvider,
+  MetadataProvider,
   CommandsManager,
   HotkeysManager,
   ImageSet,

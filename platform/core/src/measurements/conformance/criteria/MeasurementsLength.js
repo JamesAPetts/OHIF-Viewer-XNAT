@@ -121,8 +121,6 @@ export class MeasurementsLengthCriterion extends BaseCriterion {
 
       const { SliceThickness } = metadata;
 
-      debugger;
-      //const Modality = (metadata.getRawValue('x00080060') || '').toUpperCase();
       const Modality = metadata.getTagValue('Modality') || '';
 
       // Stop here if the measurement does not match the Modality and location filters

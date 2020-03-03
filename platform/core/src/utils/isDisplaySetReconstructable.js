@@ -5,8 +5,13 @@
  * @param {Object[]} instances The `OHIFInstanceMetadata` object
  */
 export default function isDisplaySetReconstructable(series, instances) {
-  // Can't reconstruct if we only have one image.
-  const firstInstance = instances[0].getData();
+  debugger;
+
+  if (!instances.length) {
+    return { value: false };
+  }
+
+  const firstInstance = instances[0].getData().data;
 
   const Modality = firstInstance.Modality;
   const isMultiframe = firstInstance.NumberOfFrames > 1;
@@ -15,8 +20,9 @@ export default function isDisplaySetReconstructable(series, instances) {
     return { value: false };
   }
 
+  // Can't reconstruct if we only have one image.
   if (!isMultiframe && instances.length === 1) {
-    return { values: false };
+    return { value: false };
   }
 
   if (isMultiframe) {
@@ -32,7 +38,7 @@ function processMultiframe(instance) {
 }
 
 function processSingleframe(instances) {
-  const firstImage = instances[0].getData();
+  const firstImage = instances[0].getData().data;
   const firstImageRows = firstImage.Rows;
   const firstImageColumns = firstImage.Columns;
   const firstImageSamplesPerPixel = firstImage.SamplesPerPixel;
@@ -44,7 +50,7 @@ function processSingleframe(instances) {
   // -- Have a different number of components within a displaySet.
   // -- Have different orientations within a displaySet.
   for (let i = 1; i < instances.length; i++) {
-    const instance = instances[i].getData();
+    const instance = instances[i].getData().data;
     const {
       Rows,
       Columns,
@@ -68,7 +74,7 @@ function processSingleframe(instances) {
   // If spacing is on a uniform grid but we are missing frames,
   // Allow reconstruction, but pass back the number of missing frames.
   if (instances.length > 2) {
-    const lastIpp = instances[instances.length - 1].getData()
+    const lastIpp = instances[instances.length - 1].getData().data
       .ImagePositionPatient;
 
     // We can't reconstruct if we are missing ImagePositionPatient values
@@ -83,7 +89,7 @@ function processSingleframe(instances) {
     let previousImagePositionPatient = firstImagePositionPatient;
 
     for (let i = 1; i < instances.length; i++) {
-      const instance = instances[i].getData();
+      const instance = instances[i].getData().data;
       const { ImagePositionPatient } = instance;
 
       const spacingBetweenFrames = _getPerpendicularDistance(

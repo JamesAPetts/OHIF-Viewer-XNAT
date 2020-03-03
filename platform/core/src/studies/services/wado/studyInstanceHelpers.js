@@ -1,5 +1,5 @@
 import DICOMWeb from '../../../DICOMWeb';
-import uidSpecificMetadataProvider from '../../../classes/UIDSpecificMetadataProvider';
+import metadataProvider from '../../../classes/MetadataProvider';
 import getWADORSImageId from '../../../utils/getWADORSImageId';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 
@@ -88,12 +88,11 @@ function buildInstanceFrameWadoRsUri(
 }
 
 async function makeSOPInstance(server, study, instance) {
-  const naturalizedInstance = await uidSpecificMetadataProvider.addInstance(
-    instance,
-    {
-      server,
-    }
-  );
+  const naturalizedInstance = await metadataProvider.addInstance(instance, {
+    server,
+  });
+
+  debugger;
 
   const {
     StudyInstanceUID,
@@ -141,53 +140,13 @@ async function makeSOPInstance(server, study, instance) {
   // TODO -> eventually replace this whole thing if possible.
 
   const sopInstance = {
-    ImageType: naturalizedInstance.ImageType,
-    SOPClassUID: naturalizedInstance.SOPClassUID,
-    Modality: naturalizedInstance.Modality,
-    SOPInstanceUID,
-    InstanceNumber: naturalizedInstance.InstanceNumber,
-    ImagePositionPatient: naturalizedInstance.ImagePositionPatient,
-    ImageOrientationPatient: naturalizedInstance.ImageOrientationPatient,
-    FrameOfReferenceUID: naturalizedInstance.FrameOfReferenceUID,
-    SliceLocation: naturalizedInstance.SliceLocation,
-    SamplesPerPixel: naturalizedInstance.SamplesPerPixel,
-    PhotometricInterpretation: naturalizedInstance.PhotometricInterpretation,
-    PlanarConfiguration: naturalizedInstance.PlanarConfiguration,
-    Rows: naturalizedInstance.Rows,
-    Columns: naturalizedInstance.Columns,
-    PixelSpacing: naturalizedInstance.PixelSpacing,
-    PixelAspectRatio: naturalizedInstance.PixelAspectRatio,
-    BitsAllocated: naturalizedInstance.BitsAllocated,
-    BitsStored: naturalizedInstance.BitsStored,
-    HighBit: naturalizedInstance.HighBit,
-    PixelRepresentation: naturalizedInstance.PixelRepresentation,
-    SmallestPixelValue: naturalizedInstance.SmallestPixelValue,
-    LargestPixelValue: naturalizedInstance.LargestPixelValue,
-    WindowCenter: naturalizedInstance.WindowCenter,
-    WindowWidth: naturalizedInstance.WindowCenter,
-    RescaleIntercept: naturalizedInstance.RescaleIntercept,
-    RescaleSlope: naturalizedInstance.RescaleSlope,
-    Laterality: naturalizedInstance.Laterality,
-    ViewPosition: naturalizedInstance.ViewPosition,
-    AcquisitionDateTime: naturalizedInstance.AcquisitionDateTime,
-    NumberOfFrames: naturalizedInstance.NumberOfFrames,
-    FrameTime: naturalizedInstance.FrameTime,
-    SliceThickness: naturalizedInstance.SliceThickness,
-    SpacingBetweenSlices: naturalizedInstance.SpacingBetweenSlices,
-    LossyImageCompression: naturalizedInstance.LossyImageCompression,
-    DerivationDescription: naturalizedInstance.DerivationDescription,
-    LossyImageCompressionRatio: naturalizedInstance.LossyImageCompressionRatio,
-    LossyImageCompressionMethod:
-      naturalizedInstance.LossyImageCompressionMethod,
-    EchoNumber: naturalizedInstance.EchoNumber,
-    ContrastBolusAgent: naturalizedInstance.ContrastBolusAgent,
-    baseWadoRsUri: baseWadoRsUri,
+    data: naturalizedInstance,
+    baseWadoRsUri,
     wadouri,
     wadorsuri,
     wadoRoot: server.wadoRoot,
     imageRendering: server.imageRendering,
     thumbnailRendering: server.thumbnailRendering,
-    getNaturalizedInstance: () => naturalizedInstance,
   };
 
   series.instances.push(sopInstance);

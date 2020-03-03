@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { log, metadata, utils } from '@ohif/core';
+import OHIF from '@ohif/core';
 import PropTypes from 'prop-types';
 import qs from 'querystring';
 
@@ -8,6 +8,7 @@ import ConnectedViewer from '../connectedComponents/ConnectedViewer';
 import ConnectedViewerRetrieveStudyData from '../connectedComponents/ConnectedViewerRetrieveStudyData';
 import NotFound from '../routes/NotFound';
 
+const { log, metadata, utils } = OHIF;
 const { studyMetadataManager } = utils;
 const { OHIFStudyMetadata } = metadata;
 
@@ -81,6 +82,38 @@ class StandaloneRouting extends Component {
 
           resolve({ server, studyInstanceUids, seriesInstanceUids });
         } else {
+          debugger;
+
+          // Parse data here and add to metadata provider.
+
+          const metadataProvider = OHIF.cornerstone.metadataProvider;
+
+          let StudyInstanceUID;
+          let SeriesInstanceUID;
+
+          data.studies.forEach(study => {
+            StudyInstanceUID = study.StudyInstanceUID;
+
+            study.seriesList.forEach(series => {
+              SeriesInstanceUID = series.SeriesInstanceUID;
+
+              series.instances.forEach(instance => {
+                const { url: imageId, data: naturalizedDicom } = instance;
+
+                // Add instance to metadata provider.
+                metadataProvider.addInstance(naturalizedDicom);
+                // Add imageId specific mapping to this data as the URL isn't necessarliy WADO-URI.
+                metadataProvider.addImageIdToUids(imageId, {
+                  StudyInstanceUID,
+                  SeriesInstanceUID,
+                  SOPInstanceUID: naturalizedDicom.SOPInstanceUID,
+                });
+
+                console.log(imageId);
+              });
+            });
+          });
+
           resolve({ studies: data.studies, studyInstanceUids: [] });
         }
       });

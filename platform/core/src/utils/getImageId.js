@@ -20,6 +20,7 @@ function updateQueryStringParameter(uri, key, value) {
  * @returns {string} The imageId to be used by Cornerstone
  */
 export default function getImageId(instance, frame, thumbnail = false) {
+  debugger;
   if (!instance) {
     return;
   }

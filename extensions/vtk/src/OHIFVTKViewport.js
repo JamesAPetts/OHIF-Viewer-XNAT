@@ -16,11 +16,10 @@ const style = { width: '100%', height: '100%', position: 'relative' };
 
 // Metadata configuration
 
-const uidSpecificMetadataProvider =
-  OHIF.cornerstone.uidSpecificMetadataProvider;
+const metadataProvider = OHIF.cornerstone.metadataProvider;
 
 cornerstone.metaData.addProvider(
-  uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider),
+  metadataProvider.get.bind(metadataProvider),
   9999
 );
 

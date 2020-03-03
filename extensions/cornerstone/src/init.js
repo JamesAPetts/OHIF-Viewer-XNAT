@@ -38,12 +38,9 @@ export default function init({ servicesManager, configuration }) {
   };
 
   const { csToolsConfig } = configuration;
-  const uidSpecificMetadataProvider =
-    OHIF.cornerstone.uidSpecificMetadataProvider;
+  const metadataProvider = OHIF.cornerstone.metadataProvider;
 
-  cornerstone.metaData.addProvider(
-    uidSpecificMetadataProvider.get.bind(uidSpecificMetadataProvider)
-  );
+  cornerstone.metaData.addProvider(metadataProvider.get.bind(metadataProvider));
 
   // ~~
   const defaultCsToolsConfig = csToolsConfig || {

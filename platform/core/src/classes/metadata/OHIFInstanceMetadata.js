@@ -55,10 +55,12 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
       return this._cache[tagOrProperty];
     }
 
+    const instanceData = this._instance.data;
+
     // Search property value in the whole study metadata chain...
     let rawValue;
-    if (tagOrProperty in this._instance) {
-      rawValue = this._instance[tagOrProperty];
+    if (tagOrProperty in instanceData) {
+      rawValue = instanceData[tagOrProperty];
     } else if (tagOrProperty in this._series) {
       rawValue = this._series[tagOrProperty];
     } else if (tagOrProperty in this._study) {
@@ -77,7 +79,7 @@ export class OHIFInstanceMetadata extends InstanceMetadata {
   // Override
   tagExists(tagOrProperty) {
     return (
-      tagOrProperty in this._instance ||
+      tagOrProperty in this._instance.data ||
       tagOrProperty in this._series ||
       tagOrProperty in this._study
     );

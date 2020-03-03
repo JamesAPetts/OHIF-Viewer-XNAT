@@ -1,4 +1,4 @@
-import log from '../log.js';
+import log from '../../log';
 
 function getFallbackTagFromInstance(tag, instance) {
   if (instance[tag]) {

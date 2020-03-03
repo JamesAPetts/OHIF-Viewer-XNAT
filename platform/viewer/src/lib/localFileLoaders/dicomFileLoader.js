@@ -1,6 +1,9 @@
 import * as dcmjs from 'dcmjs';
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import FileLoader from './fileLoader';
+import OHIF from '@ohif/core';
+
+const metadataProvider = OHIF.cornerstone.metadataProvider;
 
 const DICOMFileLoader = new (class extends FileLoader {
   fileType = 'application/dicom';
@@ -12,9 +15,13 @@ const DICOMFileLoader = new (class extends FileLoader {
     let dataset = {};
     try {
       const dicomData = dcmjs.data.DicomMessage.readFile(image);
+
       dataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(
         dicomData.dict
       );
+
+      metadataProvider.addInstance(dataset);
+
       dataset._meta = dcmjs.data.DicomMetaDictionary.namifyDataset(
         dicomData.meta
       );
@@ -101,14 +108,15 @@ const DICOMFileLoader = new (class extends FileLoader {
     } = dataset;
 
     const instance = {
-      SOPInstanceUID: SOPInstanceUID,
-      SOPClassUID: SOPClassUID,
-      Rows: Rows,
-      Columns: Columns,
-      NumberOfFrames: NumberOfFrames,
-      InstanceNumber: InstanceNumber,
+      data: dataset,
+      // SOPInstanceUID: SOPInstanceUID,
+      // SOPClassUID: SOPClassUID,
+      // Rows: Rows,
+      // Columns: Columns,
+      // NumberOfFrames: NumberOfFrames,
+      // InstanceNumber: InstanceNumber,
       url: imageId,
-      Modality: Modality,
+      // Modality: Modality,
       /*
         TODO: in case necessary to uncoment this block, double check every property
         ImageType: ImageType || DICOMWeb.getString(dataset['00080008']),
@@ -167,12 +175,12 @@ const DICOMFileLoader = new (class extends FileLoader {
       StudyDate: StudyDate,
       StudyTime: StudyTime,
       AccessionNumber: AccessionNumber,
-      referringPhysicianName: ReferringPhysicianName,
+      ReferringPhysicianName: ReferringPhysicianName,
       PatientName: PatientName,
       PatientId: PatientID,
-      patientBirthdate: PatientBirthDate,
-      patientSex: PatientSex,
-      studyId: StudyID,
+      PatientBirthdate,
+      PatientSex: PatientSex,
+      StudyId: StudyID,
       StudyDescription: StudyDescription,
       /*
       TODO: in case necessary to uncomment this block, double check every property
@@ -184,6 +192,8 @@ const DICOMFileLoader = new (class extends FileLoader {
       */
       seriesList: [series],
     };
+
+    console.log(imageId);
 
     return study;
   }
