@@ -19,7 +19,9 @@ const StudyListRouting = asyncComponent(() =>
   )
 );
 const StandaloneRouting = asyncComponent(() =>
-  import(/* webpackChunkName: "ConnectedStandaloneRouting" */ '../connectedComponents/ConnectedStandaloneRouting.js')
+  import(
+    /* webpackChunkName: "ConnectedStandaloneRouting" */ '../connectedComponents/ConnectedStandaloneRouting.js'
+  )
 );
 const ViewerLocalFileData = asyncComponent(() =>
   import(
@@ -118,6 +120,7 @@ const parsePath = (path, server, params) => {
 
 const parseViewerPath = (appConfig = {}, server = {}, params) => {
   let viewerPath = ROUTES_DEF.default.viewer.path;
+
   if (appConfig.enableGoogleCloudAdapter) {
     viewerPath = ROUTES_DEF.gcloud.viewer.path;
   }

@@ -71,6 +71,8 @@ function StudyListRoute(props) {
   const debouncedFilters = useDebounce(filterValues, 250);
 
   // Google Cloud Adapter for DICOM Store Picking
+
+  debugger;
   const { appConfig = {} } = appContext;
   const isGoogleCHAIntegrationEnabled =
     !server && appConfig.enableGoogleCloudAdapter;
@@ -150,6 +152,8 @@ function StudyListRoute(props) {
     const isModalOpen = activeModalId === 'DicomStorePicker';
     updateURL(isModalOpen, appConfig, server, history);
 
+    debugger;
+
     healthCareApiWindows = (
       <ConnectedDicomStorePicker
         isOpen={activeModalId === 'DicomStorePicker'}
@@ -199,6 +203,8 @@ function StudyListRoute(props) {
       };
     });
   }
+
+  debugger;
 
   return (
     <>

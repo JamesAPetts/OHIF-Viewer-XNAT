@@ -8,6 +8,7 @@ import isEqual from 'lodash.isequal';
 
 // Contexts
 import AppContext from '../context/AppContext';
+import { isDebuggerStatement } from '@babel/types';
 
 const getActiveServer = servers => {
   const isActive = a => a.active === true;
