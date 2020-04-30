@@ -36,6 +36,8 @@ export default async function loadSegmentation(
 
   const results = _parseSeg(segArrayBuffer, imageIds);
 
+  debugger;
+
   if (!results) {
     throw new Error('Fractional segmentations are not yet supported');
   }
