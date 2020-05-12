@@ -2,8 +2,9 @@ import { api } from 'dicomweb-client';
 import { mapParams, search as qidoSearch, processResults } from './qido.js';
 import { dicomMetadataStore, IWebApiDataSource, utils } from '@ohif/core';
 import * as dcmjs from 'dcmjs';
-//import { retrieveStudyMetadata } from './retrieveStudyMetadata.js';
+import { retrieveStudyMetadata } from './retrieveStudyMetadata.js';
 
+const { naturalizeDataset } = dcmjs.data.DicomMetaDictionary;
 const { urlUtil } = utils;
 
 const exampleInstances = [
@@ -358,22 +359,40 @@ function createDicomWebApi(dicomWebConfig) {
             );
           }
 
-          // const promises = StudyInstanceUIDs.map(StudyInstanceUID =>
-          //   retrieveStudyMetadata(
-          //     wadoDicomWebClient,
-          //     StudyInstanceUID,
-          //     enableStudyLazyLoad
-          //   )
-          // );
+          const storeInstances = instances => {
+            const naturalizedInstances = instances.map(naturalizeDataset);
+
+            dicomMetadataStore.addInstances(naturalizedInstances);
+            callback(naturalizedInstances);
+          };
+
+          const studyPromises = StudyInstanceUIDs.map(StudyInstanceUID =>
+            retrieveStudyMetadata(
+              wadoDicomWebClient,
+              StudyInstanceUID,
+              enableStudyLazyLoad
+            )
+          );
+
+          studyPromises.forEach(studyPromise => {
+            studyPromise.then(seriesPromises => {
+              seriesPromises.forEach(seriesPromise => {
+                seriesPromise.then(instances => {
+                  debugger;
+                  storeInstances(instances);
+                });
+              });
+            });
+          });
 
           // TEMP use dummy data.
-          const { naturalizeDataset } = dcmjs.data.DicomMetaDictionary;
-          const instances = exampleInstances.map(naturalizeDataset);
+          //const { naturalizeDataset } = dcmjs.data.DicomMetaDictionary;
+          //const instances = exampleInstances.map(naturalizeDataset);
 
           // TEMP
 
-          dicomMetadataStore.addInstances(instances);
-          callback(instances);
+          //dicomMetadataStore.addInstances(instances);
+          //callback(instances);
         },
       },
     },
