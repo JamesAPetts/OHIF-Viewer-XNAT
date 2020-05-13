@@ -103,7 +103,6 @@ function createDicomWebApi(dicomWebConfig) {
             studyPromise.then(seriesPromises => {
               seriesPromises.forEach(seriesPromise => {
                 seriesPromise.then(instances => {
-                  debugger;
                   storeInstances(instances);
                 });
               });
@@ -117,10 +116,7 @@ function createDicomWebApi(dicomWebConfig) {
         displaySetInstanceUid
       );
 
-      debugger;
-
       const images = displaySet.images;
-
       const imageIds = [];
 
       if (!images) {
