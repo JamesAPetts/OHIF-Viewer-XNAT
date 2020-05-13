@@ -145,8 +145,6 @@ function createDicomWebApi(dicomWebConfig) {
         }
       });
 
-      debugger;
-
       return imageIds;
     },
   });
