@@ -67,6 +67,7 @@ const commandsModule = ({ servicesManager }) => {
     },
     invertViewport: () => {
       const activeViewportIndex = 0;
+      debugger;
       const enabledElement = getEnabledElement(activeViewportIndex);
 
       if (enabledElement) {

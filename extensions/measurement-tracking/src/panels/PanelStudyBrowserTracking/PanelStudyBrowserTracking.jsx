@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StudyBrowser, useImageViewer, useViewportGrid } from '@ohif/ui';
 import { useTrackedMeasurements } from '../../getContextModule';
+import { isDebuggerStatement } from '@babel/types';
 
 /**
  *

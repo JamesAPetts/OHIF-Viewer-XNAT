@@ -42,6 +42,19 @@ function TrackedCornerstoneViewport({
     };
   }, []);
 
+  const onElementEnabled = evt => {
+    const eventData = evt.detail;
+    const { element } = eventData;
+
+    dispatchViewportGrid({
+      type: 'SET_ENABLED_ELEMENT',
+      payload: {
+        viewportIndex,
+        element: element,
+      },
+    });
+  };
+
   useEffect(() => {
     const {
       StudyInstanceUID,
@@ -168,6 +181,7 @@ function TrackedCornerstoneViewport({
           isPlaying={false}
           frameRate={24}
           isOverlayVisible={false}
+          onElementEnabled={onElementEnabled}
         />
         <div className="absolute w-full">
           {viewportDialogState.viewportIndex === viewportIndex && (

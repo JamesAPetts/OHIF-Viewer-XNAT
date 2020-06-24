@@ -80,6 +80,13 @@ function OHIFCornerstoneSRViewport({
     setTrackingUniqueIdentifiersForElement(targetElement);
 
     setElement(targetElement);
+    dispatchViewportGrid({
+      type: 'SET_ENABLED_ELEMENT',
+      payload: {
+        viewportIndex,
+        element: targetElement,
+      },
+    });
   };
 
   const setTrackingUniqueIdentifiersForElement = useCallback(targetElement => {
