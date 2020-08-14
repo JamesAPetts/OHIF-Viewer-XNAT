@@ -4,9 +4,10 @@ window.config = function(props) {
   return {
     disableMeasurementPanel: true,
     routerBasename: '/',
+    disableMeasurementPanel: true,
     enableGoogleCloudAdapter: true,
     enableGoogleCloudAdapterUI: false,
-    showStudyList: true,
+    showStudyList: false,
     httpErrorHandler: error => {
       // This is 429 when rejected from the public idc sandbox too often.
       console.warn(error.status);
