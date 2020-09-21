@@ -1,3 +1,10 @@
+# Note: this is a fork of the main OHIF Viewer repository specific to the [Imaging Data Commons project](https://imagingdatacommons.github.io/)
+
+Instructions for updating this fork are here: 
+
+https://docs.google.com/document/d/1ag1D1Bb--DrC-KSCaxdsaK-xzEuYkRfLj-GcRC_WH9g/edit#
+
+
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <div align="center">
