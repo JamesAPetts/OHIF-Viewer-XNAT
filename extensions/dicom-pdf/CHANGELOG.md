@@ -19,6 +19,18 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @ohif/extension-dicom-pdf
 
+## [1.0.5](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-pdf@1.0.4...@ohif/extension-dicom-pdf@1.0.5) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/extension-dicom-pdf
+
+## [1.0.4](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-pdf@1.0.3...@ohif/extension-dicom-pdf@1.0.4) (2020-08-28)
+
+**Note:** Version bump only for package @ohif/extension-dicom-pdf
+
+## [1.0.3](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-pdf@1.0.2...@ohif/extension-dicom-pdf@1.0.3) (2020-04-02)
+
+**Note:** Version bump only for package @ohif/extension-dicom-pdf
+
 ## [1.0.2](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-pdf@1.0.1...@ohif/extension-dicom-pdf@1.0.2) (2020-03-09)
 
 **Note:** Version bump only for package @ohif/extension-dicom-pdf

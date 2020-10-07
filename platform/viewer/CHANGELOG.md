@@ -1,522 +1,345 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.5.15](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.14...@ohif/viewer@4.5.15) (2020-09-30)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.14](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.13...@ohif/viewer@4.5.14) (2020-09-30)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.13](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.12...@ohif/viewer@4.5.13) (2020-09-29)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.11...@ohif/viewer@4.5.12) (2020-09-24)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.10...@ohif/viewer@4.5.11) (2020-09-17)
+
+**Note:** Version bump only for package @ohif/viewer
 
 ## [4.5.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.9...@ohif/viewer@4.5.10) (2020-09-17)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.5.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.8...@ohif/viewer@4.5.9) (2020-09-10)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.5.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.7...@ohif/viewer@4.5.8) (2020-09-10)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.5.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.6...@ohif/viewer@4.5.7) (2020-09-09)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.5.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.5...@ohif/viewer@4.5.6) (2020-09-03)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.5.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.4...@ohif/viewer@4.5.5) (2020-09-03)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.5.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.3...@ohif/viewer@4.5.4) (2020-09-02)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.5.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.2...@ohif/viewer@4.5.3) (2020-08-28)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.5.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.1...@ohif/viewer@4.5.2) (2020-08-24)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.5.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.0...@ohif/viewer@4.5.1) (2020-08-20)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [4.5.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.4.1...@ohif/viewer@4.5.0) (2020-08-20)
-
 
 ### Features
 
-* 🎸 Filter/promote multiple series instances ([#1533](https://github.com/OHIF/Viewers/issues/1533)) ([5fdace1](https://github.com/OHIF/Viewers/commit/5fdace1432b4b1bd31a60c5db6bd681610ec2b8e))
-
-
-
-
+- 🎸 Filter/promote multiple series instances
+  ([#1533](https://github.com/OHIF/Viewers/issues/1533))
+  ([5fdace1](https://github.com/OHIF/Viewers/commit/5fdace1432b4b1bd31a60c5db6bd681610ec2b8e))
 
 ## [4.4.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.4.0...@ohif/viewer@4.4.1) (2020-08-20)
 
-
 ### Bug Fixes
 
-* Fix incorrect command name in Percy test ([#1999](https://github.com/OHIF/Viewers/issues/1999)) ([ebdcde1](https://github.com/OHIF/Viewers/commit/ebdcde1c4d9c95393cf79cc9994f5d60f6d66fdd))
-
-
-
-
+- Fix incorrect command name in Percy test
+  ([#1999](https://github.com/OHIF/Viewers/issues/1999))
+  ([ebdcde1](https://github.com/OHIF/Viewers/commit/ebdcde1c4d9c95393cf79cc9994f5d60f6d66fdd))
 
 # [4.4.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.3.1...@ohif/viewer@4.4.0) (2020-08-18)
 
-
 ### Features
 
-* 🎸 Update react-vtkjs-viewport usage to use requestPool ([#1984](https://github.com/OHIF/Viewers/issues/1984)) ([bb5f30c](https://github.com/OHIF/Viewers/commit/bb5f30ce2a0192d2e021beaaadfff22fd38e17b9))
-
-
-
-
+- 🎸 Update react-vtkjs-viewport usage to use requestPool
+  ([#1984](https://github.com/OHIF/Viewers/issues/1984))
+  ([bb5f30c](https://github.com/OHIF/Viewers/commit/bb5f30ce2a0192d2e021beaaadfff22fd38e17b9))
 
 ## [4.3.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.3.0...@ohif/viewer@4.3.1) (2020-08-10)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [4.3.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.16...@ohif/viewer@4.3.0) (2020-08-10)
-
 
 ### Features
 
-* 🎸 Optional disable measurements panel in app config ([#1912](https://github.com/OHIF/Viewers/issues/1912)) ([3d86b5f](https://github.com/OHIF/Viewers/commit/3d86b5f876d6481bcc57de88a0ba1f974f4ee263)), closes [#1864](https://github.com/OHIF/Viewers/issues/1864)
-
-
-
-
+- 🎸 Optional disable measurements panel in app config
+  ([#1912](https://github.com/OHIF/Viewers/issues/1912))
+  ([3d86b5f](https://github.com/OHIF/Viewers/commit/3d86b5f876d6481bcc57de88a0ba1f974f4ee263)),
+  closes [#1864](https://github.com/OHIF/Viewers/issues/1864)
 
 ## [4.2.16](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.15...@ohif/viewer@4.2.16) (2020-08-10)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.15](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.14...@ohif/viewer@4.2.15) (2020-08-05)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.2.14](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.13...@ohif/viewer@4.2.14) (2020-08-05)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.13](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.12...@ohif/viewer@4.2.13) (2020-07-23)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.11...@ohif/viewer@4.2.12) (2020-07-22)
-
 
 ### Bug Fixes
 
-* Switch DICOMFileUploader to use the UIModalService ([#1904](https://github.com/OHIF/Viewers/issues/1904)) ([7772fee](https://github.com/OHIF/Viewers/commit/7772fee21ae6a65994e1251e2f1d2554b47781be))
-
-
-
-
+- Switch DICOMFileUploader to use the UIModalService
+  ([#1904](https://github.com/OHIF/Viewers/issues/1904))
+  ([7772fee](https://github.com/OHIF/Viewers/commit/7772fee21ae6a65994e1251e2f1d2554b47781be))
 
 ## [4.2.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.10...@ohif/viewer@4.2.11) (2020-07-13)
 
-
 ### Bug Fixes
 
-* 🐛 - Put guards in all places that a cornerstone re-render ([#1899](https://github.com/OHIF/Viewers/issues/1899)) ([451f7ea](https://github.com/OHIF/Viewers/commit/451f7eab9258e7a193eb362e0926b13aedc4b3c9))
-
-
-
-
+- 🐛 - Put guards in all places that a cornerstone re-render
+  ([#1899](https://github.com/OHIF/Viewers/issues/1899))
+  ([451f7ea](https://github.com/OHIF/Viewers/commit/451f7eab9258e7a193eb362e0926b13aedc4b3c9))
 
 ## [4.2.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.9...@ohif/viewer@4.2.10) (2020-07-13)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.8...@ohif/viewer@4.2.9) (2020-07-13)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.7...@ohif/viewer@4.2.8) (2020-07-13)
-
 
 ### Bug Fixes
 
-* 🐛 Fix RT Panel hide/show and Fix looping load errors ([#1877](https://github.com/OHIF/Viewers/issues/1877)) ([e7cc735](https://github.com/OHIF/Viewers/commit/e7cc735c03d02eeb0d3af4ba02c15ed4f81bbec2))
-
-
-
-
+- 🐛 Fix RT Panel hide/show and Fix looping load errors
+  ([#1877](https://github.com/OHIF/Viewers/issues/1877))
+  ([e7cc735](https://github.com/OHIF/Viewers/commit/e7cc735c03d02eeb0d3af4ba02c15ed4f81bbec2))
 
 ## [4.2.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.6...@ohif/viewer@4.2.7) (2020-06-18)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.5...@ohif/viewer@4.2.6) (2020-06-18)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.4...@ohif/viewer@4.2.5) (2020-06-15)
-
 
 ### Bug Fixes
 
-* 🐛 Disable seg panel when data for seg unavailable ([#1732](https://github.com/OHIF/Viewers/issues/1732)) ([698e900](https://github.com/OHIF/Viewers/commit/698e900b85121d3c2a46747c443ef69fb7a8c95b)), closes [#1728](https://github.com/OHIF/Viewers/issues/1728)
-
-
-
-
+- 🐛 Disable seg panel when data for seg unavailable
+  ([#1732](https://github.com/OHIF/Viewers/issues/1732))
+  ([698e900](https://github.com/OHIF/Viewers/commit/698e900b85121d3c2a46747c443ef69fb7a8c95b)),
+  closes [#1728](https://github.com/OHIF/Viewers/issues/1728)
 
 ## [4.2.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.3...@ohif/viewer@4.2.4) (2020-06-15)
 
-
 ### Bug Fixes
 
-* OIDC Redirect erases query parameters ([#1773](https://github.com/OHIF/Viewers/issues/1773)) ([6123741](https://github.com/OHIF/Viewers/commit/6123741765e81d0bea8fbd5dbb0f310aaca0fb33))
-
-
-
-
+- OIDC Redirect erases query parameters
+  ([#1773](https://github.com/OHIF/Viewers/issues/1773))
+  ([6123741](https://github.com/OHIF/Viewers/commit/6123741765e81d0bea8fbd5dbb0f310aaca0fb33))
 
 ## [4.2.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.2...@ohif/viewer@4.2.3) (2020-06-05)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [4.2.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.1...@ohif/viewer@4.2.2) (2020-06-04)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [4.2.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.2.0...@ohif/viewer@4.2.1) (2020-06-04)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [4.2.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.1.0...@ohif/viewer@4.2.0) (2020-06-04)
-
 
 ### Features
 
-* 🎸 1729 - error boundary wrapper ([#1764](https://github.com/OHIF/Viewers/issues/1764)) ([c02b232](https://github.com/OHIF/Viewers/commit/c02b232b0cc24f38af5d5e3831d987d048e60ada))
-
-
-
-
+- 🎸 1729 - error boundary wrapper
+  ([#1764](https://github.com/OHIF/Viewers/issues/1764))
+  ([c02b232](https://github.com/OHIF/Viewers/commit/c02b232b0cc24f38af5d5e3831d987d048e60ada))
 
 # [4.1.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.0.0...@ohif/viewer@4.1.0) (2020-05-15)
 
-
 ### Features
 
-* expose some app internals as window.app ([#1735](https://github.com/OHIF/Viewers/issues/1735)) ([63fd656](https://github.com/OHIF/Viewers/commit/63fd65690cba450721870a6222e0fb3ad71bb291))
-
-
-
-
+- expose some app internals as window.app
+  ([#1735](https://github.com/OHIF/Viewers/issues/1735))
+  ([63fd656](https://github.com/OHIF/Viewers/commit/63fd65690cba450721870a6222e0fb3ad71bb291))
 
 # [4.0.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.11...@ohif/viewer@4.0.0) (2020-05-14)
 
-
 ### Bug Fixes
 
-* 🐛 Fix race condition when loading derived display sets ([#1718](https://github.com/OHIF/Viewers/issues/1718)) ([b1678ce](https://github.com/OHIF/Viewers/commit/b1678ce6399dde37a9878f45ccc7c63286d93fab)), closes [#1715](https://github.com/OHIF/Viewers/issues/1715)
-
+- 🐛 Fix race condition when loading derived display sets
+  ([#1718](https://github.com/OHIF/Viewers/issues/1718))
+  ([b1678ce](https://github.com/OHIF/Viewers/commit/b1678ce6399dde37a9878f45ccc7c63286d93fab)),
+  closes [#1715](https://github.com/OHIF/Viewers/issues/1715)
 
 ### BREAKING CHANGES
 
-* 🧨 However we start to load once the first set of metadata arrives. We need
-to wait until all series metadata is fetched.
-
-
-
-
+- 🧨 However we start to load once the first set of metadata arrives. We need to
+  wait until all series metadata is fetched.
 
 ## [3.11.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.10...@ohif/viewer@3.11.11) (2020-05-14)
 
-
 ### Bug Fixes
 
-* 🐛 Load default display set when no time metadata ([#1684](https://github.com/OHIF/Viewers/issues/1684)) ([f7b8b6a](https://github.com/OHIF/Viewers/commit/f7b8b6a41c4626084ef56b0fdf7363e914b143c4)), closes [#1683](https://github.com/OHIF/Viewers/issues/1683)
-
-
-
-
+- 🐛 Load default display set when no time metadata
+  ([#1684](https://github.com/OHIF/Viewers/issues/1684))
+  ([f7b8b6a](https://github.com/OHIF/Viewers/commit/f7b8b6a41c4626084ef56b0fdf7363e914b143c4)),
+  closes [#1683](https://github.com/OHIF/Viewers/issues/1683)
 
 ## [3.11.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.9...@ohif/viewer@3.11.10) (2020-05-13)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.8...@ohif/viewer@3.11.9) (2020-05-12)
-
 
 ### Bug Fixes
 
-* 🐛 Fix seg color load ([#1724](https://github.com/OHIF/Viewers/issues/1724)) ([c4f84b1](https://github.com/OHIF/Viewers/commit/c4f84b1174d04ba84d37ed89b6d7ab541be28181))
-
-
-
-
+- 🐛 Fix seg color load ([#1724](https://github.com/OHIF/Viewers/issues/1724))
+  ([c4f84b1](https://github.com/OHIF/Viewers/commit/c4f84b1174d04ba84d37ed89b6d7ab541be28181))
 
 ## [3.11.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.7...@ohif/viewer@3.11.8) (2020-05-06)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.6...@ohif/viewer@3.11.7) (2020-05-04)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.5...@ohif/viewer@3.11.6) (2020-05-04)
-
 
 ### Bug Fixes
 
-* 🐛 Proper error handling for derived display sets ([#1708](https://github.com/OHIF/Viewers/issues/1708)) ([5b20d8f](https://github.com/OHIF/Viewers/commit/5b20d8f323e4b3ef9988f2f2ab672d697b6da409))
-
-
-
-
+- 🐛 Proper error handling for derived display sets
+  ([#1708](https://github.com/OHIF/Viewers/issues/1708))
+  ([5b20d8f](https://github.com/OHIF/Viewers/commit/5b20d8f323e4b3ef9988f2f2ab672d697b6da409))
 
 ## [3.11.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.4...@ohif/viewer@3.11.5) (2020-05-04)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.3...@ohif/viewer@3.11.4) (2020-05-04)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.2...@ohif/viewer@3.11.3) (2020-04-29)
-
 
 ### Bug Fixes
 
-* Add IHEInvokeImageDisplay routes back into viewer ([#1695](https://github.com/OHIF/Viewers/issues/1695)) ([f7162ce](https://github.com/OHIF/Viewers/commit/f7162ce61708776a6c192732b0904a022bcc6b3a))
-
-
-
-
+- Add IHEInvokeImageDisplay routes back into viewer
+  ([#1695](https://github.com/OHIF/Viewers/issues/1695))
+  ([f7162ce](https://github.com/OHIF/Viewers/commit/f7162ce61708776a6c192732b0904a022bcc6b3a))
 
 ## [3.11.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.1...@ohif/viewer@3.11.2) (2020-04-28)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.11.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.11.0...@ohif/viewer@3.11.1) (2020-04-27)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.11.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.10.2...@ohif/viewer@3.11.0) (2020-04-24)
-
 
 ### Features
 
-* 🎸 Seg jump to slice + show/hide ([835f64d](https://github.com/OHIF/Viewers/commit/835f64d47a9994f6a25aaf3941a4974e215e7e7f))
-
-
-
-
+- 🎸 Seg jump to slice + show/hide
+  ([835f64d](https://github.com/OHIF/Viewers/commit/835f64d47a9994f6a25aaf3941a4974e215e7e7f))
 
 ## [3.10.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.10.1...@ohif/viewer@3.10.2) (2020-04-23)
 
-
 ### Bug Fixes
 
-* undefined `errorHandler` in cornerstoneWadoImageLoader configuration ([#1664](https://github.com/OHIF/Viewers/issues/1664)) ([709f147](https://github.com/OHIF/Viewers/commit/709f14708e2b0f912b5ea509114acd87af3149cb))
-
-
-
-
+- undefined `errorHandler` in cornerstoneWadoImageLoader configuration
+  ([#1664](https://github.com/OHIF/Viewers/issues/1664))
+  ([709f147](https://github.com/OHIF/Viewers/commit/709f14708e2b0f912b5ea509114acd87af3149cb))
 
 ## [3.10.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.10.0...@ohif/viewer@3.10.1) (2020-04-23)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.10.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.9.2...@ohif/viewer@3.10.0) (2020-04-23)
-
 
 ### Features
 
-* configuration to hook into XHR Error handling ([e96205d](https://github.com/OHIF/Viewers/commit/e96205de35e5bec14dc8a9a8509db3dd4e6ecdb6))
-
-
-
-
+- configuration to hook into XHR Error handling
+  ([e96205d](https://github.com/OHIF/Viewers/commit/e96205de35e5bec14dc8a9a8509db3dd4e6ecdb6))
 
 ## [3.9.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.9.1...@ohif/viewer@3.9.2) (2020-04-22)
 
-
 ### Bug Fixes
 
-* whiteLabeling should support component creation by passing React to defined fn ([#1659](https://github.com/OHIF/Viewers/issues/1659)) ([2093a00](https://github.com/OHIF/Viewers/commit/2093a0036584b2cc698c8f06fe62b334523b1029))
-
-
-
-
+- whiteLabeling should support component creation by passing React to defined fn
+  ([#1659](https://github.com/OHIF/Viewers/issues/1659))
+  ([2093a00](https://github.com/OHIF/Viewers/commit/2093a0036584b2cc698c8f06fe62b334523b1029))
 
 ## [3.9.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.9.0...@ohif/viewer@3.9.1) (2020-04-17)
 
-
 ### Bug Fixes
 
-* `showStudyList` config ([#1647](https://github.com/OHIF/Viewers/issues/1647)) ([d9fc7bb](https://github.com/OHIF/Viewers/commit/d9fc7bbb0e6d868f507c515f031aaf88a2353e2f))
-
-
-
-
+- `showStudyList` config ([#1647](https://github.com/OHIF/Viewers/issues/1647))
+  ([d9fc7bb](https://github.com/OHIF/Viewers/commit/d9fc7bbb0e6d868f507c515f031aaf88a2353e2f))
 
 # [3.9.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.21...@ohif/viewer@3.9.0) (2020-04-17)
 
-
 ### Features
 
-* set the authorization header for DICOMWeb requests if provided in query string ([#1646](https://github.com/OHIF/Viewers/issues/1646)) ([450c80b](https://github.com/OHIF/Viewers/commit/450c80b9d5f172be8b5713b422370360325a0afc))
-
-
-
-
+- set the authorization header for DICOMWeb requests if provided in query string
+  ([#1646](https://github.com/OHIF/Viewers/issues/1646))
+  ([450c80b](https://github.com/OHIF/Viewers/commit/450c80b9d5f172be8b5713b422370360325a0afc))
 
 ## [3.8.21](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.20...@ohif/viewer@3.8.21) (2020-04-15)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.20](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.19...@ohif/viewer@3.8.20) (2020-04-09)
-
 
 ### Bug Fixes
 
-* Revert "refactor: Reduce bundle size ([#1575](https://github.com/OHIF/Viewers/issues/1575))" ([#1622](https://github.com/OHIF/Viewers/issues/1622)) ([d21af3f](https://github.com/OHIF/Viewers/commit/d21af3f133492fa31492413b8782936c9ff18b44))
-
-
-
-
+- Revert "refactor: Reduce bundle size
+  ([#1575](https://github.com/OHIF/Viewers/issues/1575))"
+  ([#1622](https://github.com/OHIF/Viewers/issues/1622))
+  ([d21af3f](https://github.com/OHIF/Viewers/commit/d21af3f133492fa31492413b8782936c9ff18b44))
 
 ## [3.8.19](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.18...@ohif/viewer@3.8.19) (2020-04-09)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 # Change Log
 
@@ -527,174 +350,106 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.17](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.16...@ohif/viewer@3.8.17) (2020-04-06)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.8.16](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.15...@ohif/viewer@3.8.16) (2020-04-02)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.15](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.14...@ohif/viewer@3.8.15) (2020-04-02)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.8.14](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.13...@ohif/viewer@3.8.14) (2020-04-02)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.13](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.12...@ohif/viewer@3.8.13) (2020-04-01)
-
 
 ### Bug Fixes
 
-* segmentation not loading ([#1566](https://github.com/OHIF/Viewers/issues/1566)) ([4a7ce1c](https://github.com/OHIF/Viewers/commit/4a7ce1c09324d74c61048393e3a2427757e4001a))
-
-
-
-
+- segmentation not loading
+  ([#1566](https://github.com/OHIF/Viewers/issues/1566))
+  ([4a7ce1c](https://github.com/OHIF/Viewers/commit/4a7ce1c09324d74c61048393e3a2427757e4001a))
 
 ## [3.8.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.11...@ohif/viewer@3.8.12) (2020-03-31)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.10...@ohif/viewer@3.8.11) (2020-03-26)
-
 
 ### Bug Fixes
 
-* [#1312](https://github.com/OHIF/Viewers/issues/1312) Cine dialog remains on screen ([#1540](https://github.com/OHIF/Viewers/issues/1540)) ([7d22bb7](https://github.com/OHIF/Viewers/commit/7d22bb7d5a8590cffc169725c93942f758fe13a0))
-
-
-
-
+- [#1312](https://github.com/OHIF/Viewers/issues/1312) Cine dialog remains on
+  screen ([#1540](https://github.com/OHIF/Viewers/issues/1540))
+  ([7d22bb7](https://github.com/OHIF/Viewers/commit/7d22bb7d5a8590cffc169725c93942f758fe13a0))
 
 ## [3.8.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.9...@ohif/viewer@3.8.10) (2020-03-26)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.8...@ohif/viewer@3.8.9) (2020-03-25)
-
 
 ### Bug Fixes
 
-* Load measurement in active viewport. ([#1558](https://github.com/OHIF/Viewers/issues/1558)) ([99022f2](https://github.com/OHIF/Viewers/commit/99022f2bac752f3cd1cedb61e222b8d411e158c8))
-
-
-
-
+- Load measurement in active viewport.
+  ([#1558](https://github.com/OHIF/Viewers/issues/1558))
+  ([99022f2](https://github.com/OHIF/Viewers/commit/99022f2bac752f3cd1cedb61e222b8d411e158c8))
 
 ## [3.8.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.7...@ohif/viewer@3.8.8) (2020-03-25)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.6...@ohif/viewer@3.8.7) (2020-03-24)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.8.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.5...@ohif/viewer@3.8.6) (2020-03-24)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.4...@ohif/viewer@3.8.5) (2020-03-23)
-
 
 ### Bug Fixes
 
-* avoid-wasteful-renders ([#1544](https://github.com/OHIF/Viewers/issues/1544)) ([e41d339](https://github.com/OHIF/Viewers/commit/e41d339f5faef6b93700bc860f37f29f32ad5ed6))
-
-
-
-
+- avoid-wasteful-renders ([#1544](https://github.com/OHIF/Viewers/issues/1544))
+  ([e41d339](https://github.com/OHIF/Viewers/commit/e41d339f5faef6b93700bc860f37f29f32ad5ed6))
 
 ## [3.8.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.3...@ohif/viewer@3.8.4) (2020-03-19)
 
-
 ### Bug Fixes
 
-* Only permit web workers to be initialized once. ([#1535](https://github.com/OHIF/Viewers/issues/1535)) ([9feadd3](https://github.com/OHIF/Viewers/commit/9feadd3c6d71c1c48f7825d024ccf95d5d82606d))
-
-
-
-
+- Only permit web workers to be initialized once.
+  ([#1535](https://github.com/OHIF/Viewers/issues/1535))
+  ([9feadd3](https://github.com/OHIF/Viewers/commit/9feadd3c6d71c1c48f7825d024ccf95d5d82606d))
 
 ## [3.8.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.2...@ohif/viewer@3.8.3) (2020-03-17)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.1...@ohif/viewer@3.8.2) (2020-03-17)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.8.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.8.0...@ohif/viewer@3.8.1) (2020-03-17)
-
 
 ### Bug Fixes
 
-* resolves [#1483](https://github.com/OHIF/Viewers/issues/1483) ([#1527](https://github.com/OHIF/Viewers/issues/1527)) ([2747eff](https://github.com/OHIF/Viewers/commit/2747effd9e893bd78b80ee7d0444f44676e9d632))
-
-
-
-
+- resolves [#1483](https://github.com/OHIF/Viewers/issues/1483)
+  ([#1527](https://github.com/OHIF/Viewers/issues/1527))
+  ([2747eff](https://github.com/OHIF/Viewers/commit/2747effd9e893bd78b80ee7d0444f44676e9d632))
 
 # [3.8.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.8...@ohif/viewer@3.8.0) (2020-03-13)
 
-
 ### Features
 
-* Segmentations Settings UI - Phase 1 [#1391](https://github.com/OHIF/Viewers/issues/1391) ([#1392](https://github.com/OHIF/Viewers/issues/1392)) ([e8842cf](https://github.com/OHIF/Viewers/commit/e8842cf8aebde98db7fc123e4867c8288552331f)), closes [#1423](https://github.com/OHIF/Viewers/issues/1423)
-
-
-
-
+- Segmentations Settings UI - Phase 1
+  [#1391](https://github.com/OHIF/Viewers/issues/1391)
+  ([#1392](https://github.com/OHIF/Viewers/issues/1392))
+  ([e8842cf](https://github.com/OHIF/Viewers/commit/e8842cf8aebde98db7fc123e4867c8288552331f)),
+  closes [#1423](https://github.com/OHIF/Viewers/issues/1423)
 
 # Change Log
 
@@ -705,676 +460,427 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.7.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.6...@ohif/viewer@3.7.7) (2020-03-09)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.7.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.5...@ohif/viewer@3.7.6) (2020-03-06)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.7.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.4...@ohif/viewer@3.7.5) (2020-03-05)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.7.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.3...@ohif/viewer@3.7.4) (2020-03-03)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.7.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.2...@ohif/viewer@3.7.3) (2020-03-02)
-
 
 ### Bug Fixes
 
-* GCloud dataset picker dialog broken ([#1453](https://github.com/OHIF/Viewers/issues/1453)) ([64dfbea](https://github.com/OHIF/Viewers/commit/64dfbeab7af98277efefadd334df14db79e32a4f))
-
-
-
-
+- GCloud dataset picker dialog broken
+  ([#1453](https://github.com/OHIF/Viewers/issues/1453))
+  ([64dfbea](https://github.com/OHIF/Viewers/commit/64dfbeab7af98277efefadd334df14db79e32a4f))
 
 ## [3.7.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.1...@ohif/viewer@3.7.2) (2020-02-29)
 
-
 ### Bug Fixes
 
-* prevent the native context menu from appearing when right-clicking on a measurement or angle (https://github.com/OHIF/Viewers/issues/1406) ([#1469](https://github.com/OHIF/Viewers/issues/1469)) ([9b3be9b](https://github.com/OHIF/Viewers/commit/9b3be9b0c082c9a5b62f2a40f42e59381860fe73))
-
-
-
-
+- prevent the native context menu from appearing when right-clicking on a
+  measurement or angle (https://github.com/OHIF/Viewers/issues/1406)
+  ([#1469](https://github.com/OHIF/Viewers/issues/1469))
+  ([9b3be9b](https://github.com/OHIF/Viewers/commit/9b3be9b0c082c9a5b62f2a40f42e59381860fe73))
 
 ## [3.7.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.7.0...@ohif/viewer@3.7.1) (2020-02-21)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.7.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.6.3...@ohif/viewer@3.7.0) (2020-02-20)
-
 
 ### Features
 
-* [#1342](https://github.com/OHIF/Viewers/issues/1342) - Window level tab ([#1429](https://github.com/OHIF/Viewers/issues/1429)) ([ebc01a8](https://github.com/OHIF/Viewers/commit/ebc01a8ca238d5a3437b44d81f75aa8a5e8d0574))
-
-
-
-
+- [#1342](https://github.com/OHIF/Viewers/issues/1342) - Window level tab
+  ([#1429](https://github.com/OHIF/Viewers/issues/1429))
+  ([ebc01a8](https://github.com/OHIF/Viewers/commit/ebc01a8ca238d5a3437b44d81f75aa8a5e8d0574))
 
 ## [3.6.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.6.2...@ohif/viewer@3.6.3) (2020-02-14)
 
-
 ### Bug Fixes
 
-* Creating 2 commands to activate zoom tool and also to move between displaySets ([#1446](https://github.com/OHIF/Viewers/issues/1446)) ([06a4af0](https://github.com/OHIF/Viewers/commit/06a4af06faaecf6fa06ccd90cdfa879ee8d53053))
-
-
-
-
+- Creating 2 commands to activate zoom tool and also to move between displaySets
+  ([#1446](https://github.com/OHIF/Viewers/issues/1446))
+  ([06a4af0](https://github.com/OHIF/Viewers/commit/06a4af06faaecf6fa06ccd90cdfa879ee8d53053))
 
 ## [3.6.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.6.1...@ohif/viewer@3.6.2) (2020-02-12)
 
-
 ### Bug Fixes
 
-* Combined Hotkeys for special characters ([#1233](https://github.com/OHIF/Viewers/issues/1233)) ([2f30e7a](https://github.com/OHIF/Viewers/commit/2f30e7a821a238144c49c56f37d8e5565540b4bd))
-
-
-
-
+- Combined Hotkeys for special characters
+  ([#1233](https://github.com/OHIF/Viewers/issues/1233))
+  ([2f30e7a](https://github.com/OHIF/Viewers/commit/2f30e7a821a238144c49c56f37d8e5565540b4bd))
 
 ## [3.6.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.6.0...@ohif/viewer@3.6.1) (2020-02-10)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.6.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.5.1...@ohif/viewer@3.6.0) (2020-02-10)
-
 
 ### Features
 
-* 🎸 MeasurementService ([#1314](https://github.com/OHIF/Viewers/issues/1314)) ([0c37a40](https://github.com/OHIF/Viewers/commit/0c37a406d963569af8c3be24c697dafd42712dfc))
-
-
-
-
+- 🎸 MeasurementService ([#1314](https://github.com/OHIF/Viewers/issues/1314))
+  ([0c37a40](https://github.com/OHIF/Viewers/commit/0c37a406d963569af8c3be24c697dafd42712dfc))
 
 ## [3.5.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.5.0...@ohif/viewer@3.5.1) (2020-02-07)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.5.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.14...@ohif/viewer@3.5.0) (2020-02-06)
-
 
 ### Features
 
-* lesion-tracker extension ([#1420](https://github.com/OHIF/Viewers/issues/1420)) ([73e4409](https://github.com/OHIF/Viewers/commit/73e440968ce4699d081a9c9f2d21dd68095b3056))
-
-
-
-
+- lesion-tracker extension
+  ([#1420](https://github.com/OHIF/Viewers/issues/1420))
+  ([73e4409](https://github.com/OHIF/Viewers/commit/73e440968ce4699d081a9c9f2d21dd68095b3056))
 
 ## [3.4.14](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.13...@ohif/viewer@3.4.14) (2020-02-06)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.13](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.12...@ohif/viewer@3.4.13) (2020-01-30)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.4.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.11...@ohif/viewer@3.4.12) (2020-01-30)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.10...@ohif/viewer@3.4.11) (2020-01-30)
-
 
 ### Bug Fixes
 
-* download tool fixes & improvements ([#1235](https://github.com/OHIF/Viewers/issues/1235)) ([b9574b6](https://github.com/OHIF/Viewers/commit/b9574b6efcfeb85cde35b5cae63282f8e1b35be6))
-
-
-
-
+- download tool fixes & improvements
+  ([#1235](https://github.com/OHIF/Viewers/issues/1235))
+  ([b9574b6](https://github.com/OHIF/Viewers/commit/b9574b6efcfeb85cde35b5cae63282f8e1b35be6))
 
 ## [3.4.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.9...@ohif/viewer@3.4.10) (2020-01-28)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.8...@ohif/viewer@3.4.9) (2020-01-28)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.4.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.7...@ohif/viewer@3.4.8) (2020-01-28)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.6...@ohif/viewer@3.4.7) (2020-01-28)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.4.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.5...@ohif/viewer@3.4.6) (2020-01-28)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.4...@ohif/viewer@3.4.5) (2020-01-27)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.4.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.3...@ohif/viewer@3.4.4) (2020-01-27)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.2...@ohif/viewer@3.4.3) (2020-01-24)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.4.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.1...@ohif/viewer@3.4.2) (2020-01-17)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.4.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.4.0...@ohif/viewer@3.4.1) (2020-01-15)
-
 
 ### Bug Fixes
 
-* 🐛 Metadata is being mistakenly purged ([#1360](https://github.com/OHIF/Viewers/issues/1360)) ([b9a66d4](https://github.com/OHIF/Viewers/commit/b9a66d44241f2896ef184511287fb4984671e16d)), closes [#1326](https://github.com/OHIF/Viewers/issues/1326)
-
-
-
-
+- 🐛 Metadata is being mistakenly purged
+  ([#1360](https://github.com/OHIF/Viewers/issues/1360))
+  ([b9a66d4](https://github.com/OHIF/Viewers/commit/b9a66d44241f2896ef184511287fb4984671e16d)),
+  closes [#1326](https://github.com/OHIF/Viewers/issues/1326)
 
 # [3.4.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.8...@ohif/viewer@3.4.0) (2020-01-14)
 
-
 ### Features
 
-* Custom Healthcare API endpoint ([#1367](https://github.com/OHIF/Viewers/issues/1367)) ([a5d6bc6](https://github.com/OHIF/Viewers/commit/a5d6bc6a51784ed3a8a40d4ae773de9099f116b9))
-
-
-
-
+- Custom Healthcare API endpoint
+  ([#1367](https://github.com/OHIF/Viewers/issues/1367))
+  ([a5d6bc6](https://github.com/OHIF/Viewers/commit/a5d6bc6a51784ed3a8a40d4ae773de9099f116b9))
 
 ## [3.3.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.7...@ohif/viewer@3.3.8) (2020-01-10)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.3.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.6...@ohif/viewer@3.3.7) (2020-01-08)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.3.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.5...@ohif/viewer@3.3.6) (2020-01-07)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.3.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.4...@ohif/viewer@3.3.5) (2020-01-06)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.3.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.3...@ohif/viewer@3.3.4) (2019-12-30)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.3.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.2...@ohif/viewer@3.3.3) (2019-12-20)
-
 
 ### Bug Fixes
 
-* 🐛 1241: Make Plugin switch part of ToolbarModule ([#1322](https://github.com/OHIF/Viewers/issues/1322)) ([6540e36](https://github.com/OHIF/Viewers/commit/6540e36818944ac2eccc696186366ae495b33a04)), closes [#1241](https://github.com/OHIF/Viewers/issues/1241)
-
-
-
-
+- 🐛 1241: Make Plugin switch part of ToolbarModule
+  ([#1322](https://github.com/OHIF/Viewers/issues/1322))
+  ([6540e36](https://github.com/OHIF/Viewers/commit/6540e36818944ac2eccc696186366ae495b33a04)),
+  closes [#1241](https://github.com/OHIF/Viewers/issues/1241)
 
 ## [3.3.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.1...@ohif/viewer@3.3.2) (2019-12-20)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.3.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.3.0...@ohif/viewer@3.3.1) (2019-12-20)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.3.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.2.2...@ohif/viewer@3.3.0) (2019-12-20)
-
 
 ### Features
 
-* 🎸 Configuration so viewer tools can nix handles ([#1304](https://github.com/OHIF/Viewers/issues/1304)) ([63594d3](https://github.com/OHIF/Viewers/commit/63594d36b0bdba59f0901095aed70b75fb05172d)), closes [#1223](https://github.com/OHIF/Viewers/issues/1223)
-
-
-
-
+- 🎸 Configuration so viewer tools can nix handles
+  ([#1304](https://github.com/OHIF/Viewers/issues/1304))
+  ([63594d3](https://github.com/OHIF/Viewers/commit/63594d36b0bdba59f0901095aed70b75fb05172d)),
+  closes [#1223](https://github.com/OHIF/Viewers/issues/1223)
 
 ## [3.2.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.2.1...@ohif/viewer@3.2.2) (2019-12-19)
 
-
 ### Bug Fixes
 
-* 🐛 Fix drag-n-drop of local files into OHIF ([#1319](https://github.com/OHIF/Viewers/issues/1319)) ([23305ce](https://github.com/OHIF/Viewers/commit/23305cec9c0f514e73a8dd17f984ffc87ad8d131)), closes [#1307](https://github.com/OHIF/Viewers/issues/1307)
-
-
-
-
+- 🐛 Fix drag-n-drop of local files into OHIF
+  ([#1319](https://github.com/OHIF/Viewers/issues/1319))
+  ([23305ce](https://github.com/OHIF/Viewers/commit/23305cec9c0f514e73a8dd17f984ffc87ad8d131)),
+  closes [#1307](https://github.com/OHIF/Viewers/issues/1307)
 
 ## [3.2.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.2.0...@ohif/viewer@3.2.1) (2019-12-18)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.2.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.12...@ohif/viewer@3.2.0) (2019-12-16)
-
 
 ### Features
 
-* 🎸 Expose extension config to modules ([#1279](https://github.com/OHIF/Viewers/issues/1279)) ([4ea239a](https://github.com/OHIF/Viewers/commit/4ea239a9535ef297e23387c186e537ab273744ea)), closes [#1268](https://github.com/OHIF/Viewers/issues/1268)
-
-
-
-
+- 🎸 Expose extension config to modules
+  ([#1279](https://github.com/OHIF/Viewers/issues/1279))
+  ([4ea239a](https://github.com/OHIF/Viewers/commit/4ea239a9535ef297e23387c186e537ab273744ea)),
+  closes [#1268](https://github.com/OHIF/Viewers/issues/1268)
 
 ## [3.1.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.11...@ohif/viewer@3.1.12) (2019-12-16)
 
-
 ### Bug Fixes
 
-* 🐛 Dismiss all dialogs if leaving viewer route [#1242](https://github.com/OHIF/Viewers/issues/1242) ([#1301](https://github.com/OHIF/Viewers/issues/1301)) ([5c3d8b3](https://github.com/OHIF/Viewers/commit/5c3d8b37b6f723fbd8edcc447c37984e7eee8d40))
-
-
-
-
+- 🐛 Dismiss all dialogs if leaving viewer route
+  [#1242](https://github.com/OHIF/Viewers/issues/1242)
+  ([#1301](https://github.com/OHIF/Viewers/issues/1301))
+  ([5c3d8b3](https://github.com/OHIF/Viewers/commit/5c3d8b37b6f723fbd8edcc447c37984e7eee8d40))
 
 ## [3.1.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.10...@ohif/viewer@3.1.11) (2019-12-16)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.1.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.9...@ohif/viewer@3.1.10) (2019-12-16)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.1.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.8...@ohif/viewer@3.1.9) (2019-12-16)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.1.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.7...@ohif/viewer@3.1.8) (2019-12-16)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.1.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.6...@ohif/viewer@3.1.7) (2019-12-13)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.1.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.5...@ohif/viewer@3.1.6) (2019-12-13)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.1.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.4...@ohif/viewer@3.1.5) (2019-12-13)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.1.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.3...@ohif/viewer@3.1.4) (2019-12-13)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.1.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.2...@ohif/viewer@3.1.3) (2019-12-12)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.1.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.1...@ohif/viewer@3.1.2) (2019-12-12)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.1.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.1.0...@ohif/viewer@3.1.1) (2019-12-11)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.1.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.0.3...@ohif/viewer@3.1.0) (2019-12-11)
-
 
 ### Features
 
-* 🎸 DICOM SR STOW on MeasurementAPI ([#954](https://github.com/OHIF/Viewers/issues/954)) ([ebe1af8](https://github.com/OHIF/Viewers/commit/ebe1af8d4f75d2483eba869655906d7829bd9666)), closes [#758](https://github.com/OHIF/Viewers/issues/758)
-
-
-
-
+- 🎸 DICOM SR STOW on MeasurementAPI
+  ([#954](https://github.com/OHIF/Viewers/issues/954))
+  ([ebe1af8](https://github.com/OHIF/Viewers/commit/ebe1af8d4f75d2483eba869655906d7829bd9666)),
+  closes [#758](https://github.com/OHIF/Viewers/issues/758)
 
 ## [3.0.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.0.2...@ohif/viewer@3.0.3) (2019-12-11)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [3.0.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.0.1...@ohif/viewer@3.0.2) (2019-12-11)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [3.0.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@3.0.0...@ohif/viewer@3.0.1) (2019-12-09)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [3.0.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.8...@ohif/viewer@3.0.0) (2019-12-09)
 
-
-* feat!: Ability to configure cornerstone tools via extension configuration (#1229) ([55a5806](https://github.com/OHIF/Viewers/commit/55a580659ecb74ca6433461d8f9a05c2a2b69533)), closes [#1229](https://github.com/OHIF/Viewers/issues/1229)
-
+- feat!: Ability to configure cornerstone tools via extension configuration
+  (#1229)
+  ([55a5806](https://github.com/OHIF/Viewers/commit/55a580659ecb74ca6433461d8f9a05c2a2b69533)),
+  closes [#1229](https://github.com/OHIF/Viewers/issues/1229)
 
 ### BREAKING CHANGES
 
-* modifies the exposed react <App /> components props. The contract for providing configuration for the app has changed. Please reference updated documentation for guidance.
-
-
-
-
+- modifies the exposed react <App /> components props. The contract for
+  providing configuration for the app has changed. Please reference updated
+  documentation for guidance.
 
 ## [2.11.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.7...@ohif/viewer@2.11.8) (2019-12-07)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [2.11.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.6...@ohif/viewer@2.11.7) (2019-12-07)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [2.11.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.5...@ohif/viewer@2.11.6) (2019-12-07)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [2.11.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.4...@ohif/viewer@2.11.5) (2019-12-06)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [2.11.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.3...@ohif/viewer@2.11.4) (2019-12-02)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [2.11.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.2...@ohif/viewer@2.11.3) (2019-12-02)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [2.11.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.1...@ohif/viewer@2.11.2) (2019-11-28)
-
 
 ### Bug Fixes
 
-* User Preferences Issues ([#1207](https://github.com/OHIF/Viewers/issues/1207)) ([1df21a9](https://github.com/OHIF/Viewers/commit/1df21a9e075b5e6dfc10a429ae825826f46c71b8)), closes [#1161](https://github.com/OHIF/Viewers/issues/1161) [#1164](https://github.com/OHIF/Viewers/issues/1164) [#1177](https://github.com/OHIF/Viewers/issues/1177) [#1179](https://github.com/OHIF/Viewers/issues/1179) [#1180](https://github.com/OHIF/Viewers/issues/1180) [#1181](https://github.com/OHIF/Viewers/issues/1181) [#1182](https://github.com/OHIF/Viewers/issues/1182) [#1183](https://github.com/OHIF/Viewers/issues/1183) [#1184](https://github.com/OHIF/Viewers/issues/1184) [#1185](https://github.com/OHIF/Viewers/issues/1185)
-
-
-
-
+- User Preferences Issues ([#1207](https://github.com/OHIF/Viewers/issues/1207))
+  ([1df21a9](https://github.com/OHIF/Viewers/commit/1df21a9e075b5e6dfc10a429ae825826f46c71b8)),
+  closes [#1161](https://github.com/OHIF/Viewers/issues/1161)
+  [#1164](https://github.com/OHIF/Viewers/issues/1164)
+  [#1177](https://github.com/OHIF/Viewers/issues/1177)
+  [#1179](https://github.com/OHIF/Viewers/issues/1179)
+  [#1180](https://github.com/OHIF/Viewers/issues/1180)
+  [#1181](https://github.com/OHIF/Viewers/issues/1181)
+  [#1182](https://github.com/OHIF/Viewers/issues/1182)
+  [#1183](https://github.com/OHIF/Viewers/issues/1183)
+  [#1184](https://github.com/OHIF/Viewers/issues/1184)
+  [#1185](https://github.com/OHIF/Viewers/issues/1185)
 
 ## [2.11.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.11.0...@ohif/viewer@2.11.1) (2019-11-27)
 
-
 ### Bug Fixes
 
-* of undefined name of project ([#1231](https://github.com/OHIF/Viewers/issues/1231)) ([e34a057](https://github.com/OHIF/Viewers/commit/e34a05726319e3e70279c43d5bf976d33cdf71f7))
-
-
-
-
+- of undefined name of project
+  ([#1231](https://github.com/OHIF/Viewers/issues/1231))
+  ([e34a057](https://github.com/OHIF/Viewers/commit/e34a05726319e3e70279c43d5bf976d33cdf71f7))
 
 # [2.11.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.10.2...@ohif/viewer@2.11.0) (2019-11-25)
 
-
 ### Features
 
-* Add new annotate tool using new dialog service ([#1211](https://github.com/OHIF/Viewers/issues/1211)) ([8fd3af1](https://github.com/OHIF/Viewers/commit/8fd3af1e137e793f1b482760a22591c64a072047))
-
-
-
-
+- Add new annotate tool using new dialog service
+  ([#1211](https://github.com/OHIF/Viewers/issues/1211))
+  ([8fd3af1](https://github.com/OHIF/Viewers/commit/8fd3af1e137e793f1b482760a22591c64a072047))
 
 ## [2.10.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.10.1...@ohif/viewer@2.10.2) (2019-11-25)
 
-
 ### Bug Fixes
 
-* Issue branch from danny experimental changes pr 1128 ([#1150](https://github.com/OHIF/Viewers/issues/1150)) ([a870b3c](https://github.com/OHIF/Viewers/commit/a870b3cc6056cf824af422e46f1ad674910b534e)), closes [#1161](https://github.com/OHIF/Viewers/issues/1161) [#1164](https://github.com/OHIF/Viewers/issues/1164) [#1177](https://github.com/OHIF/Viewers/issues/1177) [#1179](https://github.com/OHIF/Viewers/issues/1179) [#1180](https://github.com/OHIF/Viewers/issues/1180) [#1181](https://github.com/OHIF/Viewers/issues/1181) [#1182](https://github.com/OHIF/Viewers/issues/1182) [#1183](https://github.com/OHIF/Viewers/issues/1183) [#1184](https://github.com/OHIF/Viewers/issues/1184) [#1185](https://github.com/OHIF/Viewers/issues/1185)
-
-
-
-
+- Issue branch from danny experimental changes pr 1128
+  ([#1150](https://github.com/OHIF/Viewers/issues/1150))
+  ([a870b3c](https://github.com/OHIF/Viewers/commit/a870b3cc6056cf824af422e46f1ad674910b534e)),
+  closes [#1161](https://github.com/OHIF/Viewers/issues/1161)
+  [#1164](https://github.com/OHIF/Viewers/issues/1164)
+  [#1177](https://github.com/OHIF/Viewers/issues/1177)
+  [#1179](https://github.com/OHIF/Viewers/issues/1179)
+  [#1180](https://github.com/OHIF/Viewers/issues/1180)
+  [#1181](https://github.com/OHIF/Viewers/issues/1181)
+  [#1182](https://github.com/OHIF/Viewers/issues/1182)
+  [#1183](https://github.com/OHIF/Viewers/issues/1183)
+  [#1184](https://github.com/OHIF/Viewers/issues/1184)
+  [#1185](https://github.com/OHIF/Viewers/issues/1185)
 
 ## [2.10.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.10.0...@ohif/viewer@2.10.1) (2019-11-20)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 # [2.10.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.9.0...@ohif/viewer@2.10.0) (2019-11-19)
-
 
 ### Features
 
-* New dialog service ([#1202](https://github.com/OHIF/Viewers/issues/1202)) ([f65639c](https://github.com/OHIF/Viewers/commit/f65639c2b0dab01decd20cab2cef4263cb4fab37))
-
-
-
-
+- New dialog service ([#1202](https://github.com/OHIF/Viewers/issues/1202))
+  ([f65639c](https://github.com/OHIF/Viewers/commit/f65639c2b0dab01decd20cab2cef4263cb4fab37))
 
 # [2.9.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.8.5...@ohif/viewer@2.9.0) (2019-11-19)
 
-
 ### Features
 
-* Issue 879 viewer route query param not filtering but promoting ([#1141](https://github.com/OHIF/Viewers/issues/1141)) ([b17f753](https://github.com/OHIF/Viewers/commit/b17f753e6222045252ef885e40233681541a32e1)), closes [#1118](https://github.com/OHIF/Viewers/issues/1118)
-
-
-
-
+- Issue 879 viewer route query param not filtering but promoting
+  ([#1141](https://github.com/OHIF/Viewers/issues/1141))
+  ([b17f753](https://github.com/OHIF/Viewers/commit/b17f753e6222045252ef885e40233681541a32e1)),
+  closes [#1118](https://github.com/OHIF/Viewers/issues/1118)
 
 ## [2.8.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.8.4...@ohif/viewer@2.8.5) (2019-11-18)
 
-
 ### Bug Fixes
 
-* minor date picker UX improvements ([813ee5e](https://github.com/OHIF/Viewers/commit/813ee5ed4d78b7bda234922d5f3389efe346451c))
-
-
-
-
+- minor date picker UX improvements
+  ([813ee5e](https://github.com/OHIF/Viewers/commit/813ee5ed4d78b7bda234922d5f3389efe346451c))
 
 ## [2.8.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.8.3...@ohif/viewer@2.8.4) (2019-11-15)
 
 **Note:** Version bump only for package @ohif/viewer
 
-
-
-
-
 ## [2.8.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.8.2...@ohif/viewer@2.8.3) (2019-11-15)
 
 **Note:** Version bump only for package @ohif/viewer
-
-
-
-
 
 ## [2.8.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@2.8.1...@ohif/viewer@2.8.2) (2019-11-14)
 
