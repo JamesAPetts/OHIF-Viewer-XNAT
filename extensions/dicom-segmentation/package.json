@@ -1,10 +1,6 @@
 {
   "name": "@ohif/extension-dicom-segmentation",
-  "version": "0.4.6",
-  "description": "OHIF extension for viewing segmentations in the 2D MPR view",
-  "author": "OHIF",
   "license": "MIT",
-  "repository": "OHIF/Viewers",
   "main": "dist/index.umd.js",
   "module": "src/index.js",
   "engines": {

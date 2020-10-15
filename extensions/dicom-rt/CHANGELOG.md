@@ -1,7 +1,92 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.4.9](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.8...@ohif/extension-dicom-rt@0.4.9) (2020-10-12)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.8](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.7...@ohif/extension-dicom-rt@0.4.8) (2020-10-07)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.7](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.6...@ohif/extension-dicom-rt@0.4.7) (2020-10-06)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.6](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.5...@ohif/extension-dicom-rt@0.4.6) (2020-09-17)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.5](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.4...@ohif/extension-dicom-rt@0.4.5) (2020-09-10)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.4](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.3...@ohif/extension-dicom-rt@0.4.4) (2020-09-10)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.3](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.2...@ohif/extension-dicom-rt@0.4.3) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.2](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.1...@ohif/extension-dicom-rt@0.4.2) (2020-09-02)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+## [0.4.1](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.0...@ohif/extension-dicom-rt@0.4.1) (2020-08-28)
+
+**Note:** Version bump only for package @ohif/extension-dicom-rt
+
+
+
+
+
+# [0.4.0](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.3.0...@ohif/extension-dicom-rt@0.4.0) (2020-08-18)
+
+
+### Features
+
+* 🎸 Update react-vtkjs-viewport usage to use requestPool ([#1984](https://github.com/OHIF/Viewers/issues/1984)) ([bb5f30c](https://github.com/OHIF/Viewers/commit/bb5f30ce2a0192d2e021beaaadfff22fd38e17b9))
+
+
+
+
+
+# [0.3.0](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.2.7...@ohif/extension-dicom-rt@0.3.0) (2020-08-10)
 
 ## [0.4.6](https://github.com/OHIF/Viewers/compare/@ohif/extension-dicom-rt@0.4.5...@ohif/extension-dicom-rt@0.4.6) (2020-09-17)
 

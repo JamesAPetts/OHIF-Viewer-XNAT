@@ -3,7 +3,115 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.21](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.20...@ohif/viewer@4.5.21) (2020-10-15)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.20](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.19...@ohif/viewer@4.5.20) (2020-10-13)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.19](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.18...@ohif/viewer@4.5.19) (2020-10-13)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.18](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.17...@ohif/viewer@4.5.18) (2020-10-12)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.17](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.16...@ohif/viewer@4.5.17) (2020-10-07)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.16](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.15...@ohif/viewer@4.5.16) (2020-10-06)
+
+**Note:** Version bump only for package @ohif/viewer
+
 ## [4.5.15](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.14...@ohif/viewer@4.5.15) (2020-09-30)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.14](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.13...@ohif/viewer@4.5.14) (2020-09-30)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.13](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.12...@ohif/viewer@4.5.13) (2020-09-29)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.12](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.11...@ohif/viewer@4.5.12) (2020-09-24)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.11](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.10...@ohif/viewer@4.5.11) (2020-09-17)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.10](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.9...@ohif/viewer@4.5.10) (2020-09-17)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.9](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.8...@ohif/viewer@4.5.9) (2020-09-10)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.8](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.7...@ohif/viewer@4.5.8) (2020-09-10)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.7](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.6...@ohif/viewer@4.5.7) (2020-09-09)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.6](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.5...@ohif/viewer@4.5.6) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.5](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.4...@ohif/viewer@4.5.5) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.4](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.3...@ohif/viewer@4.5.4) (2020-09-02)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.3](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.2...@ohif/viewer@4.5.3) (2020-08-28)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.2](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.1...@ohif/viewer@4.5.2) (2020-08-24)
+
+**Note:** Version bump only for package @ohif/viewer
+
+## [4.5.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.5.0...@ohif/viewer@4.5.1) (2020-08-20)
+
+**Note:** Version bump only for package @ohif/viewer
+
+# [4.5.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.4.1...@ohif/viewer@4.5.0) (2020-08-20)
+
+### Features
+
+- 🎸 Filter/promote multiple series instances
+  ([#1533](https://github.com/OHIF/Viewers/issues/1533))
+  ([5fdace1](https://github.com/OHIF/Viewers/commit/5fdace1432b4b1bd31a60c5db6bd681610ec2b8e))
+
+## [4.4.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.4.0...@ohif/viewer@4.4.1) (2020-08-20)
+
+### Bug Fixes
+
+- Fix incorrect command name in Percy test
+  ([#1999](https://github.com/OHIF/Viewers/issues/1999))
+  ([ebdcde1](https://github.com/OHIF/Viewers/commit/ebdcde1c4d9c95393cf79cc9994f5d60f6d66fdd))
+
+# [4.4.0](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.3.1...@ohif/viewer@4.4.0) (2020-08-18)
+
+### Features
+
+- 🎸 Update react-vtkjs-viewport usage to use requestPool
+  ([#1984](https://github.com/OHIF/Viewers/issues/1984))
+  ([bb5f30c](https://github.com/OHIF/Viewers/commit/bb5f30ce2a0192d2e021beaaadfff22fd38e17b9))
+
+## [4.3.1](https://github.com/OHIF/Viewers/compare/@ohif/viewer@4.3.0...@ohif/viewer@4.3.1) (2020-08-10)
 
 **Note:** Version bump only for package @ohif/viewer
 

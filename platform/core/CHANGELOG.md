@@ -3,7 +3,49 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.7](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.6...@ohif/core@2.10.7) (2020-10-07)
+
+**Note:** Version bump only for package @ohif/core
+
 ## [2.10.6](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.5...@ohif/core@2.10.6) (2020-09-30)
+
+### Bug Fixes
+
+- use SeriesMetadata method instead of property in
+  findMostRecentStructuredReport
+  ([#2038](https://github.com/OHIF/Viewers/issues/2038))
+  ([91364db](https://github.com/OHIF/Viewers/commit/91364db8820efc86665db258d0044c16fb3e2c87)),
+  closes [#1714](https://github.com/OHIF/Viewers/issues/1714)
+
+## [2.10.5](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.4...@ohif/core@2.10.5) (2020-09-10)
+
+**Note:** Version bump only for package @ohif/core
+
+## [2.10.4](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.3...@ohif/core@2.10.4) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/core
+
+## [2.10.3](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.2...@ohif/core@2.10.3) (2020-09-03)
+
+**Note:** Version bump only for package @ohif/core
+
+## [2.10.2](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.1...@ohif/core@2.10.2) (2020-09-02)
+
+**Note:** Version bump only for package @ohif/core
+
+## [2.10.1](https://github.com/OHIF/Viewers/compare/@ohif/core@2.10.0...@ohif/core@2.10.1) (2020-08-28)
+
+**Note:** Version bump only for package @ohif/core
+
+# [2.10.0](https://github.com/OHIF/Viewers/compare/@ohif/core@2.9.14...@ohif/core@2.10.0) (2020-08-18)
+
+### Features
+
+- 🎸 Update react-vtkjs-viewport usage to use requestPool
+  ([#1984](https://github.com/OHIF/Viewers/issues/1984))
+  ([bb5f30c](https://github.com/OHIF/Viewers/commit/bb5f30ce2a0192d2e021beaaadfff22fd38e17b9))
+
+## [2.9.14](https://github.com/OHIF/Viewers/compare/@ohif/core@2.9.13...@ohif/core@2.9.14) (2020-08-10)
 
 ### Bug Fixes
 

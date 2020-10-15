@@ -145,6 +145,7 @@ const ICONS = {
   'lock-alt': lockAlt,
   'step-backward': stepBackward,
   'step-forward': stepForward,
+  clipboard: clipboard,
   stop,
   'th-large': thLarge,
   'th-list': thList,
